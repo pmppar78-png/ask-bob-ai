@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>About Us – Ask Bob AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Learn about Ask Bob AI, our mission to provide accessible DIY and automotive project guidance, and the team behind this AI-powered planning tool." />
+  <style>
+    :root {
+      --bg: #050814;
+      --bg-alt: #0b1024;
+      --accent: #ffb347;
+      --accent-soft: rgba(255, 179, 71, 0.1);
+      --accent-strong: #ff8c00;
+      --text: #f8fafc;
+      --muted: #cbd5f5;
+      --card: #0f172a;
+      --border-subtle: rgba(148, 163, 184, 0.3);
+      --link: #38bdf8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #101936 0, #020617 45%, #000 100%);
+      color: var(--text);
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(90deg, rgba(15,23,42,0.96), rgba(15,23,42,0.92));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 25%, #ffe29f, #ffa99f 40%, #ff6a00 75%);
+      box-shadow: 0 0 18px rgba(248, 250, 252, 0.2);
+    }
+
+    .brand-text-title {
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      font-size: 1.2rem;
+    }
+
+    .brand-text-sub {
+      font-size: 0.76rem;
+      color: var(--muted);
+      opacity: 0.9;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 18px;
+      align-items: center;
+      font-size: 0.98rem;
+    }
+
+    nav a {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 64px;
+    }
+
+    .content {
+      background: rgba(15,23,42,0.96);
+      border-radius: 20px;
+      padding: 32px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 16px 30px rgba(15,23,42,0.6);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin: 0 0 18px;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin: 32px 0 12px;
+      color: var(--accent);
+    }
+
+    h2:first-of-type {
+      margin-top: 0;
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0 0 16px;
+    }
+
+    .intro {
+      font-size: 1.1rem;
+      margin-bottom: 28px;
+      max-width: 800px;
+    }
+
+    .mission-box {
+      background: rgba(255, 179, 71, 0.08);
+      border: 1px solid rgba(255, 179, 71, 0.3);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+
+    .mission-box h3 {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: 1.15rem;
+    }
+
+    .mission-box p {
+      margin: 0;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .value-card {
+      background: rgba(2, 6, 23, 0.6);
+      border-radius: 14px;
+      padding: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .value-card h4 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+
+    .value-card p {
+      margin: 0;
+      font-size: 0.92rem;
+    }
+
+    .cta-section {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px dashed rgba(148, 163, 184, 0.35);
+      text-align: center;
+    }
+
+    .cta-section p {
+      max-width: 600px;
+      margin: 0 auto 20px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent-strong), #f97316);
+      color: #111827;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      box-shadow: 0 10px 26px rgba(249, 115, 22, 0.35);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(249, 115, 22, 0.4);
+      text-decoration: none;
+    }
+
+    footer {
+      border-top: 1px solid rgba(30,64,175,0.6);
+      background: radial-gradient(circle at top, #020617 0, #02010f 45%, #000 100%);
+      padding: 18px 16px 26px;
+      margin-top: 40px;
+      font-size: 0.78rem;
+      color: #9ca3af;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #e5e7eb;
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 800px) {
+      .nav-inner {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      nav ul {
+        flex-wrap: wrap;
+      }
+      .content {
+        padding: 24px 18px;
+      }
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div class="brand-text">
+          <span class="brand-text-title">Ask Bob AI</span>
+          <span class="brand-text-sub">Project &amp; repair guidance</span>
+        </div>
+      </div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="chat.html">AI Chat</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="content">
+      <h1>About Ask Bob AI</h1>
+      <p class="intro">
+        Ask Bob AI is a free, AI-powered project planning assistant designed to help homeowners, DIY enthusiasts, and vehicle owners tackle projects with confidence. We bridge the gap between watching a quick tutorial and truly understanding how to plan and execute work safely and effectively.
+      </p>
+
+      <div class="mission-box">
+        <h3>Our Mission</h3>
+        <p>
+          To democratize practical knowledge by making expert-level project planning guidance accessible to everyone. We believe that understanding the "why" behind each step transforms people from uncertain beginners into confident, capable project planners who know when to DIY and when to call a professional.
+        </p>
+      </div>
+
+      <h2>Why Ask Bob AI Exists</h2>
+      <p>
+        The internet is full of DIY content, but most of it assumes you already know the basics or skips critical safety and code considerations. When you're planning a deck build, fixing brakes, or wiring a workshop, scattered YouTube videos and forum posts often leave you with more questions than answers.
+      </p>
+      <p>
+        Ask Bob AI was created to fill that gap. Instead of piecing together information from dozens of sources, you can have a conversation with Bob about your specific project. Bob asks clarifying questions about your space, experience level, and goals, then provides organized guidance that covers planning phases, material selection, tool requirements, safety considerations, and code compliance factors.
+      </p>
+
+      <h2>What Makes Us Different</h2>
+      <p>
+        Unlike generic search results or one-size-fits-all tutorials, Ask Bob AI provides contextual guidance tailored to your situation. Tell Bob about your 1970s ranch home, your intermediate carpentry skills, and your existing tool collection, and the guidance you receive will reflect those specifics.
+      </p>
+      <p>
+        We also emphasize safety and appropriate professional involvement. Bob doesn't encourage cutting corners on electrical work that requires permits or skipping jack stands to save time. When a project truly needs a licensed professional, Bob will tell you that directly rather than giving you overconfident advice that could lead to injury or code violations.
+      </p>
+
+      <h2>Our Values</h2>
+      <div class="values-grid">
+        <div class="value-card">
+          <h4>Safety First</h4>
+          <p>
+            Every piece of guidance prioritizes user safety. We'd rather you hire a professional for complex work than attempt something dangerous based on our suggestions.
+          </p>
+        </div>
+        <div class="value-card">
+          <h4>Honest Limitations</h4>
+          <p>
+            We're transparent about what AI guidance can and cannot do. Bob provides educational information, not professional engineering assessments or legally binding code interpretations.
+          </p>
+        </div>
+        <div class="value-card">
+          <h4>Education Over Shortcuts</h4>
+          <p>
+            We explain the reasoning behind recommendations so you build lasting knowledge, not just complete a single project without understanding what you did or why.
+          </p>
+        </div>
+        <div class="value-card">
+          <h4>Accessibility</h4>
+          <p>
+            Quality project planning guidance shouldn't require expensive consultations or knowing someone in the trades. Ask Bob AI is free to use for everyone.
+          </p>
+        </div>
+      </div>
+
+      <h2>The Team</h2>
+      <p>
+        Ask Bob AI was built by people who've spent time in garages, workshops, and job sites and who've experienced the frustration of trying to learn complex skills from scattered online resources. Our team combines hands-on trade experience with technology expertise to create an AI assistant that provides genuinely useful, practical guidance.
+      </p>
+      <p>
+        We've built decks, rewired shops, restored cars, and learned firsthand how valuable it is to have someone knowledgeable to ask questions. That experience shaped Bob's approach: practical guidance that respects your time and helps you make informed decisions rather than generic advice that leaves you guessing.
+      </p>
+
+      <h2>How We Sustain the Service</h2>
+      <p>
+        Ask Bob AI is free to use. We sustain the service through partnerships with tool and material suppliers, where relevant product recommendations may include affiliate links. These partnerships don't influence the educational guidance you receive. Bob's recommendations are based on what's appropriate for your project, not on commission rates.
+      </p>
+      <p>
+        We may also display advertisements from our advertising partners. These ads help support the ongoing development and maintenance of the service while keeping it free for all users. Ad content is clearly distinguished from our educational guidance.
+      </p>
+
+      <h2>Contact Us</h2>
+      <p>
+        Have questions, feedback, or partnership inquiries? Visit our <a href="contact.html">Contact page</a> to reach our team. We read all submissions and appreciate hearing how Ask Bob AI is helping you with your projects.
+      </p>
+
+      <div class="cta-section">
+        <p>
+          Ready to plan your next project? Start a conversation with Bob and get the guidance you need to work confidently and safely.
+        </p>
+        <a href="chat.html" class="cta-btn">Start Planning with Bob</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>&copy; 2025 Ask Bob AI &mdash; All rights reserved.</div>
+      <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
