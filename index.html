@@ -417,6 +417,12 @@
       .grid-3 {
         grid-template-columns: minmax(0, 1fr);
       }
+      .about-content {
+        grid-template-columns: minmax(0, 1fr) !important;
+      }
+      .detailed-guide > div[style*="grid-template-columns"] {
+        grid-template-columns: minmax(0, 1fr) !important;
+      }
     }
   </style>
   <script>
@@ -441,7 +447,7 @@
           <li><a href="#home-diy">Home DIY</a></li>
           <li><a href="#auto-projects">Auto</a></li>
           <li><a href="chat.html">AI Chat</a></li>
-          <li><a href="#advertise">Advertise</a></li>
+          <li><a href="#advertise">Partners</a></li>
           <li><button class="nav-cta" onclick="goToChat()">Ask Bob a Question</button></li>
         </ul>
       </nav>
@@ -458,7 +464,7 @@
         <h1 id="hero-heading">Meet Bob &mdash; your master tradesman and mechanic.</h1>
         <p>
           Bob has spent decades building houses, wiring shops, and wrenching on cars. Now his real‑world
-          know‑how is wrapped in AI. Describe your project, and he’ll turn it into clear steps, tool lists,
+          know‑how is wrapped in AI. Describe your project, and he'll turn it into clear steps, tool lists,
           and safety pointers you can actually follow.
         </p>
         <div class="hero-actions">
@@ -474,32 +480,83 @@
         <div class="hero-card-title">What Bob can help you do</div>
         <div class="hero-card-body">
           <ul class="hero-card-list">
-            <li>Plan a safe deck, shed, or home office build.</li>
+            <li>Plan a safe deck, shed, or home office build with proper load calculations.</li>
             <li>Lay out wiring, lighting, and outlets before you call an electrician.</li>
             <li>Prep for brake jobs, suspension work, and upgrades on your car.</li>
-            <li>Choose tools, fasteners, and materials that actually make sense.</li>
+            <li>Choose tools, fasteners, and materials that actually make sense for your skill level.</li>
+            <li>Understand building codes, permits, and inspection requirements.</li>
+            <li>Create material lists with accurate quantities to minimize waste.</li>
           </ul>
-          <p style="margin-top:10px;">
-            When it’s time to buy, Bob may suggest partners like <strong>Home Depot</strong>, <strong>Lowe’s</strong>, <strong>Ace Hardware</strong>,
-            <strong>Harbor Freight</strong>, <strong>Amazon</strong>, <strong>AutoZone</strong>, <strong>Advance Auto</strong>,
-            <strong>O’Reilly</strong>, <strong>RockAuto</strong>, or <strong>Tire Rack</strong> with clickable links.
-          </p>
         </div>
       </aside>
+    </section>
+
+    <section class="section" id="about-bob">
+      <h2>About Ask Bob AI</h2>
+      <p>
+        Ask Bob AI was created to bridge the gap between watching a quick tutorial video and actually
+        understanding how to plan and execute a project safely. Whether you're a first-time homeowner
+        tackling your first repair or an experienced DIYer taking on a major renovation, Bob provides
+        the kind of practical guidance that used to require knowing someone in the trades.
+      </p>
+      <div class="about-content" style="margin-top: 18px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px;">
+        <div class="card">
+          <h3>Why Planning Matters</h3>
+          <p>
+            Most DIY projects fail not because of lack of skill, but because of poor planning. Rushing to
+            the hardware store without a clear plan leads to multiple trips, wrong materials, and frustrating
+            mistakes. Bob helps you think through every step before you pick up a tool, identifying potential
+            problems and helping you prepare for them in advance.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Real-World Experience, AI-Powered</h3>
+          <p>
+            Bob's guidance is built on decades of hands-on construction, electrical, plumbing, and automotive
+            experience. The AI isn't just generating generic answers &mdash; it's applying trade knowledge to your
+            specific situation, considering factors like your skill level, available tools, local climate,
+            and the age of your home or vehicle.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Safety First, Always</h3>
+          <p>
+            Every piece of guidance prioritizes safety. Bob will tell you when a project requires permits,
+            when you should call a licensed professional, and what safety equipment you need. He'll explain
+            why certain steps matter for structural integrity, electrical safety, or proper vehicle operation.
+            No shortcut advice that puts you or your family at risk.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Learn As You Go</h3>
+          <p>
+            Ask Bob AI isn't just about getting a task done &mdash; it's about understanding what you're doing
+            and why. Each project breakdown includes explanations of building principles, material properties,
+            and best practices. You'll finish your project with knowledge you can apply to future work,
+            making each project easier than the last.
+          </p>
+        </div>
+      </div>
     </section>
 
     <section class="section" id="home-diy">
       <h2>Home DIY, done like a pro.</h2>
       <p>
-        Whether you’re framing a wall, hanging drywall, or finally building that backyard deck,
-        Bob breaks projects into safe phases, so you don’t skip the boring (but critical) steps.
+        Whether you're framing a wall, hanging drywall, or finally building that backyard deck,
+        Bob breaks projects into safe phases, so you don't skip the boring (but critical) steps.
+        From understanding load-bearing walls to choosing the right fasteners for treated lumber,
+        you'll get the knowledge that separates successful DIY projects from expensive mistakes.
       </p>
       <div class="grid-3">
         <article class="card">
           <h3>Plan before you cut</h3>
           <p>
             Bob helps you translate your sketch into real‑world lumber sizes, spans, fasteners, and
-            hardware. No vague “2×4” guesses &mdash; real dimensions, real load paths.
+            hardware. No vague "2×4" guesses &mdash; real dimensions, real load paths. You'll learn
+            why deck joists need to be 16 inches on center for most spans, how to calculate beam
+            sizes based on your deck's footprint, and which fasteners are approved for pressure-treated
+            lumber. Bob walks you through creating a material list with exact quantities, accounting
+            for waste and ensuring you have everything before work begins.
           </p>
           <div class="chip-row">
             <span class="chip orange">Decks &amp; railings</span>
@@ -510,7 +567,11 @@
           <h3>Code‑aware guidance</h3>
           <p>
             Get talking points for your local building department: joist spacing, stair rise/run,
-            guard heights, and more. Bob won’t replace an inspector, but he’ll help you sound prepared.
+            guard heights, and more. Bob won't replace an inspector, but he'll help you sound prepared.
+            Learn why guardrails need to be 36 inches minimum for decks under 30 inches and 42 inches
+            for higher decks, how stair rise should be between 4 and 7-3/4 inches with consistent
+            measurements throughout, and when you need a permit versus when a project is typically exempt.
+            Understanding code requirements before you start prevents costly tear-outs and failed inspections.
           </p>
           <div class="chip-row">
             <span class="chip steel">Framing</span>
@@ -521,7 +582,11 @@
           <h3>Tool lists that make sense</h3>
           <p>
             Instead of buying every gadget on the shelf, Bob prioritizes which tools matter most for your job,
-            and when a rental makes more sense than owning.
+            and when a rental makes more sense than owning. For a deck build, you'll need a circular saw, drill,
+            impact driver, speed square, chalk line, and tape measure at minimum. Bob explains why a framing
+            nailer is worth renting for large projects but a waste of money for small repairs, and why a quality
+            level matters more than a laser for most DIY work. You'll also learn about safety equipment requirements
+            and why skipping eye protection or work gloves isn't worth the risk.
           </p>
           <div class="chip-row">
             <span class="chip">Tool priorities</span>
@@ -529,67 +594,187 @@
           </div>
         </article>
       </div>
+
+      <div class="detailed-guide" style="margin-top: 28px; background: rgba(15,23,42,0.96); border-radius: 18px; border: 1px solid rgba(148,163,184,0.35); padding: 22px;">
+        <h3 style="margin: 0 0 14px; font-size: 1.2rem;">Understanding Home Project Planning</h3>
+        <p style="color: var(--muted); margin: 0 0 14px; line-height: 1.6;">
+          Successful home improvement projects share common elements: clear scope definition, realistic timeline
+          expectations, proper material selection, and a step-by-step approach that accounts for drying times,
+          weather conditions, and inspection requirements. Bob helps you develop these elements for any project.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px;">
+          <div>
+            <h4 style="margin: 0 0 8px; font-size: 1rem; color: var(--accent);">Structural Projects</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+              Decks, pergolas, carports, and sheds all require understanding of load paths, proper foundations,
+              and connections. Bob explains why posts need to sit on concrete footings below the frost line,
+              how to size beams for your span, and which hardware connectors meet current building codes. You'll
+              understand the difference between ledger-attached and freestanding structures and when each approach
+              makes sense for your situation.
+            </p>
+          </div>
+          <div>
+            <h4 style="margin: 0 0 8px; font-size: 1rem; color: var(--accent);">Finishing Projects</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+              Drywall, painting, trim work, and flooring require different skills than structural work but
+              equally careful planning. Bob covers surface preparation requirements, primer selection based on
+              your existing conditions, proper joint compound application techniques, and how to achieve
+              professional-looking results without professional-level experience. Understanding the right
+              sequence &mdash; why you paint ceilings before walls, and walls before trim &mdash; saves time and prevents mistakes.
+            </p>
+          </div>
+          <div>
+            <h4 style="margin: 0 0 8px; font-size: 1rem; color: var(--accent);">Electrical Planning</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+              Even if you're hiring an electrician, understanding electrical basics helps you communicate
+              your needs and evaluate quotes. Bob explains circuit capacity, why kitchens and bathrooms need
+              dedicated circuits, GFCI requirements for wet locations, and how to plan outlet placement before
+              walls go up. For simple projects like adding a light fixture or replacing an outlet, Bob walks
+              you through the process safely while emphasizing when permits and inspections are required.
+            </p>
+          </div>
+          <div>
+            <h4 style="margin: 0 0 8px; font-size: 1rem; color: var(--accent);">Plumbing Basics</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+              From fixing a leaky faucet to understanding drain slopes for a bathroom addition, plumbing
+              knowledge prevents water damage and ensures proper function. Bob covers supply line sizing,
+              drain/waste/vent system basics, and how to identify whether your home has copper, PEX, or galvanized
+              pipes. You'll learn which repairs are straightforward DIY tasks and which require licensed plumbers
+              for code compliance and safety.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="section" id="auto-projects">
       <h2>Auto projects without the guesswork.</h2>
       <p>
         From brake jobs to suspension upgrades, Bob helps you plan the work so you can wrench with confidence
-        or talk to your mechanic like a pro.
+        or talk to your mechanic like a pro. Whether you're maintaining your daily driver or tackling
+        a restoration project, proper planning prevents stripped bolts, safety hazards, and costly mistakes.
       </p>
       <div class="grid-3">
         <article class="card">
           <h3>Step‑by‑step breakdowns</h3>
           <p>
-            Get a realistic sequence from “loosen lugs” to “torque wheels,” with notes on what can go wrong,
-            what to inspect while you’re there, and where to be extra cautious.
+            Get a realistic sequence from "loosen lugs" to "torque wheels," with notes on what can go wrong,
+            what to inspect while you're there, and where to be extra cautious. Bob explains why you should
+            always loosen lug nuts before lifting the vehicle, how to properly support a car on jack stands,
+            and why the sequence matters for jobs like brake caliper replacement. Each step includes the
+            reasoning behind it, so you understand not just what to do but why it matters for safety and
+            proper function.
           </p>
         </article>
         <article class="card">
           <h3>Parts, fluids, and torque specs</h3>
           <p>
             Bob can help you organize part numbers, fluids, and torque values so you can keep a clean project
-            notebook or digital checklist.
+            notebook or digital checklist. Learn why wheel lug nuts typically need 80-100 ft-lbs depending on
+            your vehicle, why brake caliper bolts have specific torque requirements, and why over-torquing
+            is just as dangerous as under-torquing. Bob covers fluid specifications, explaining the differences
+            between DOT 3 and DOT 4 brake fluid, why mixing coolant types causes problems, and how to identify
+            what your specific vehicle requires.
           </p>
         </article>
         <article class="card">
-          <h3>Where to buy what you need</h3>
+          <h3>Know when to DIY</h3>
           <p>
-            When helpful, Bob may surface curated offers from partners like AutoZone, Advance Auto, O’Reilly,
-            RockAuto, or Tire Rack with sponsored, clearly labeled links.
+            Not every job is a good DIY candidate. Bob helps you evaluate whether a repair matches your
+            skill level, available tools, and workspace. Brake pad replacement on most vehicles is
+            straightforward with basic tools, but ABS module replacement requires specialized equipment
+            and diagnostics. Timing belt jobs are doable in a home garage but require precision and
+            patience. Bob gives you honest assessments so you can decide when to wrench yourself and
+            when to find a trusted shop.
           </p>
         </article>
+      </div>
+
+      <div class="detailed-guide" style="margin-top: 28px; background: rgba(15,23,42,0.96); border-radius: 18px; border: 1px solid rgba(148,163,184,0.35); padding: 22px;">
+        <h3 style="margin: 0 0 14px; font-size: 1.2rem;">Automotive Maintenance Planning</h3>
+        <p style="color: var(--muted); margin: 0 0 14px; line-height: 1.6;">
+          Regular maintenance prevents expensive repairs and keeps your vehicle safe and reliable. Bob helps
+          you understand maintenance intervals, recognize warning signs, and plan repairs before small issues
+          become major problems. Good maintenance planning extends vehicle life and protects your investment.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px;">
+          <div>
+            <h4 style="margin: 0 0 8px; font-size: 1rem; color: var(--accent);">Brake System Basics</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+              Understanding your brake system helps you recognize when service is needed and communicate
+              effectively with mechanics. Bob explains the difference between disc and drum brakes, how
+              brake pads wear and when they need replacement, why rotors sometimes need resurfacing or
+              replacement, and how brake fluid absorbs moisture over time. You'll learn to recognize
+              warning signs like squealing, grinding, pulsating pedals, or increased stopping distances.
+            </p>
+          </div>
+          <div>
+            <h4 style="margin: 0 0 8px; font-size: 1rem; color: var(--accent);">Suspension and Steering</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+              Worn suspension components affect handling, tire wear, and safety. Bob covers common wear items
+              like ball joints, tie rod ends, control arm bushings, and struts. You'll learn how to identify
+              symptoms like uneven tire wear, wandering steering, clunking over bumps, and body lean in turns.
+              Understanding suspension geometry helps you recognize when alignment is needed and why some
+              repairs require professional alignment afterward.
+            </p>
+          </div>
+          <div>
+            <h4 style="margin: 0 0 8px; font-size: 1rem; color: var(--accent);">Engine Maintenance</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+              Oil changes, air filter replacements, and spark plug service keep your engine running efficiently.
+              Bob explains oil viscosity ratings, why synthetic oil often makes sense despite higher cost, and
+              how to interpret manufacturer maintenance schedules. For more involved work like timing belt
+              replacement, Bob covers what's involved, what other components should be replaced at the same time,
+              and how to evaluate whether it's a good DIY project for your skill level.
+            </p>
+          </div>
+          <div>
+            <h4 style="margin: 0 0 8px; font-size: 1rem; color: var(--accent);">Diagnostic Thinking</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+              Modern vehicles generate diagnostic trouble codes, but codes are starting points, not final answers.
+              Bob helps you think through symptoms systematically: when did the problem start, what conditions
+              trigger it, what changed recently. This methodical approach prevents throwing parts at problems
+              and helps you provide useful information to mechanics when professional diagnosis is needed. You'll
+              learn which tools like OBD2 scanners are worth owning and how to interpret basic diagnostic data.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="section" id="advertise">
-      <h2>Advertise with Ask Bob AI.</h2>
+      <h2>Partner with Ask Bob AI</h2>
       <p>
-        Ask Bob AI connects highly motivated DIYers, home‑owners, and gear‑heads with the tools, materials,
-        and services they need to finish real projects. If you’d like to feature your brand alongside Bob’s
-        recommendations, we’d love to talk.
+        Ask Bob AI connects motivated DIYers, homeowners, and automotive enthusiasts with quality tools,
+        materials, and services. Our users are actively planning specific projects and seeking reliable
+        products to help them succeed. If your brand serves the home improvement or automotive maintenance
+        community, we welcome partnership discussions.
       </p>
       <div class="faq" style="margin-top:18px;">
         <div class="faq-item">
-          <q>Who sees our offers?</q>
+          <q>Who uses Ask Bob AI?</q>
           <p>
-            Our visitors are planning specific projects &mdash; decks, garages, suspension rebuilds,
-            brake jobs, and more. Sponsored links are only shown when they’re a natural fit for the
-            project being discussed.
+            Our visitors are planning real projects: deck builds, garage workshops, bathroom renovations,
+            brake replacements, and more. They're researching before they buy, seeking to understand
+            what they need and why. This means they're informed shoppers who value quality and reliability
+            over the lowest price.
           </p>
         </div>
         <div class="faq-item">
-          <q>How are offers disclosed?</q>
+          <q>How do partnerships work?</q>
           <p>
-            All sponsored links are clearly labeled as such and use standard <code>rel="sponsored noopener"</code>
-            markup. We prioritize transparency and long‑term trust with our users.
+            We work with retailers and brands through standard affiliate programs and direct partnerships.
+            All sponsored recommendations are clearly disclosed and only appear when they're genuinely
+            relevant to the user's project. We never compromise our educational guidance for commercial
+            relationships.
           </p>
         </div>
         <div class="faq-item">
           <q>How do we get started?</q>
           <p>
-            Email our advertising team at <a href="mailto:advertise@askbobai.com">advertise@askbobai.com</a> with a short
-            overview of your brand, preferred categories, and any affiliate networks you already work with.
+            Email our team at <a href="mailto:partners@askbobai.com">partners@askbobai.com</a> with information
+            about your brand, the products or services you offer, and any existing affiliate programs you
+            participate in. We'll respond to discuss whether there's a good fit for our audience.
           </p>
         </div>
       </div>
@@ -597,29 +782,85 @@
 
     <section class="section">
       <h2>Common questions</h2>
+      <p style="margin-bottom: 18px;">
+        Find answers to frequently asked questions about using Ask Bob AI for your home and auto projects.
+      </p>
       <div class="faq" aria-label="Frequently asked questions">
         <div class="faq-item">
           <q>Is Ask Bob AI a licensed contractor or mechanic?</q>
           <p>
-            No. Ask Bob AI is an educational planning tool. Bob can help you understand the work, build a
-            realistic plan, and prepare questions for licensed pros. You’re responsible for following local
-            codes and manufacturer instructions.
+            No. Ask Bob AI is an educational planning tool designed to help you understand projects,
+            develop realistic plans, and prepare informed questions for licensed professionals. Bob's
+            guidance draws on trade knowledge and best practices, but you're always responsible for
+            following local building codes, manufacturer instructions, and safety requirements. For
+            structural work, electrical modifications, gas lines, and safety-critical automotive repairs,
+            always involve licensed professionals who can inspect your specific situation and ensure
+            code compliance.
           </p>
         </div>
         <div class="faq-item">
           <q>Will Bob tell me exactly which parts or materials to buy?</q>
           <p>
-            Bob can suggest typical materials, hardware, and automotive parts based on your project.
-            When helpful, he may include sponsored links to retailers like Home Depot, Lowe’s, Ace Hardware,
-            Harbor Freight, Amazon, AutoZone, Advance Auto, O’Reilly, RockAuto, or Tire Rack so you can compare
-            options in one place.
+            Bob can suggest typical materials, hardware, and automotive parts based on your project
+            description, helping you understand what you'll need and why. However, final material
+            selection should account for your specific conditions, local code requirements, and
+            manufacturer specifications. For automotive parts, always verify fitment for your exact
+            year, make, model, and engine before purchasing. Bob aims to educate you about material
+            options so you can make informed decisions and communicate effectively with suppliers.
           </p>
         </div>
         <div class="faq-item">
           <q>Does Ask Bob AI replace professional advice?</q>
           <p>
-            No. Big structural changes, electrical work, gas lines, and safety‑critical auto repairs always
-            deserve sign‑off from licensed professionals. Treat Bob as your planning partner, not your inspector.
+            No. Ask Bob AI complements professional advice by helping you understand projects better,
+            but it doesn't replace hands-on professional assessment. Licensed contractors and mechanics
+            can see your actual conditions, identify hidden problems, and ensure work meets safety
+            standards and codes. Think of Bob as your research assistant and planning partner &mdash; someone
+            who helps you prepare for conversations with professionals and understand their recommendations.
+          </p>
+        </div>
+        <div class="faq-item">
+          <q>How do I know if a project is safe for DIY?</q>
+          <p>
+            Bob helps you evaluate DIY suitability by considering the project's complexity, required
+            tools, safety risks, and permit requirements. Generally, cosmetic work, basic maintenance,
+            and simple repairs are good DIY candidates. Structural modifications, electrical panel work,
+            gas line connections, and brake system work beyond basic pad replacement typically require
+            professional involvement for safety and code compliance. Bob will flag these considerations
+            and help you understand the risks involved in each type of project.
+          </p>
+        </div>
+        <div class="faq-item">
+          <q>What information should I provide for the best guidance?</q>
+          <p>
+            The more context you provide, the more useful Bob's guidance becomes. For home projects,
+            include the scope (what you're building or fixing), existing conditions, your experience
+            level, and available tools. For auto projects, specify the year, make, model, and engine
+            of your vehicle, describe the symptoms you're experiencing, and mention any recent work
+            or changes. Photos aren't supported in chat, but detailed descriptions of what you see
+            help Bob provide relevant guidance.
+          </p>
+        </div>
+        <div class="faq-item">
+          <q>How current is Bob's knowledge about building codes and vehicle specifications?</q>
+          <p>
+            Bob's guidance reflects general best practices and common code requirements, but codes
+            vary by jurisdiction and change over time. Always verify current local requirements with
+            your building department before starting permitted work. For vehicles, specifications
+            can vary by production date and market, so always cross-reference with your owner's
+            manual or a reliable service manual for your specific vehicle. Bob provides a strong
+            starting point for research, not the final word on specifications.
+          </p>
+        </div>
+        <div class="faq-item">
+          <q>Can Bob help me estimate costs for my project?</q>
+          <p>
+            Bob can help you develop a comprehensive material list and identify the tools you'll need,
+            which provides a foundation for cost estimation. However, material prices vary significantly
+            by region and change frequently, so you'll want to price items at your local suppliers.
+            For larger projects, Bob can help you understand the typical phases of work and what
+            professional services might cost, but specific quotes should come from local contractors
+            who can assess your actual conditions.
           </p>
         </div>
       </div>
@@ -630,7 +871,7 @@
     <div class="footer-inner">
       <div>&copy; 2025 Ask Bob AI &mdash; All rights reserved. Some suggestions may include sponsored partners. This does not affect guidance.</div>
       <div class="footer-links">
-        <a href="#advertise">Advertise with us</a>
+        <a href="#advertise">Partners</a>
         <a href="privacy.html">Privacy</a>
         <a href="#">Terms</a>
         <span class="badge">Review‑safe · No pop‑ups</span>
