@@ -153,25 +153,26 @@
 
     .pill-row {
       display: inline-flex;
-      gap: 8px;
+      gap: 10px;
       align-items: center;
-      padding: 6px 12px;
+      padding: 8px 14px;
       border-radius: 999px;
       background: radial-gradient(circle at left, rgba(56, 189, 248, 0.28), rgba(30,64,175,0.6));
       color: #e0f2fe;
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       font-weight: 600;
-      margin-bottom: 14px;
+      margin-bottom: 18px;
     }
 
     .pill-dot {
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       border-radius: 999px;
       background: #22c55e;
-      box-shadow: 0 0 0 4px rgba(34,197,94,0.35);
+      box-shadow: 0 0 0 3px rgba(34,197,94,0.35);
+      flex-shrink: 0;
     }
 
     .hero {
@@ -184,26 +185,30 @@
 
     .hero h1 {
       font-size: clamp(2.4rem, 3.1vw + 1.6rem, 3.4rem);
-      margin: 0 0 14px;
+      margin: 0 0 18px;
+      line-height: 1.15;
     }
 
     .hero p {
-      margin: 0 0 22px;
+      margin: 0 0 24px;
       color: var(--muted);
-      font-size: 1.02rem;
+      font-size: 1.08rem;
+      line-height: 1.6;
+      max-width: 520px;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 14px;
       align-items: center;
+      margin-bottom: 16px;
     }
 
     .primary-btn, .secondary-btn {
       border-radius: 999px;
-      padding: 10px 18px;
-      font-size: 0.98rem;
+      padding: 12px 22px;
+      font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
       border: none;
@@ -232,54 +237,80 @@
     }
 
     .hero-note {
-      margin-top: 10px;
-      font-size: 0.82rem;
+      margin-top: 0;
+      font-size: 0.84rem;
       color: var(--muted);
       max-width: 440px;
+      line-height: 1.5;
+      opacity: 0.85;
     }
 
     .hero-card {
       background: radial-gradient(circle at top left, rgba(248,250,252,0.12), rgba(15,23,42,0.94));
       border-radius: 24px;
       border: 1px solid rgba(148,163,184,0.4);
-      padding: 18px 18px 20px;
+      padding: 22px 22px 24px;
       box-shadow: 0 20px 40px rgba(15,23,42,0.7);
     }
 
     .hero-card-title {
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 600;
-      margin-bottom: 6px;
+      margin-bottom: 12px;
+      color: var(--accent);
     }
 
     .hero-card-body {
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       color: var(--muted);
-      line-height: 1.55;
+      line-height: 1.6;
     }
 
     .hero-card-list {
-      margin: 10px 0 0;
-      padding-left: 18px;
+      margin: 0;
+      padding-left: 20px;
     }
 
     .hero-card-list li {
-      margin-bottom: 4px;
+      margin-bottom: 8px;
+    }
+
+    .hero-card-list li:last-child {
+      margin-bottom: 0;
     }
 
     .section {
-      margin-top: 54px;
+      margin-top: 72px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(148, 163, 184, 0.15);
+    }
+
+    .section:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 10px;
     }
 
     .section h2 {
-      margin: 0 0 10px;
-      font-size: 1.6rem;
+      margin: 0 0 14px;
+      font-size: 1.75rem;
+      line-height: 1.25;
     }
 
     .section p {
       margin: 0;
       color: var(--muted);
       max-width: 720px;
+      line-height: 1.6;
     }
 
     .grid-3 {
@@ -292,19 +323,21 @@
     .card {
       background: rgba(15,23,42,0.96);
       border-radius: 20px;
-      padding: 16px 16px 18px;
+      padding: 20px 20px 22px;
       border: 1px solid var(--border-subtle);
       box-shadow: 0 16px 30px rgba(15,23,42,0.6);
     }
 
     .card h3 {
-      margin: 0 0 8px;
-      font-size: 1.05rem;
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+      line-height: 1.3;
     }
 
     .card p {
       font-size: 0.92rem;
       margin: 0;
+      line-height: 1.55;
     }
 
     .chip-row {
@@ -355,9 +388,43 @@
     }
 
     .faq p {
-      margin-top: 6px;
-      font-size: 0.9rem;
+      margin-top: 8px;
+      font-size: 0.92rem;
       color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .detailed-guide {
+      margin-top: 28px;
+      background: rgba(15,23,42,0.96);
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,184,0.35);
+      padding: 24px;
+    }
+
+    .detailed-guide h3 {
+      margin: 0 0 16px;
+      font-size: 1.2rem;
+    }
+
+    .detailed-guide h4 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+
+    .detailed-guide p {
+      color: var(--muted);
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .detailed-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 12px;
     }
 
     footer {
@@ -469,13 +536,11 @@
       <div>
         <div class="pill-row">
           <span class="pill-dot"></span>
-          <span>Human Craftsman · AI Planner</span>
+          <span>Free AI Project Planner</span>
         </div>
-        <h1 id="hero-heading">Meet Bob &mdash; your master tradesman and mechanic.</h1>
+        <h1 id="hero-heading">Get step-by-step guidance for your home &amp; auto projects</h1>
         <p>
-          Bob has spent decades building houses, wiring shops, and wrenching on cars. Now his real‑world
-          know‑how is wrapped in AI. Describe your project, and he'll turn it into clear steps, tool lists,
-          and safety pointers you can actually follow.
+          Ask Bob AI turns your DIY ideas into clear action plans. Describe what you want to build or fix, and get organized steps, tool lists, material estimates, and safety tips &mdash; all in one conversation.
         </p>
         <div class="hero-actions">
           <button class="primary-btn" onclick="goToChat()">Start Your Project</button>
@@ -487,21 +552,22 @@
         </p>
       </div>
       <aside class="hero-card" aria-label="What Bob can help with">
-        <div class="hero-card-title">What Bob can help you do</div>
+        <div class="hero-card-title">What Bob helps you do</div>
         <div class="hero-card-body">
           <ul class="hero-card-list">
-            <li>Plan a safe deck, shed, or home office build with proper load calculations.</li>
-            <li>Lay out wiring, lighting, and outlets before you call an electrician.</li>
-            <li>Prep for brake jobs, suspension work, and upgrades on your car.</li>
-            <li>Choose tools, fasteners, and materials that actually make sense for your skill level.</li>
-            <li>Understand building codes, permits, and inspection requirements.</li>
-            <li>Create material lists with accurate quantities to minimize waste.</li>
+            <li>Plan deck, shed, and workshop builds with proper load calculations</li>
+            <li>Organize wiring and outlet layouts before calling an electrician</li>
+            <li>Prep brake jobs, suspension work, and vehicle upgrades</li>
+            <li>Choose the right tools and materials for your skill level</li>
+            <li>Understand permits, codes, and inspection requirements</li>
+            <li>Create accurate material lists to minimize waste and trips</li>
           </ul>
         </div>
       </aside>
     </section>
 
     <section class="section" id="what-bob-does">
+      <span class="section-label">Features</span>
       <h2>What Ask Bob AI Does</h2>
       <p>
         Ask Bob AI is your project planning companion for home improvement and automotive maintenance.
@@ -545,29 +611,29 @@
           </p>
         </div>
       </div>
-      <div class="detailed-guide" style="margin-top: 28px; background: rgba(15,23,42,0.96); border-radius: 18px; border: 1px solid rgba(148,163,184,0.35); padding: 22px;">
-        <h3 style="margin: 0 0 14px; font-size: 1.2rem;">Problems Bob Helps Solve</h3>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 8px;">
+      <div class="detailed-guide" style="margin-top: 28px; background: rgba(15,23,42,0.96); border-radius: 18px; border: 1px solid rgba(148,163,184,0.35); padding: 24px;">
+        <h3 style="margin: 0 0 16px; font-size: 1.2rem;">Problems Bob Helps Solve</h3>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 12px;">
           <div>
-            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+            <p style="color: var(--muted); margin: 0; font-size: 0.92rem; line-height: 1.6;">
               <strong style="color: var(--accent);">Information overload:</strong> Online tutorials often skip critical
               steps or assume knowledge you don't have. Bob provides complete sequences with nothing assumed.
             </p>
           </div>
           <div>
-            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+            <p style="color: var(--muted); margin: 0; font-size: 0.92rem; line-height: 1.6;">
               <strong style="color: var(--accent);">Material confusion:</strong> Hardware stores have thousands of products.
               Bob helps you understand exactly what you need and why, so you buy right the first time.
             </p>
           </div>
           <div>
-            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+            <p style="color: var(--muted); margin: 0; font-size: 0.92rem; line-height: 1.6;">
               <strong style="color: var(--accent);">Sequence uncertainty:</strong> Doing steps out of order causes rework.
               Bob organizes tasks logically, accounting for drying times, access requirements, and dependencies.
             </p>
           </div>
           <div>
-            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+            <p style="color: var(--muted); margin: 0; font-size: 0.92rem; line-height: 1.6;">
               <strong style="color: var(--accent);">Scope creep:</strong> Projects expand unexpectedly when you discover
               hidden issues. Bob helps you anticipate common complications and plan contingencies.
             </p>
@@ -577,6 +643,7 @@
     </section>
 
     <section class="section" id="about-bob">
+      <span class="section-label">About</span>
       <h2>About Ask Bob AI</h2>
       <p>
         Ask Bob AI was created to bridge the gap between watching a quick tutorial video and actually
@@ -625,6 +692,7 @@
     </section>
 
     <section class="section" id="how-it-works">
+      <span class="section-label">Getting Started</span>
       <h2>How It Works</h2>
       <p>
         Using Ask Bob AI is straightforward. No account required, no complicated setup.
@@ -667,7 +735,8 @@
     </section>
 
     <section class="section" id="home-diy">
-      <h2>Home DIY, done like a pro.</h2>
+      <span class="section-label">Home Projects</span>
+      <h2>Home DIY Done Like a Pro</h2>
       <p>
         Whether you're framing a wall, hanging drywall, or finally building that backyard deck,
         Bob breaks projects into safe phases, so you don't skip the boring (but critical) steps.
@@ -722,17 +791,17 @@
         </article>
       </div>
 
-      <div class="detailed-guide" style="margin-top: 28px; background: rgba(15,23,42,0.96); border-radius: 18px; border: 1px solid rgba(148,163,184,0.35); padding: 22px;">
-        <h3 style="margin: 0 0 14px; font-size: 1.2rem;">Understanding Home Project Planning</h3>
-        <p style="color: var(--muted); margin: 0 0 14px; line-height: 1.6;">
+      <div class="detailed-guide" style="margin-top: 28px; background: rgba(15,23,42,0.96); border-radius: 18px; border: 1px solid rgba(148,163,184,0.35); padding: 24px;">
+        <h3 style="margin: 0 0 16px; font-size: 1.2rem;">Understanding Home Project Planning</h3>
+        <p style="color: var(--muted); margin: 0 0 16px; line-height: 1.6;">
           Successful home improvement projects share common elements: clear scope definition, realistic timeline
           expectations, proper material selection, and a step-by-step approach that accounts for drying times,
           weather conditions, and inspection requirements. Bob helps you develop these elements for any project.
         </p>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px;">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 16px;">
           <div>
-            <h4 style="margin: 0 0 8px; font-size: 1rem; color: var(--accent);">Structural Projects</h4>
-            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+            <h4 style="margin: 0 0 10px; font-size: 1rem; color: var(--accent);">Structural Projects</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.92rem; line-height: 1.6;">
               Decks, pergolas, carports, and sheds all require understanding of load paths, proper foundations,
               and connections. Bob explains why posts need to sit on concrete footings below the frost line,
               how to size beams for your span, and which hardware connectors meet current building codes. You'll
@@ -741,8 +810,8 @@
             </p>
           </div>
           <div>
-            <h4 style="margin: 0 0 8px; font-size: 1rem; color: var(--accent);">Finishing Projects</h4>
-            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+            <h4 style="margin: 0 0 10px; font-size: 1rem; color: var(--accent);">Finishing Projects</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.92rem; line-height: 1.6;">
               Drywall, painting, trim work, and flooring require different skills than structural work but
               equally careful planning. Bob covers surface preparation requirements, primer selection based on
               your existing conditions, proper joint compound application techniques, and how to achieve
@@ -751,8 +820,8 @@
             </p>
           </div>
           <div>
-            <h4 style="margin: 0 0 8px; font-size: 1rem; color: var(--accent);">Electrical Planning</h4>
-            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+            <h4 style="margin: 0 0 10px; font-size: 1rem; color: var(--accent);">Electrical Planning</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.92rem; line-height: 1.6;">
               Even if you're hiring an electrician, understanding electrical basics helps you communicate
               your needs and evaluate quotes. Bob explains circuit capacity, why kitchens and bathrooms need
               dedicated circuits, GFCI requirements for wet locations, and how to plan outlet placement before
@@ -761,8 +830,8 @@
             </p>
           </div>
           <div>
-            <h4 style="margin: 0 0 8px; font-size: 1rem; color: var(--accent);">Plumbing Basics</h4>
-            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+            <h4 style="margin: 0 0 10px; font-size: 1rem; color: var(--accent);">Plumbing Basics</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.92rem; line-height: 1.6;">
               From fixing a leaky faucet to understanding drain slopes for a bathroom addition, plumbing
               knowledge prevents water damage and ensures proper function. Bob covers supply line sizing,
               drain/waste/vent system basics, and how to identify whether your home has copper, PEX, or galvanized
@@ -775,7 +844,8 @@
     </section>
 
     <section class="section" id="auto-projects">
-      <h2>Auto projects without the guesswork.</h2>
+      <span class="section-label">Automotive</span>
+      <h2>Auto Projects Without the Guesswork</h2>
       <p>
         From brake jobs to suspension upgrades, Bob helps you plan the work so you can wrench with confidence
         or talk to your mechanic like a pro. Whether you're maintaining your daily driver or tackling
@@ -817,17 +887,17 @@
         </article>
       </div>
 
-      <div class="detailed-guide" style="margin-top: 28px; background: rgba(15,23,42,0.96); border-radius: 18px; border: 1px solid rgba(148,163,184,0.35); padding: 22px;">
-        <h3 style="margin: 0 0 14px; font-size: 1.2rem;">Automotive Maintenance Planning</h3>
-        <p style="color: var(--muted); margin: 0 0 14px; line-height: 1.6;">
+      <div class="detailed-guide" style="margin-top: 28px; background: rgba(15,23,42,0.96); border-radius: 18px; border: 1px solid rgba(148,163,184,0.35); padding: 24px;">
+        <h3 style="margin: 0 0 16px; font-size: 1.2rem;">Automotive Maintenance Planning</h3>
+        <p style="color: var(--muted); margin: 0 0 16px; line-height: 1.6;">
           Regular maintenance prevents expensive repairs and keeps your vehicle safe and reliable. Bob helps
           you understand maintenance intervals, recognize warning signs, and plan repairs before small issues
           become major problems. Good maintenance planning extends vehicle life and protects your investment.
         </p>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px;">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 16px;">
           <div>
-            <h4 style="margin: 0 0 8px; font-size: 1rem; color: var(--accent);">Brake System Basics</h4>
-            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+            <h4 style="margin: 0 0 10px; font-size: 1rem; color: var(--accent);">Brake System Basics</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.92rem; line-height: 1.6;">
               Understanding your brake system helps you recognize when service is needed and communicate
               effectively with mechanics. Bob explains the difference between disc and drum brakes, how
               brake pads wear and when they need replacement, why rotors sometimes need resurfacing or
@@ -836,8 +906,8 @@
             </p>
           </div>
           <div>
-            <h4 style="margin: 0 0 8px; font-size: 1rem; color: var(--accent);">Suspension and Steering</h4>
-            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+            <h4 style="margin: 0 0 10px; font-size: 1rem; color: var(--accent);">Suspension and Steering</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.92rem; line-height: 1.6;">
               Worn suspension components affect handling, tire wear, and safety. Bob covers common wear items
               like ball joints, tie rod ends, control arm bushings, and struts. You'll learn how to identify
               symptoms like uneven tire wear, wandering steering, clunking over bumps, and body lean in turns.
@@ -846,8 +916,8 @@
             </p>
           </div>
           <div>
-            <h4 style="margin: 0 0 8px; font-size: 1rem; color: var(--accent);">Engine Maintenance</h4>
-            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+            <h4 style="margin: 0 0 10px; font-size: 1rem; color: var(--accent);">Engine Maintenance</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.92rem; line-height: 1.6;">
               Oil changes, air filter replacements, and spark plug service keep your engine running efficiently.
               Bob explains oil viscosity ratings, why synthetic oil often makes sense despite higher cost, and
               how to interpret manufacturer maintenance schedules. For more involved work like timing belt
@@ -856,8 +926,8 @@
             </p>
           </div>
           <div>
-            <h4 style="margin: 0 0 8px; font-size: 1rem; color: var(--accent);">Diagnostic Thinking</h4>
-            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+            <h4 style="margin: 0 0 10px; font-size: 1rem; color: var(--accent);">Diagnostic Thinking</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.92rem; line-height: 1.6;">
               Modern vehicles generate diagnostic trouble codes, but codes are starting points, not final answers.
               Bob helps you think through symptoms systematically: when did the problem start, what conditions
               trigger it, what changed recently. This methodical approach prevents throwing parts at problems
@@ -870,6 +940,7 @@
     </section>
 
     <section class="section" id="best-questions">
+      <span class="section-label">Tips</span>
       <h2>Best Questions to Ask Bob</h2>
       <p>
         Get the most out of Ask Bob AI by asking specific, detailed questions.
@@ -928,16 +999,17 @@
     </section>
 
     <section class="section" id="limitations">
+      <span class="section-label">Transparency</span>
       <h2>Limitations and Accuracy</h2>
       <p>
         Ask Bob AI is a helpful planning tool, but it has boundaries. Understanding these limitations
         helps you use Bob effectively and stay safe.
       </p>
-      <div class="detailed-guide" style="margin-top: 18px; background: rgba(15,23,42,0.96); border-radius: 18px; border: 1px solid rgba(148,163,184,0.35); padding: 22px;">
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+      <div class="detailed-guide" style="margin-top: 18px; background: rgba(15,23,42,0.96); border-radius: 18px; border: 1px solid rgba(148,163,184,0.35); padding: 24px;">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
           <div>
-            <h3 style="margin: 0 0 12px; font-size: 1.1rem; color: var(--danger);">What Bob Cannot Do</h3>
-            <ul style="margin: 0; padding-left: 18px; color: var(--muted); font-size: 0.9rem; line-height: 1.65;">
+            <h3 style="margin: 0 0 14px; font-size: 1.1rem; color: var(--danger);">What Bob Cannot Do</h3>
+            <ul style="margin: 0; padding-left: 18px; color: var(--muted); font-size: 0.92rem; line-height: 1.7;">
               <li>Bob cannot see your project, inspect your home, or examine your vehicle. All guidance is based on what you describe.</li>
               <li>Bob cannot guarantee code compliance. Building codes vary by jurisdiction and change over time. Always verify with local authorities.</li>
               <li>Bob cannot replace hands-on professional assessment. Hidden conditions, structural issues, and safety hazards require in-person evaluation.</li>
@@ -946,8 +1018,8 @@
             </ul>
           </div>
           <div>
-            <h3 style="margin: 0 0 12px; font-size: 1.1rem; color: #22c55e;">What Bob Does Well</h3>
-            <ul style="margin: 0; padding-left: 18px; color: var(--muted); font-size: 0.9rem; line-height: 1.65;">
+            <h3 style="margin: 0 0 14px; font-size: 1.1rem; color: #22c55e;">What Bob Does Well</h3>
+            <ul style="margin: 0; padding-left: 18px; color: var(--muted); font-size: 0.92rem; line-height: 1.7;">
               <li>Provides general best practices drawn from trade experience and industry standards.</li>
               <li>Helps you think through project phases, sequences, and dependencies logically.</li>
               <li>Explains concepts so you understand the reasoning behind recommendations.</li>
@@ -957,8 +1029,8 @@
             </ul>
           </div>
         </div>
-        <div style="margin-top: 20px; padding: 14px; background: rgba(249, 115, 115, 0.1); border-radius: 12px; border: 1px solid rgba(249, 115, 115, 0.3);">
-          <p style="margin: 0; color: var(--muted); font-size: 0.9rem; line-height: 1.6;">
+        <div style="margin-top: 20px; padding: 16px; background: rgba(249, 115, 115, 0.1); border-radius: 12px; border: 1px solid rgba(249, 115, 115, 0.3);">
+          <p style="margin: 0; color: var(--muted); font-size: 0.92rem; line-height: 1.6;">
             <strong style="color: var(--danger);">Accuracy note:</strong> Bob's guidance reflects general knowledge and common practices,
             but conditions vary widely. Always cross-reference critical specifications with manufacturer documentation, service manuals,
             and local code requirements. When safety is involved, err on the side of professional consultation.
@@ -968,6 +1040,7 @@
     </section>
 
     <section class="section" id="privacy-data">
+      <span class="section-label">Privacy</span>
       <h2>Privacy and Your Data</h2>
       <p>
         We believe in straightforward privacy practices. Here's how Ask Bob AI handles your information.
@@ -1003,6 +1076,7 @@
     </section>
 
     <section class="section" id="advertise">
+      <span class="section-label">Business</span>
       <h2>Partner with Ask Bob AI</h2>
       <p>
         Ask Bob AI connects motivated DIYers, homeowners, and automotive enthusiasts with quality tools,
@@ -1041,7 +1115,8 @@
     </section>
 
     <section class="section">
-      <h2>Common questions</h2>
+      <span class="section-label">FAQ</span>
+      <h2>Common Questions</h2>
       <p style="margin-bottom: 18px;">
         Find answers to frequently asked questions about using Ask Bob AI for your home and auto projects.
       </p>
@@ -1178,16 +1253,17 @@
     </section>
 
     <section class="section" id="who-we-are">
+      <span class="section-label">Team</span>
       <h2>Who We Are</h2>
       <p>
         Ask Bob AI was built by people who've spent time in garages, workshops, and job sites—and
         who've experienced the frustration of trying to learn complex skills from scattered online resources.
       </p>
-      <div class="detailed-guide" style="margin-top: 18px; background: rgba(15,23,42,0.96); border-radius: 18px; border: 1px solid rgba(148,163,184,0.35); padding: 22px;">
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+      <div class="detailed-guide" style="margin-top: 18px; background: rgba(15,23,42,0.96); border-radius: 18px; border: 1px solid rgba(148,163,184,0.35); padding: 24px;">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
           <div>
-            <h3 style="margin: 0 0 12px; font-size: 1.1rem; color: var(--accent);">Our Background</h3>
-            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.65;">
+            <h3 style="margin: 0 0 14px; font-size: 1.1rem; color: var(--accent);">Our Background</h3>
+            <p style="color: var(--muted); margin: 0; font-size: 0.92rem; line-height: 1.7;">
               The team behind Ask Bob AI combines hands-on trade experience with technology expertise.
               We've built decks, rewired shops, restored cars, and learned firsthand how valuable it is
               to have someone knowledgeable to ask questions. That experience shaped Bob's approach:
@@ -1196,8 +1272,8 @@
             </p>
           </div>
           <div>
-            <h3 style="margin: 0 0 12px; font-size: 1.1rem; color: var(--accent);">Why We Built This</h3>
-            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.65;">
+            <h3 style="margin: 0 0 14px; font-size: 1.1rem; color: var(--accent);">Why We Built This</h3>
+            <p style="color: var(--muted); margin: 0; font-size: 0.92rem; line-height: 1.7;">
               There's a gap between watching a 10-minute video and actually understanding how to plan
               and execute a project safely. We built Ask Bob AI to fill that gap—to give everyone access
               to the kind of thoughtful project guidance that used to require knowing someone in the
@@ -1206,8 +1282,8 @@
             </p>
           </div>
         </div>
-        <div style="margin-top: 20px; padding-top: 16px; border-top: 1px dashed rgba(148,163,184,0.35);">
-          <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.65;">
+        <div style="margin-top: 20px; padding-top: 18px; border-top: 1px dashed rgba(148,163,184,0.35);">
+          <p style="color: var(--muted); margin: 0; font-size: 0.92rem; line-height: 1.7;">
             <strong style="color: var(--text);">Our commitment:</strong> We're focused on being genuinely useful.
             That means honest guidance about limitations, clear communication about what Bob can and can't do,
             and a commitment to improving based on how people actually use the service. We'd rather tell you
@@ -1218,39 +1294,40 @@
     </section>
 
     <section class="section" id="disclaimer">
+      <span class="section-label">Legal</span>
       <h2>Important Disclaimer</h2>
-      <div class="detailed-guide" style="margin-top: 18px; background: rgba(249, 115, 115, 0.08); border-radius: 18px; border: 1px solid rgba(249, 115, 115, 0.25); padding: 22px;">
-        <p style="color: var(--muted); margin: 0 0 16px; font-size: 0.95rem; line-height: 1.7;">
+      <div class="detailed-guide" style="margin-top: 18px; background: rgba(249, 115, 115, 0.08); border-radius: 18px; border: 1px solid rgba(249, 115, 115, 0.25); padding: 24px;">
+        <p style="color: var(--muted); margin: 0 0 18px; font-size: 0.98rem; line-height: 1.7;">
           <strong style="color: var(--danger);">Ask Bob AI provides educational guidance only and is not a substitute for professional advice.</strong>
         </p>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
           <div>
-            <p style="color: var(--muted); margin: 0 0 12px; font-size: 0.88rem; line-height: 1.6;">
+            <p style="color: var(--muted); margin: 0 0 14px; font-size: 0.9rem; line-height: 1.65;">
               <strong style="color: var(--text);">Not legal advice:</strong> Bob cannot interpret building codes, zoning
               regulations, or permit requirements for your specific jurisdiction. Consult your local building department
               and, when necessary, a licensed attorney for legal questions.
             </p>
-            <p style="color: var(--muted); margin: 0; font-size: 0.88rem; line-height: 1.6;">
+            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.65;">
               <strong style="color: var(--text);">Not medical advice:</strong> Bob does not provide health or safety
               guidance beyond general project safety practices. For questions about protective equipment efficacy,
               chemical exposure, or health concerns, consult appropriate medical or safety professionals.
             </p>
           </div>
           <div>
-            <p style="color: var(--muted); margin: 0 0 12px; font-size: 0.88rem; line-height: 1.6;">
+            <p style="color: var(--muted); margin: 0 0 14px; font-size: 0.9rem; line-height: 1.65;">
               <strong style="color: var(--text);">Not financial advice:</strong> Bob cannot advise on project financing,
               insurance coverage, property values, or investment decisions. Consult qualified financial professionals
               for questions about budgeting, loans, or the financial implications of home improvements.
             </p>
-            <p style="color: var(--muted); margin: 0; font-size: 0.88rem; line-height: 1.6;">
+            <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.65;">
               <strong style="color: var(--text);">Not professional engineering:</strong> Structural calculations,
               load analyses, and engineering specifications require licensed professional engineers. Bob provides
               general educational information, not certified engineering assessments.
             </p>
           </div>
         </div>
-        <div style="margin-top: 16px; padding-top: 14px; border-top: 1px dashed rgba(249, 115, 115, 0.3);">
-          <p style="color: var(--muted); margin: 0; font-size: 0.88rem; line-height: 1.6;">
+        <div style="margin-top: 18px; padding-top: 16px; border-top: 1px dashed rgba(249, 115, 115, 0.3);">
+          <p style="color: var(--muted); margin: 0; font-size: 0.9rem; line-height: 1.65;">
             By using Ask Bob AI, you acknowledge that all guidance is for educational and planning purposes only.
             You assume full responsibility for verifying information, following applicable codes and regulations,
             and ensuring work is performed safely and correctly. When in doubt, always consult licensed professionals
