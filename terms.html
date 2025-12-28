@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Terms of Service – Ask Bob AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Terms of Service for Ask Bob AI – Project & Repair Guidance" />
+  <style>
+    :root {
+      --bg: #050814;
+      --bg-alt: #0b1024;
+      --accent: #ffb347;
+      --accent-soft: rgba(255, 179, 71, 0.1);
+      --accent-strong: #ff8c00;
+      --text: #f8fafc;
+      --muted: #cbd5f5;
+      --card: #0f172a;
+      --border-subtle: rgba(148, 163, 184, 0.3);
+      --link: #38bdf8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #101936 0, #020617 45%, #000 100%);
+      color: var(--text);
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(90deg, rgba(15,23,42,0.96), rgba(15,23,42,0.92));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 25%, #ffe29f, #ffa99f 40%, #ff6a00 75%);
+      box-shadow: 0 0 18px rgba(248, 250, 252, 0.2);
+    }
+
+    .brand-text-title {
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      font-size: 1.2rem;
+    }
+
+    .brand-text-sub {
+      font-size: 0.76rem;
+      color: var(--muted);
+      opacity: 0.9;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 18px;
+      align-items: center;
+      font-size: 0.98rem;
+    }
+
+    nav a {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 64px;
+    }
+
+    .content {
+      background: rgba(15,23,42,0.96);
+      border-radius: 20px;
+      padding: 32px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 16px 30px rgba(15,23,42,0.6);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin: 0 0 12px;
+    }
+
+    .last-updated {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin: 32px 0 12px;
+    }
+
+    h2:first-of-type {
+      margin-top: 0;
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 16px;
+    }
+
+    ul {
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 16px;
+      padding-left: 24px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    footer {
+      border-top: 1px solid rgba(30,64,175,0.6);
+      background: radial-gradient(circle at top, #020617 0, #02010f 45%, #000 100%);
+      padding: 18px 16px 26px;
+      margin-top: 40px;
+      font-size: 0.78rem;
+      color: #9ca3af;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #e5e7eb;
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 800px) {
+      .nav-inner {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      nav ul {
+        flex-wrap: wrap;
+      }
+      .content {
+        padding: 24px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div class="brand-text">
+          <span class="brand-text-title">Ask Bob AI</span>
+          <span class="brand-text-sub">Project &amp; repair guidance</span>
+        </div>
+      </div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="chat.html">AI Chat</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="content">
+      <h1>Terms of Service</h1>
+      <p class="last-updated">Last updated: January 2025</p>
+
+      <h2>Acceptance of Terms</h2>
+      <p>
+        By accessing and using Ask Bob AI ("the Service"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the Service. We reserve the right to modify these terms at any time, and your continued use of the Service constitutes acceptance of any changes.
+      </p>
+
+      <h2>Description of Service</h2>
+      <p>
+        Ask Bob AI provides educational project planning guidance for home improvement and automotive maintenance projects. The Service uses artificial intelligence to help users understand project requirements, develop planning approaches, and learn about tools, materials, and techniques. The Service is informational and educational in nature.
+      </p>
+
+      <h2>Educational Purpose Only</h2>
+      <p>
+        All guidance provided through Ask Bob AI is for educational and planning purposes only. The Service does not replace:
+      </p>
+      <ul>
+        <li>Licensed contractors, electricians, plumbers, or other trade professionals</li>
+        <li>Certified automotive mechanics or technicians</li>
+        <li>Professional engineering assessments or structural calculations</li>
+        <li>Local building code officials or permit authorities</li>
+        <li>Manufacturer instructions, specifications, or service manuals</li>
+      </ul>
+      <p>
+        You are solely responsible for verifying all information, following applicable laws and regulations, and ensuring work is performed safely and correctly.
+      </p>
+
+      <h2>No Professional Relationship</h2>
+      <p>
+        Your use of Ask Bob AI does not create any professional, contractor, consultant, or advisory relationship between you and Ask Bob AI or its operators. The Service provides general educational information, not professional advice tailored to your specific circumstances, property, or vehicle.
+      </p>
+
+      <h2>User Responsibilities</h2>
+      <p>
+        When using the Service, you agree to:
+      </p>
+      <ul>
+        <li>Verify all information with authoritative sources before acting on it</li>
+        <li>Follow all local building codes, zoning regulations, and permit requirements</li>
+        <li>Consult licensed professionals for work that requires permits or professional licensing</li>
+        <li>Follow manufacturer instructions for tools, materials, and vehicles</li>
+        <li>Use appropriate safety equipment and follow safe work practices</li>
+        <li>Accept full responsibility for any decisions or actions based on information from the Service</li>
+        <li>Use the Service only for lawful purposes</li>
+      </ul>
+
+      <h2>Assumption of Risk</h2>
+      <p>
+        Home improvement and automotive projects involve inherent risks including personal injury, property damage, and financial loss. By using Ask Bob AI, you acknowledge these risks and assume full responsibility for your actions. You agree that Ask Bob AI is not responsible for any outcomes resulting from your use of information provided through the Service.
+      </p>
+
+      <h2>Accuracy and Completeness</h2>
+      <p>
+        While we strive to provide accurate and helpful information, Ask Bob AI cannot guarantee the accuracy, completeness, or timeliness of any guidance. Building codes vary by jurisdiction and change over time. Vehicle specifications vary by year, make, model, and market. Material properties and best practices evolve. Always cross-reference important information with current, authoritative sources.
+      </p>
+
+      <h2>Affiliate Relationships and Sponsored Content</h2>
+      <p>
+        The Service may include links to third-party retailers and product recommendations. Some of these may be affiliate links through which Ask Bob AI earns commissions on qualifying purchases. Sponsored links are clearly identified. These commercial relationships do not influence the educational content or guidance we provide. We recommend products based on their relevance to your project, not on commission rates.
+      </p>
+
+      <h2>Third-Party Links</h2>
+      <p>
+        The Service may contain links to third-party websites such as retailers, manufacturers, and information resources. These links are provided for convenience and reference. Ask Bob AI does not control, endorse, or assume responsibility for the content, privacy policies, or practices of any third-party sites. Your interactions with third-party sites are governed by their respective terms and policies.
+      </p>
+
+      <h2>Intellectual Property</h2>
+      <p>
+        All content on Ask Bob AI, including text, graphics, logos, and software, is the property of Ask Bob AI or its content suppliers and is protected by intellectual property laws. You may use information from the Service for personal, non-commercial purposes. You may not reproduce, distribute, or create derivative works from Service content without express permission.
+      </p>
+
+      <h2>Limitation of Liability</h2>
+      <p>
+        To the fullest extent permitted by law, Ask Bob AI and its operators, employees, and affiliates shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising from your use of the Service. This includes, without limitation, damages for personal injury, property damage, loss of profits, data loss, or other intangible losses, even if we have been advised of the possibility of such damages.
+      </p>
+
+      <h2>Disclaimer of Warranties</h2>
+      <p>
+        The Service is provided "as is" and "as available" without warranties of any kind, either express or implied. We disclaim all warranties, including implied warranties of merchantability, fitness for a particular purpose, and non-infringement. We do not warrant that the Service will be uninterrupted, error-free, or free of harmful components.
+      </p>
+
+      <h2>Indemnification</h2>
+      <p>
+        You agree to indemnify and hold harmless Ask Bob AI, its operators, employees, and affiliates from any claims, damages, losses, or expenses (including reasonable attorney fees) arising from your use of the Service, your violation of these Terms, or your violation of any rights of a third party.
+      </p>
+
+      <h2>Termination</h2>
+      <p>
+        We reserve the right to terminate or suspend access to the Service at any time, without notice, for any reason, including violation of these Terms. Upon termination, your right to use the Service ceases immediately.
+      </p>
+
+      <h2>Governing Law</h2>
+      <p>
+        These Terms shall be governed by and construed in accordance with the laws of the United States, without regard to conflict of law principles. Any disputes arising under these Terms shall be resolved in the appropriate courts of the United States.
+      </p>
+
+      <h2>Severability</h2>
+      <p>
+        If any provision of these Terms is found to be unenforceable or invalid, that provision shall be limited or eliminated to the minimum extent necessary, and the remaining provisions shall continue in full force and effect.
+      </p>
+
+      <h2>Entire Agreement</h2>
+      <p>
+        These Terms, together with our Privacy Policy and Disclaimer, constitute the entire agreement between you and Ask Bob AI regarding your use of the Service, superseding any prior agreements.
+      </p>
+
+      <h2>Contact Us</h2>
+      <p>
+        If you have questions about these Terms of Service, please contact us at <a href="mailto:legal@askbobai.com">legal@askbobai.com</a>.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>&copy; 2025 Ask Bob AI &mdash; All rights reserved.</div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
