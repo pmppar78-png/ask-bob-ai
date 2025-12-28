@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Privacy Policy – Ask Bob AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Privacy Policy for Ask Bob AI – Project & Repair Guidance" />
+  <style>
+    :root {
+      --bg: #050814;
+      --bg-alt: #0b1024;
+      --accent: #ffb347;
+      --accent-soft: rgba(255, 179, 71, 0.1);
+      --accent-strong: #ff8c00;
+      --text: #f8fafc;
+      --muted: #cbd5f5;
+      --card: #0f172a;
+      --border-subtle: rgba(148, 163, 184, 0.3);
+      --link: #38bdf8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #101936 0, #020617 45%, #000 100%);
+      color: var(--text);
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(90deg, rgba(15,23,42,0.96), rgba(15,23,42,0.92));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 25%, #ffe29f, #ffa99f 40%, #ff6a00 75%);
+      box-shadow: 0 0 18px rgba(248, 250, 252, 0.2);
+    }
+
+    .brand-text-title {
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      font-size: 1.2rem;
+    }
+
+    .brand-text-sub {
+      font-size: 0.76rem;
+      color: var(--muted);
+      opacity: 0.9;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 18px;
+      align-items: center;
+      font-size: 0.98rem;
+    }
+
+    nav a {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 64px;
+    }
+
+    .content {
+      background: rgba(15,23,42,0.96);
+      border-radius: 20px;
+      padding: 32px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 16px 30px rgba(15,23,42,0.6);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin: 0 0 12px;
+    }
+
+    .last-updated {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin: 32px 0 12px;
+    }
+
+    h2:first-of-type {
+      margin-top: 0;
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 16px;
+    }
+
+    ul {
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 16px;
+      padding-left: 24px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    footer {
+      border-top: 1px solid rgba(30,64,175,0.6);
+      background: radial-gradient(circle at top, #020617 0, #02010f 45%, #000 100%);
+      padding: 18px 16px 26px;
+      margin-top: 40px;
+      font-size: 0.78rem;
+      color: #9ca3af;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #e5e7eb;
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 800px) {
+      .nav-inner {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      nav ul {
+        flex-wrap: wrap;
+      }
+      .content {
+        padding: 24px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div class="brand-text">
+          <span class="brand-text-title">Ask Bob AI</span>
+          <span class="brand-text-sub">Project &amp; repair guidance</span>
+        </div>
+      </div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="chat.html">AI Chat</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="content">
+      <h1>Privacy Policy</h1>
+      <p class="last-updated">Last updated: January 2025</p>
+
+      <h2>Introduction</h2>
+      <p>
+        Ask Bob AI ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you use our website and services.
+      </p>
+
+      <h2>Information We Collect</h2>
+      <p>
+        We collect minimal information to provide our educational guidance services:
+      </p>
+      <ul>
+        <li><strong>Usage Information:</strong> We may collect information about how you interact with our site, such as pages visited and features used, through standard web analytics.</li>
+        <li><strong>Chat Messages:</strong> When you use our AI chat feature, your messages are processed to provide responses. Messages are not stored permanently or used for purposes other than providing immediate assistance.</li>
+        <li><strong>Technical Information:</strong> We may collect standard technical information such as browser type, IP address, and device information for site functionality and security purposes.</li>
+      </ul>
+
+      <h2>How We Use Your Information</h2>
+      <p>
+        We use the information we collect to:
+      </p>
+      <ul>
+        <li>Provide and improve our AI-powered project guidance services</li>
+        <li>Respond to your questions and requests</li>
+        <li>Maintain and secure our website</li>
+        <li>Analyze usage patterns to improve user experience</li>
+      </ul>
+
+      <h2>Data Storage and Security</h2>
+      <p>
+        We do not store personal data or user account information. Chat interactions are processed in real-time and not retained. We implement appropriate technical measures to protect information transmitted through our services.
+      </p>
+
+      <h2>Third-Party Services</h2>
+      <p>
+        Our website may contain links to third-party retailers and service providers (such as Home Depot, Lowe's, AutoZone, and others). These are clearly labeled as sponsored links. When you click these links, you will be subject to the privacy policies of those third-party sites. We do not control and are not responsible for their privacy practices.
+      </p>
+
+      <h2>Cookies and Tracking</h2>
+      <p>
+        We may use cookies and similar technologies to enhance site functionality and analyze usage. You can control cookie preferences through your browser settings.
+      </p>
+
+      <h2>Affiliate Relationships</h2>
+      <p>
+        Some suggestions may include sponsored partners. This does not affect guidance. We may earn commissions from qualified purchases made through our affiliate links. These relationships do not influence the educational content or guidance we provide.
+      </p>
+
+      <h2>Children's Privacy</h2>
+      <p>
+        Our services are not directed to children under the age of 13. We do not knowingly collect information from children.
+      </p>
+
+      <h2>Your Rights</h2>
+      <p>
+        Because we do not collect or store personal data, there is no personal information for you to access, modify, or delete. If you have concerns about your privacy, please contact us.
+      </p>
+
+      <h2>Changes to This Policy</h2>
+      <p>
+        We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated date.
+      </p>
+
+      <h2>Contact Us</h2>
+      <p>
+        If you have questions about this Privacy Policy, please contact us at <a href="mailto:privacy@askbobai.com">privacy@askbobai.com</a>.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>&copy; 2025 Ask Bob AI &mdash; All rights reserved.</div>
+      <div class="footer-links">
+        <a href="index.html#advertise">Advertise with us</a>
+        <a href="privacy.html">Privacy</a>
+        <span>Some suggestions may include sponsored partners. This does not affect guidance.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

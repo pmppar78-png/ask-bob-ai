@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ask Bob AI – Project & Repair Guidance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Ask Bob AI helps you plan safe, realistic home and auto projects with step‑by‑step guidance and tool recommendations." />
+  <style>
+    :root {
+      --bg: #050814;
+      --bg-alt: #0b1024;
+      --accent: #ffb347;
+      --accent-soft: rgba(255, 179, 71, 0.1);
+      --accent-strong: #ff8c00;
+      --text: #f8fafc;
+      --muted: #cbd5f5;
+      --card: #0f172a;
+      --border-subtle: rgba(148, 163, 184, 0.3);
+      --danger: #f97373;
+      --link: #38bdf8;
+      --nav-height: 72px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #101936 0, #020617 45%, #000 100%);
+      color: var(--text);
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(90deg, rgba(15,23,42,0.96), rgba(15,23,42,0.92));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 25%, #ffe29f, #ffa99f 40%, #ff6a00 75%);
+      box-shadow: 0 0 18px rgba(248, 250, 252, 0.2);
+    }
+
+    .brand-text-title {
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      font-size: 1.2rem;
+    }
+
+    .brand-text-sub {
+      font-size: 0.76rem;
+      color: var(--muted);
+      opacity: 0.9;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 18px;
+      align-items: center;
+      font-size: 0.98rem;
+    }
+
+    nav a {
+      color: var(--muted);
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    nav a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+    }
+
+    .nav-cta {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--accent-strong), #facc15);
+      color: #111827;
+      font-weight: 650;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(250, 204, 21, 0.25);
+    }
+
+    .nav-cta:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+    }
+
+    .nav-cta:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 18px rgba(250, 204, 21, 0.2);
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 64px;
+    }
+
+    .pill-row {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: radial-gradient(circle at left, rgba(56, 189, 248, 0.28), rgba(30,64,175,0.6));
+      color: #e0f2fe;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .pill-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.35);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.6fr);
+      gap: 40px;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 3.1vw + 1.6rem, 3.4rem);
+      margin: 0 0 14px;
+    }
+
+    .hero p {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .primary-btn, .secondary-btn {
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+    }
+
+    .primary-btn {
+      background: linear-gradient(135deg, var(--accent-strong), #f97316);
+      color: #111827;
+      box-shadow: 0 14px 30px rgba(249,115,22,0.32);
+    }
+
+    .primary-btn:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+    }
+
+    .secondary-btn {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid rgba(248, 250, 252, 0.18);
+      backdrop-filter: blur(6px);
+    }
+
+    .secondary-btn:hover {
+      background: rgba(15,23,42,0.8);
+    }
+
+    .hero-note {
+      margin-top: 10px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      max-width: 440px;
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top left, rgba(248,250,252,0.12), rgba(15,23,42,0.94));
+      border-radius: 24px;
+      border: 1px solid rgba(148,163,184,0.4);
+      padding: 18px 18px 20px;
+      box-shadow: 0 20px 40px rgba(15,23,42,0.7);
+    }
+
+    .hero-card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .hero-card-body {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .hero-card-list {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    .hero-card-list li {
+      margin-bottom: 4px;
+    }
+
+    .section {
+      margin-top: 54px;
+    }
+
+    .section h2 {
+      margin: 0 0 10px;
+      font-size: 1.6rem;
+    }
+
+    .section p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .card {
+      background: rgba(15,23,42,0.96);
+      border-radius: 20px;
+      padding: 16px 16px 18px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 16px 30px rgba(15,23,42,0.6);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+    }
+
+    .card p {
+      font-size: 0.92rem;
+      margin: 0;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .chip {
+      font-size: 0.76rem;
+      border-radius: 999px;
+      padding: 6px 11px;
+      background: rgba(15,118,110,0.24);
+      color: #a5f3fc;
+      border: 1px solid rgba(34,211,238,0.4);
+    }
+
+    .chip.orange {
+      background: var(--accent-soft);
+      color: #fed7aa;
+      border-color: rgba(251,146,60,0.6);
+    }
+
+    .chip.steel {
+      background: rgba(30,64,175,0.35);
+      color: #e0f2fe;
+      border-color: rgba(59,130,246,0.6);
+    }
+
+    .faq {
+      margin-top: 32px;
+      border-radius: 18px;
+      background: rgba(15,23,42,0.94);
+      border: 1px solid rgba(148,163,184,0.35);
+      padding: 18px 18px 14px;
+    }
+
+    .faq-item + .faq-item {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(148,163,184,0.45);
+    }
+
+    .faq q {
+      font-weight: 600;
+      font-size: 0.98rem;
+    }
+
+    .faq p {
+      margin-top: 6px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    footer {
+      border-top: 1px solid rgba(30,64,175,0.6);
+      background: radial-gradient(circle at top, #020617 0, #02010f 45%, #000 100%);
+      padding: 18px 16px 26px;
+      margin-top: 40px;
+      font-size: 0.78rem;
+      color: #9ca3af;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #e5e7eb;
+      font-size: 0.78rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.9);
+      font-size: 0.72rem;
+      color: #e5e7eb;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .nav-inner {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .grid-3 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+  <script>
+    function goToChat() {
+      window.location.href = "chat.html";
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div class="brand-text">
+          <span class="brand-text-title">Ask Bob AI</span>
+          <span class="brand-text-sub">Project &amp; repair guidance</span>
+        </div>
+      </div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="#home-diy">Home DIY</a></li>
+          <li><a href="#auto-projects">Auto</a></li>
+          <li><a href="chat.html">AI Chat</a></li>
+          <li><a href="#advertise">Advertise</a></li>
+          <li><button class="nav-cta" onclick="goToChat()">Ask Bob a Question</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-heading">
+      <div>
+        <div class="pill-row">
+          <span class="pill-dot"></span>
+          <span>Human Craftsman · AI Planner</span>
+        </div>
+        <h1 id="hero-heading">Meet Bob &mdash; your master tradesman and mechanic.</h1>
+        <p>
+          Bob has spent decades building houses, wiring shops, and wrenching on cars. Now his real‑world
+          know‑how is wrapped in AI. Describe your project, and he’ll turn it into clear steps, tool lists,
+          and safety pointers you can actually follow.
+        </p>
+        <div class="hero-actions">
+          <button class="primary-btn" onclick="goToChat()">Start Your Project</button>
+          <a class="secondary-btn" href="chat.html">Ask Bob a Question</a>
+        </div>
+        <p class="hero-note">
+          Always follow local building codes and work with licensed professionals where required.
+          Bob helps you plan the work, understand the steps, and talk to pros with confidence.
+        </p>
+      </div>
+      <aside class="hero-card" aria-label="What Bob can help with">
+        <div class="hero-card-title">What Bob can help you do</div>
+        <div class="hero-card-body">
+          <ul class="hero-card-list">
+            <li>Plan a safe deck, shed, or home office build.</li>
+            <li>Lay out wiring, lighting, and outlets before you call an electrician.</li>
+            <li>Prep for brake jobs, suspension work, and upgrades on your car.</li>
+            <li>Choose tools, fasteners, and materials that actually make sense.</li>
+          </ul>
+          <p style="margin-top:10px;">
+            When it’s time to buy, Bob may suggest partners like <strong>Home Depot</strong>, <strong>Lowe’s</strong>, <strong>Ace Hardware</strong>,
+            <strong>Harbor Freight</strong>, <strong>Amazon</strong>, <strong>AutoZone</strong>, <strong>Advance Auto</strong>,
+            <strong>O’Reilly</strong>, <strong>RockAuto</strong>, or <strong>Tire Rack</strong> with clickable links.
+          </p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section" id="home-diy">
+      <h2>Home DIY, done like a pro.</h2>
+      <p>
+        Whether you’re framing a wall, hanging drywall, or finally building that backyard deck,
+        Bob breaks projects into safe phases, so you don’t skip the boring (but critical) steps.
+      </p>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Plan before you cut</h3>
+          <p>
+            Bob helps you translate your sketch into real‑world lumber sizes, spans, fasteners, and
+            hardware. No vague “2×4” guesses &mdash; real dimensions, real load paths.
+          </p>
+          <div class="chip-row">
+            <span class="chip orange">Decks &amp; railings</span>
+            <span class="chip">Sheds &amp; workbenches</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Code‑aware guidance</h3>
+          <p>
+            Get talking points for your local building department: joist spacing, stair rise/run,
+            guard heights, and more. Bob won’t replace an inspector, but he’ll help you sound prepared.
+          </p>
+          <div class="chip-row">
+            <span class="chip steel">Framing</span>
+            <span class="chip">Stairs</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Tool lists that make sense</h3>
+          <p>
+            Instead of buying every gadget on the shelf, Bob prioritizes which tools matter most for your job,
+            and when a rental makes more sense than owning.
+          </p>
+          <div class="chip-row">
+            <span class="chip">Tool priorities</span>
+            <span class="chip orange">Budget‑friendly plans</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="auto-projects">
+      <h2>Auto projects without the guesswork.</h2>
+      <p>
+        From brake jobs to suspension upgrades, Bob helps you plan the work so you can wrench with confidence
+        or talk to your mechanic like a pro.
+      </p>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Step‑by‑step breakdowns</h3>
+          <p>
+            Get a realistic sequence from “loosen lugs” to “torque wheels,” with notes on what can go wrong,
+            what to inspect while you’re there, and where to be extra cautious.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Parts, fluids, and torque specs</h3>
+          <p>
+            Bob can help you organize part numbers, fluids, and torque values so you can keep a clean project
+            notebook or digital checklist.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Where to buy what you need</h3>
+          <p>
+            When helpful, Bob may surface curated offers from partners like AutoZone, Advance Auto, O’Reilly,
+            RockAuto, or Tire Rack with sponsored, clearly labeled links.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="advertise">
+      <h2>Advertise with Ask Bob AI.</h2>
+      <p>
+        Ask Bob AI connects highly motivated DIYers, home‑owners, and gear‑heads with the tools, materials,
+        and services they need to finish real projects. If you’d like to feature your brand alongside Bob’s
+        recommendations, we’d love to talk.
+      </p>
+      <div class="faq" style="margin-top:18px;">
+        <div class="faq-item">
+          <q>Who sees our offers?</q>
+          <p>
+            Our visitors are planning specific projects &mdash; decks, garages, suspension rebuilds,
+            brake jobs, and more. Sponsored links are only shown when they’re a natural fit for the
+            project being discussed.
+          </p>
+        </div>
+        <div class="faq-item">
+          <q>How are offers disclosed?</q>
+          <p>
+            All sponsored links are clearly labeled as such and use standard <code>rel="sponsored noopener"</code>
+            markup. We prioritize transparency and long‑term trust with our users.
+          </p>
+        </div>
+        <div class="faq-item">
+          <q>How do we get started?</q>
+          <p>
+            Email our advertising team at <a href="mailto:advertise@askbobai.com">advertise@askbobai.com</a> with a short
+            overview of your brand, preferred categories, and any affiliate networks you already work with.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Common questions</h2>
+      <div class="faq" aria-label="Frequently asked questions">
+        <div class="faq-item">
+          <q>Is Ask Bob AI a licensed contractor or mechanic?</q>
+          <p>
+            No. Ask Bob AI is an educational planning tool. Bob can help you understand the work, build a
+            realistic plan, and prepare questions for licensed pros. You’re responsible for following local
+            codes and manufacturer instructions.
+          </p>
+        </div>
+        <div class="faq-item">
+          <q>Will Bob tell me exactly which parts or materials to buy?</q>
+          <p>
+            Bob can suggest typical materials, hardware, and automotive parts based on your project.
+            When helpful, he may include sponsored links to retailers like Home Depot, Lowe’s, Ace Hardware,
+            Harbor Freight, Amazon, AutoZone, Advance Auto, O’Reilly, RockAuto, or Tire Rack so you can compare
+            options in one place.
+          </p>
+        </div>
+        <div class="faq-item">
+          <q>Does Ask Bob AI replace professional advice?</q>
+          <p>
+            No. Big structural changes, electrical work, gas lines, and safety‑critical auto repairs always
+            deserve sign‑off from licensed professionals. Treat Bob as your planning partner, not your inspector.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>&copy; 2025 Ask Bob AI &mdash; All rights reserved. Some suggestions may include sponsored partners. This does not affect guidance.</div>
+      <div class="footer-links">
+        <a href="#advertise">Advertise with us</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="#">Terms</a>
+        <span class="badge">Review‑safe · No pop‑ups</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

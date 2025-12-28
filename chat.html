@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ask Bob AI Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Chat with Ask Bob AI for project and repair guidance with step‑by‑step plans and affiliate tool suggestions." />
+  <style>
+    :root {
+      --bg: #020617;
+      --panel: #020617;
+      --card: #020617;
+      --msg-user: #0f172a;
+      --msg-ai: #020617;
+      --accent: #ffb347;
+      --accent-strong: #ff8c00;
+      --border-subtle: rgba(148,163,184,0.4);
+      --text: #f9fafb;
+      --muted: #cbd5f5;
+      --link: #38bdf8;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #020617 0, #020617 40%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a { color: var(--link); }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: linear-gradient(90deg, rgba(15,23,42,0.96), rgba(15,23,42,0.9));
+      border-bottom: 1px solid rgba(148,163,184,0.35);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 25%, #ffe29f, #ffa99f 40%, #ff6a00 75%);
+      box-shadow: 0 0 18px rgba(248, 250, 252, 0.2);
+    }
+
+    .brand-text-title {
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      font-size: 1.2rem;
+    }
+
+    .brand-text-sub {
+      font-size: 0.76rem;
+      color: var(--muted);
+      opacity: 0.9;
+    }
+
+    nav a {
+      color: var(--muted);
+      margin-left: 16px;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+
+    nav a:hover { color: var(--text); }
+
+    nav a.active {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-pill {
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--accent-strong), #facc15);
+      color: #111827;
+      font-weight: 650;
+      font-size: 0.95rem;
+      box-shadow: 0 10px 24px rgba(250, 204, 21, 0.25);
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .chat-shell {
+      width: 100%;
+      max-width: 1120px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.5fr);
+      gap: 18px;
+    }
+
+    .chat-panel {
+      background: rgba(15,23,42,0.98);
+      border-radius: 22px;
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 48px rgba(15,23,42,0.8);
+    }
+
+    .chat-header {
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid rgba(30,64,175,0.5);
+    }
+
+    .chat-header-title {
+      font-weight: 600;
+      font-size: 1.02rem;
+    }
+
+    .chat-header-sub {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px 14px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .msg {
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      max-width: 100%;
+    }
+
+    .msg.user {
+      background: #020617;
+      border: 1px solid rgba(148,163,184,0.6);
+      align-self: flex-end;
+    }
+
+    .msg.ai {
+      background: radial-gradient(circle at top left, rgba(248,250,252,0.06), rgba(15,23,42,0.98));
+      border: 1px solid rgba(148,163,184,0.55);
+      align-self: flex-start;
+    }
+
+    .msg.system {
+      background: rgba(15,23,42,0.9);
+      border: 1px dashed rgba(148,163,184,0.6);
+      font-size: 0.9rem;
+    }
+
+    .msg-error {
+      background: rgba(127,29,29,0.3);
+      border: 1px solid rgba(248,113,113,0.6);
+      color: #fecaca;
+    }
+
+    .badge-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: #e5e7eb;
+    }
+
+    .affiliate-list {
+      margin-top: 6px;
+      padding-left: 20px;
+    }
+
+    form {
+      padding: 10px 14px 14px;
+      border-top: 1px solid rgba(30,64,175,0.5);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    textarea {
+      flex: 1;
+      resize: none;
+      min-height: 46px;
+      max-height: 120px;
+      border-radius: 12px;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: #020617;
+      color: var(--text);
+      padding: 10px 10px;
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+
+    textarea::placeholder {
+      color: rgba(148,163,184,0.9);
+    }
+
+    button.send {
+      border-radius: 999px;
+      padding: 10px 18px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      background: linear-gradient(135deg, var(--accent-strong), #f97316);
+      color: #111827;
+      min-width: 88px;
+      box-shadow: 0 10px 26px rgba(249,115,22,0.35);
+    }
+
+    button.send:disabled {
+      opacity: 0.6;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .sidebar {
+      background: rgba(15,23,42,0.96);
+      border-radius: 22px;
+      border: 1px solid rgba(30,64,175,0.7);
+      padding: 16px 16px 18px;
+      box-shadow: 0 24px 48px rgba(15,23,42,0.9);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .sidebar h2 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .sidebar h3 {
+      margin: 16px 0 6px;
+      font-size: 0.96rem;
+      color: var(--text);
+    }
+
+    .sidebar ul {
+      padding-left: 18px;
+      margin: 4px 0 0;
+    }
+
+    .sidebar li {
+      margin-bottom: 4px;
+    }
+
+    .sidebar .affiliate-links a {
+      display: inline-block;
+      margin: 2px 0;
+    }
+
+    footer {
+      padding: 10px 16px 14px;
+      font-size: 0.78rem;
+      color: #9ca3af;
+      border-top: 1px solid rgba(30,64,175,0.7);
+      background: #020617;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 880px) {
+      .chat-shell {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .sidebar {
+        order: -1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div>
+          <div class="brand-text-title">Ask Bob AI</div>
+          <div class="brand-text-sub">Project &amp; repair guidance</div>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="chat.html" class="active">AI Chat</a>
+        <a href="index.html#home-diy">Home DIY</a>
+        <a href="index.html#auto-projects">Auto</a>
+        <a href="index.html#advertise">Advertise</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div style="max-width: 1120px; margin: 0 auto; padding: 12px 16px 0; font-size: 0.85rem; color: var(--muted);">
+      Some suggestions may include sponsored partners. This does not affect guidance.
+    </div>
+    <div class="chat-shell">
+      <section class="chat-panel" aria-label="Ask Bob AI conversation">
+        <div class="chat-header">
+          <div class="chat-header-title">Ask Bob anything about tools, materials, wiring plans, or car work.</div>
+          <div class="chat-header-sub">
+            Bob will outline safe, realistic steps and, when helpful, suggest gear and services from partners
+            with clearly labeled sponsored links.
+          </div>
+        </div>
+        <div id="messages" class="messages">
+          <div class="msg system">
+            <strong>Bob AI:</strong> Tell me what you’re trying to do, where you’re working (house, garage,
+            driveway, etc.), and what tools you already own. I’ll help you plan the job and surface
+            helpful offers from:
+            <ul class="affiliate-list">
+              <li><a href="https://www.homedepot.com" target="_blank" rel="sponsored noopener">Home Depot</a></li>
+              <li><a href="https://www.lowes.com" target="_blank" rel="sponsored noopener">Lowe’s</a></li>
+              <li><a href="https://www.acehardware.com" target="_blank" rel="sponsored noopener">Ace Hardware</a></li>
+              <li><a href="https://www.harborfreight.com" target="_blank" rel="sponsored noopener">Harbor Freight</a></li>
+              <li><a href="https://www.amazon.com" target="_blank" rel="sponsored noopener">Amazon</a></li>
+              <li><a href="https://www.autozone.com" target="_blank" rel="sponsored noopener">AutoZone</a></li>
+              <li><a href="https://shop.advanceautoparts.com" target="_blank" rel="sponsored noopener">Advance Auto</a></li>
+              <li><a href="https://www.oreillyauto.com" target="_blank" rel="sponsored noopener">O’Reilly</a></li>
+              <li><a href="https://www.rockauto.com" target="_blank" rel="sponsored noopener">RockAuto</a></li>
+              <li><a href="https://www.tirerack.com" target="_blank" rel="sponsored noopener">Tire Rack</a></li>
+            </ul>
+          </div>
+        </div>
+        <form id="chat-form">
+          <textarea id="user-input" placeholder="Example: Plan a safe deck build, or change front brakes on my SUV." required></textarea>
+          <button type="submit" class="send" id="send-btn">Send</button>
+        </form>
+      </section>
+
+      <aside class="sidebar">
+        <h2>How to get the best answers</h2>
+        <p>Include:</p>
+        <ul>
+          <li>Where the work is (house, garage, driveway, etc.).</li>
+          <li>What you’re starting with (existing deck, bare concrete, noisy brakes…).</li>
+          <li>Tools you already own and your experience level.</li>
+        </ul>
+
+        <h3>Example questions</h3>
+        <ul>
+          <li>“Plan a safe 12×16 deck build with stairs.”</li>
+          <li>“Help me replace front brake pads and rotors on a 2016 Civic.”</li>
+          <li>“What tools do I actually need to wire a small workshop?”</li>
+        </ul>
+
+        <h3>Affiliate partners</h3>
+        <p class="affiliate-links">
+          Bob may recommend sponsored offers from:
+          <br />
+          <a href="https://www.homedepot.com" target="_blank" rel="sponsored noopener">Home Depot</a>,
+          <a href="https://www.lowes.com" target="_blank" rel="sponsored noopener">Lowe’s</a>,
+          <a href="https://www.acehardware.com" target="_blank" rel="sponsored noopener">Ace Hardware</a>,
+          <a href="https://www.harborfreight.com" target="_blank" rel="sponsored noopener">Harbor Freight</a>,
+          <a href="https://www.amazon.com" target="_blank" rel="sponsored noopener">Amazon</a>,
+          <a href="https://www.autozone.com" target="_blank" rel="sponsored noopener">AutoZone</a>,
+          <a href="https://shop.advanceautoparts.com" target="_blank" rel="sponsored noopener">Advance Auto</a>,
+          <a href="https://www.oreillyauto.com" target="_blank" rel="sponsored noopener">O’Reilly</a>,
+          <a href="https://www.rockauto.com" target="_blank" rel="sponsored noopener">RockAuto</a>,
+          <a href="https://www.tirerack.com" target="_blank" rel="sponsored noopener">Tire Rack</a>.
+        </p>
+
+        <h3>Important safety note</h3>
+        <p>
+          Ask Bob AI is for educational planning purposes only. Always follow local building codes,
+          manufacturer instructions, and work with licensed professionals for structural, electrical,
+          gas, and other safety‑critical work.
+        </p>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>&copy; 2025 Ask Bob AI. Planning help only &mdash; not a licensed contractor or mechanic. Some suggestions may include sponsored partners. This does not affect guidance.</span>
+      <span>Sponsored links are clearly marked and may earn us a commission. <a href="privacy.html">Privacy</a></span>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('chat-form');
+    const userInput = document.getElementById('user-input');
+    const messagesEl = document.getElementById('messages');
+    const sendBtn = document.getElementById('send-btn');
+
+    function appendMessage(text, role, isError) {
+      const div = document.createElement('div');
+      div.classList.add('msg');
+      if (role === 'user') div.classList.add('user');
+      else if (role === 'assistant') div.classList.add('ai');
+      else div.classList.add('system');
+      if (isError) div.classList.add('msg-error');
+
+      // Simple markdown-style link rendering [text](url)
+      const html = text.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a href="$2" target="_blank" rel="sponsored noopener">$1</a>');
+      div.innerHTML = html;
+      messagesEl.appendChild(div);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const content = userInput.value.trim();
+      if (!content) return;
+
+      appendMessage(content, 'user');
+      userInput.value = '';
+      userInput.focus();
+      sendBtn.disabled = true;
+      sendBtn.textContent = 'Thinking…';
+
+      try {
+        const res = await fetch('/.netlify/functions/ai-chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: content })
+        });
+
+        if (!res.ok) {
+          throw new Error('Request failed with status ' + res.status);
+        }
+
+        const data = await res.json();
+        const reply = data.reply || 'Sorry, I had trouble understanding that.';
+        appendMessage(reply, 'assistant');
+      } catch (err) {
+        console.error(err);
+        appendMessage('Sorry — I had trouble reaching the AI engine. Please try again in a moment.', 'assistant', true);
+      } finally {
+        sendBtn.disabled = false;
+        sendBtn.textContent = 'Send';
+      }
+    });
+  </script>
+</body>
+</html>
