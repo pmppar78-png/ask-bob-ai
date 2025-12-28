@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Disclaimer – Ask Bob AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Disclaimer for Ask Bob AI – Project & Repair Guidance" />
+  <style>
+    :root {
+      --bg: #050814;
+      --bg-alt: #0b1024;
+      --accent: #ffb347;
+      --accent-soft: rgba(255, 179, 71, 0.1);
+      --accent-strong: #ff8c00;
+      --text: #f8fafc;
+      --muted: #cbd5f5;
+      --card: #0f172a;
+      --border-subtle: rgba(148, 163, 184, 0.3);
+      --link: #38bdf8;
+      --danger: #f97373;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #101936 0, #020617 45%, #000 100%);
+      color: var(--text);
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(90deg, rgba(15,23,42,0.96), rgba(15,23,42,0.92));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 25%, #ffe29f, #ffa99f 40%, #ff6a00 75%);
+      box-shadow: 0 0 18px rgba(248, 250, 252, 0.2);
+    }
+
+    .brand-text-title {
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      font-size: 1.2rem;
+    }
+
+    .brand-text-sub {
+      font-size: 0.76rem;
+      color: var(--muted);
+      opacity: 0.9;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 18px;
+      align-items: center;
+      font-size: 0.98rem;
+    }
+
+    nav a {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 64px;
+    }
+
+    .content {
+      background: rgba(15,23,42,0.96);
+      border-radius: 20px;
+      padding: 32px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 16px 30px rgba(15,23,42,0.6);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin: 0 0 12px;
+    }
+
+    .last-updated {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin: 32px 0 12px;
+    }
+
+    h2:first-of-type {
+      margin-top: 0;
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 16px;
+    }
+
+    ul {
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 16px;
+      padding-left: 24px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .warning-box {
+      background: rgba(249, 115, 115, 0.1);
+      border: 1px solid rgba(249, 115, 115, 0.3);
+      border-radius: 12px;
+      padding: 18px;
+      margin: 24px 0;
+    }
+
+    .warning-box p {
+      margin: 0;
+    }
+
+    .warning-box strong {
+      color: var(--danger);
+    }
+
+    footer {
+      border-top: 1px solid rgba(30,64,175,0.6);
+      background: radial-gradient(circle at top, #020617 0, #02010f 45%, #000 100%);
+      padding: 18px 16px 26px;
+      margin-top: 40px;
+      font-size: 0.78rem;
+      color: #9ca3af;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #e5e7eb;
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 800px) {
+      .nav-inner {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      nav ul {
+        flex-wrap: wrap;
+      }
+      .content {
+        padding: 24px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div class="brand-text">
+          <span class="brand-text-title">Ask Bob AI</span>
+          <span class="brand-text-sub">Project &amp; repair guidance</span>
+        </div>
+      </div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="chat.html">AI Chat</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="content">
+      <h1>Disclaimer</h1>
+      <p class="last-updated">Last updated: January 2025</p>
+
+      <div class="warning-box">
+        <p>
+          <strong>Ask Bob AI provides educational guidance only and is not a substitute for professional advice, assessment, or services.</strong> All information is provided for general educational purposes. You are solely responsible for verifying information and ensuring all work is performed safely and in compliance with applicable laws and regulations.
+        </p>
+      </div>
+
+      <h2>Educational Information Only</h2>
+      <p>
+        Ask Bob AI is an educational resource designed to help users understand home improvement and automotive maintenance concepts, plan projects, and develop informed questions for professionals. The guidance provided represents general best practices and educational information, not specific professional advice for your unique situation.
+      </p>
+      <p>
+        Every building, home, vehicle, and project has unique characteristics that require hands-on assessment by qualified professionals. General guidance cannot account for hidden conditions, structural variations, electrical configurations, plumbing systems, vehicle-specific engineering, or other factors that professionals identify through direct inspection.
+      </p>
+
+      <h2>Not Professional Advice</h2>
+      <p>
+        The information provided through Ask Bob AI does not constitute professional advice of any kind, including but not limited to:
+      </p>
+      <ul>
+        <li><strong>Engineering advice:</strong> Structural calculations, load analyses, foundation assessments, and engineering specifications require licensed professional engineers who can evaluate your specific conditions and provide certified assessments.</li>
+        <li><strong>Legal advice:</strong> Building codes, permit requirements, zoning regulations, property boundaries, easements, and legal compliance vary by jurisdiction and require consultation with local authorities and, when necessary, licensed attorneys.</li>
+        <li><strong>Medical advice:</strong> Questions about health risks, chemical exposure, safety equipment effectiveness, or injury prevention should be directed to qualified medical or occupational safety professionals.</li>
+        <li><strong>Financial advice:</strong> Project budgeting, financing options, insurance coverage, property valuation, and investment decisions require consultation with qualified financial professionals.</li>
+        <li><strong>Contractor services:</strong> Ask Bob AI does not perform contracting work, inspections, installations, or repairs. All physical work must be performed by you or qualified professionals.</li>
+      </ul>
+
+      <h2>Licensed Professional Requirements</h2>
+      <p>
+        Many types of work legally require licensed professionals. Depending on your jurisdiction, this typically includes:
+      </p>
+      <ul>
+        <li>Electrical work beyond basic fixture replacement</li>
+        <li>Plumbing work involving supply lines, drain modifications, or gas connections</li>
+        <li>Structural modifications to load-bearing elements</li>
+        <li>HVAC installation and repair</li>
+        <li>Gas appliance installation and repair</li>
+        <li>Roofing work in some jurisdictions</li>
+        <li>Work requiring permits and inspections</li>
+      </ul>
+      <p>
+        Always verify licensing requirements with your local building department before beginning work. Performing work without required permits or licenses can result in fines, required removal of completed work, insurance complications, and safety hazards.
+      </p>
+
+      <h2>Safety Responsibility</h2>
+      <p>
+        Home improvement and automotive projects involve inherent risks including but not limited to electrical shock, falls, cuts, burns, crushing injuries, chemical exposure, fire, and structural collapse. By using Ask Bob AI, you acknowledge these risks and accept full responsibility for your safety and the safety of others.
+      </p>
+      <p>
+        You are responsible for:
+      </p>
+      <ul>
+        <li>Using appropriate personal protective equipment (PPE) for each task</li>
+        <li>Following all safety warnings and manufacturer instructions</li>
+        <li>Ensuring proper ventilation when working with chemicals or in enclosed spaces</li>
+        <li>Using proper lifting techniques and equipment</li>
+        <li>De-energizing electrical circuits before work and verifying with a voltage tester</li>
+        <li>Using proper vehicle support (jack stands, not just jacks) when working under vehicles</li>
+        <li>Working with a partner when safety requires it</li>
+        <li>Knowing your limitations and stopping when unsure</li>
+      </ul>
+
+      <h2>Accuracy Limitations</h2>
+      <p>
+        While Ask Bob AI strives to provide accurate, helpful information, we cannot guarantee accuracy, completeness, or timeliness. Limitations include:
+      </p>
+      <ul>
+        <li><strong>Code variations:</strong> Building codes differ by jurisdiction, change over time, and may have local amendments. Information about codes is general and may not reflect current requirements in your area.</li>
+        <li><strong>Vehicle specifications:</strong> Torque specs, fluid capacities, part numbers, and procedures vary by year, make, model, engine, and sometimes production date. Always verify with manufacturer service information.</li>
+        <li><strong>Material specifications:</strong> Product formulations, ratings, and approved applications change. Always check current manufacturer specifications and local code acceptance.</li>
+        <li><strong>AI limitations:</strong> As an AI system, Ask Bob AI may occasionally produce inaccurate information. Critical specifications should always be verified with authoritative sources.</li>
+      </ul>
+
+      <h2>Automotive Disclaimer</h2>
+      <p>
+        Automotive repair involves significant safety risks. Improper repairs can result in vehicle failure, accidents, injuries, and death. The guidance provided is educational and does not replace professional mechanical assessment or manufacturer service procedures.
+      </p>
+      <p>
+        Always use factory service information for critical specifications including torque values, fluid types and capacities, and repair procedures. If you are uncertain about any aspect of a repair, consult a qualified automotive technician. Never compromise on brake system, steering, suspension, or other safety-critical repairs.
+      </p>
+
+      <h2>Affiliate and Sponsored Content</h2>
+      <p>
+        Ask Bob AI may include affiliate links and sponsored product recommendations. When you make purchases through these links, we may earn commissions. Sponsored content is clearly identified. While we strive to recommend appropriate products, we cannot guarantee product quality, suitability for your application, or that products will perform as described by their manufacturers.
+      </p>
+      <p>
+        Product recommendations are based on general applicability and do not constitute endorsement or warranty. Always verify product specifications and reviews before purchasing, and ensure products meet your specific requirements and local code requirements.
+      </p>
+
+      <h2>Third-Party Resources</h2>
+      <p>
+        Ask Bob AI may reference or link to third-party websites, products, services, or information resources. These references are for convenience and do not constitute endorsement. We are not responsible for the accuracy, content, or practices of third-party resources. Your use of third-party resources is at your own risk and subject to their respective terms and policies.
+      </p>
+
+      <h2>Limitation of Liability</h2>
+      <p>
+        To the maximum extent permitted by applicable law, Ask Bob AI and its operators, employees, affiliates, and licensors disclaim all liability for any damages arising from your use of the service, including direct, indirect, incidental, special, consequential, or punitive damages, regardless of the cause of action or the basis of the claim.
+      </p>
+      <p>
+        This limitation applies to all claims, including but not limited to personal injury, property damage, lost profits, data loss, and any other commercial or personal damages or losses, even if Ask Bob AI has been advised of the possibility of such damages.
+      </p>
+
+      <h2>Indemnification</h2>
+      <p>
+        By using Ask Bob AI, you agree to indemnify, defend, and hold harmless Ask Bob AI, its operators, employees, affiliates, and licensors from any claims, damages, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) arising from your use of the service, your projects or repairs, your violation of this disclaimer or our terms of service, or your violation of any rights of any third party.
+      </p>
+
+      <h2>Questions</h2>
+      <p>
+        If you have questions about this disclaimer, please contact us at <a href="mailto:legal@askbobai.com">legal@askbobai.com</a>.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>&copy; 2025 Ask Bob AI &mdash; All rights reserved.</div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
