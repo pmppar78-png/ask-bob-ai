@@ -402,6 +402,13 @@
       color: #e5e7eb;
     }
 
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
     @media (max-width: 800px) {
       .hero {
         grid-template-columns: minmax(0, 1fr);
@@ -415,6 +422,9 @@
         justify-content: flex-end;
       }
       .grid-3 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .grid-4 {
         grid-template-columns: minmax(0, 1fr);
       }
       .about-content {
@@ -620,7 +630,7 @@
         Using Ask Bob AI is straightforward. No account required, no complicated setup.
         Just describe your project and start getting useful guidance.
       </p>
-      <div class="about-content" style="margin-top: 18px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;">
+      <div class="grid-4">
         <div class="card" style="text-align: center;">
           <div style="font-size: 2rem; margin-bottom: 8px; color: var(--accent);">1</div>
           <h3>Describe Your Project</h3>
