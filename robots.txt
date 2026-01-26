@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://askbobai.com/sitemap.xml
+Sitemap: https://askbobai.org/sitemap.xml
