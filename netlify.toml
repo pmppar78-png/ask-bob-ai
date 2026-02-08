@@ -4,3 +4,53 @@
 
 [functions]
   node_bundler = "esbuild"
+
+# Enable pretty URLs — Netlify will serve /page for /page.html
+# and this setting ensures clean URL routing
+[[redirects]]
+  from = "/chat.html"
+  to = "/chat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about.html"
+  to = "/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact.html"
+  to = "/contact"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/privacy.html"
+  to = "/privacy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/terms.html"
+  to = "/terms"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/disclaimer.html"
+  to = "/disclaimer"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/editorial-standards.html"
+  to = "/editorial-standards"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
