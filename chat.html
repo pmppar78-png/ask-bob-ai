@@ -10,9 +10,9 @@
     gtag('config', 'G-WD7VL5YE14');
   </script>
   <meta charset="UTF-8" />
-  <title>Free AI Chat for Home Improvement & Auto Repair Help | Ask Bob AI</title>
+  <title>Ask Bob AI — Free AI Chat for Home Repair, Auto Help & DIY Questions</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Chat with Bob, your free AI assistant for home improvement and auto repair. Get step-by-step project plans, tool lists, safety tips, and expert-level DIY guidance instantly." />
+  <meta name="description" content="Chat with Bob, your free AI assistant. Get instant help with home improvement, car repair, plumbing, electrical, painting, HVAC, and any hands-on project question." />
   <link rel="canonical" href="https://askbobai.org/chat" />
   <script type="application/ld+json">
   {
@@ -30,9 +30,24 @@
     "@type": "SoftwareApplication",
     "name": "Ask Bob AI Chat",
     "applicationCategory": "UtilitiesApplication",
+    "applicationSubCategory": "Home Improvement & Auto Repair Assistant",
     "operatingSystem": "Web Browser",
-    "description": "Chat with Bob, an AI-powered assistant for home improvement and auto repair project planning. Get step-by-step guidance, tool recommendations, and safety tips.",
+    "description": "Chat with Bob, an AI-powered assistant for home improvement and auto repair project planning. Get step-by-step guidance, tool recommendations, and safety tips for plumbing, electrical, HVAC, roofing, painting, car maintenance, and more.",
     "url": "https://askbobai.org/chat",
+    "featureList": [
+      "Step-by-step home repair guidance",
+      "Auto repair and car maintenance help",
+      "Plumbing project planning",
+      "Electrical wiring safety advice",
+      "HVAC troubleshooting assistance",
+      "Painting and finishing recommendations",
+      "Tool and material recommendations",
+      "Appliance troubleshooting",
+      "Roofing and exterior repair guidance",
+      "Yard work and landscaping tips",
+      "Kitchen and bathroom remodel planning",
+      "Safety-first project scoping"
+    ],
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -43,6 +58,38 @@
       "name": "Ask Bob AI",
       "url": "https://askbobai.org"
     }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I use Ask Bob AI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Using Ask Bob AI is simple: type your question about any home improvement, auto repair, plumbing, electrical, HVAC, painting, or hands-on project into the chat box and press Send. Bob will respond with clear, step-by-step guidance tailored to your skill level, available tools, and specific situation. For the best answers, include details like your location context, current conditions, experience level, and project goals."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What questions can I ask the AI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can ask Bob about a wide range of hands-on topics including home improvement, plumbing repairs, electrical wiring, HVAC maintenance, interior and exterior painting, auto repair, car maintenance schedules, appliance troubleshooting, roofing, deck building, kitchen and bathroom remodels, yard work, landscaping, garage workshop setup, and more. Bob helps you plan projects, choose the right tools and materials, understand safety requirements, and decide when to DIY versus hire a professional."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Ask Bob AI better than ChatGPT for home repair?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ask Bob AI is purpose-built specifically for trades knowledge and hands-on project guidance, unlike general-purpose AI chatbots. Bob is tuned to provide practical, safety-conscious advice for home improvement, auto repair, and DIY projects. Every response prioritizes real-world best practices, local code awareness, proper tool usage, and clear safety warnings — the kind of focused expertise that a general AI assistant may not consistently deliver for trades and repair work."
+        }
+      }
+    ]
   }
   </script>
   <style>
@@ -470,6 +517,84 @@
       flex-wrap: wrap;
     }
 
+    /* Below-chat content section */
+    .below-chat {
+      background: var(--bg);
+      border-top: 1px solid rgba(30,64,175,0.4);
+      padding: 40px 16px 32px;
+    }
+
+    .below-chat-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .below-chat h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 0 0 16px;
+      line-height: 1.35;
+      color: var(--text);
+    }
+
+    .below-chat p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--muted);
+      margin: 0 0 14px;
+    }
+
+    .below-chat strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .guides-section {
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(148,163,184,0.2);
+    }
+
+    .guides-section h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0 0 8px;
+      color: var(--text);
+    }
+
+    .guides-section > p {
+      margin: 0 0 14px;
+    }
+
+    .guides-grid {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .guides-grid li {
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(148,163,184,0.25);
+      background: rgba(15,23,42,0.6);
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: var(--muted);
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .guides-grid li:hover {
+      border-color: var(--accent);
+      background: rgba(15,23,42,0.85);
+    }
+
+    .guides-grid li a {
+      font-weight: 600;
+      text-decoration: none;
+    }
+
     @media (max-width: 880px) {
       .help-toggle span {
         display: none;
@@ -507,6 +632,12 @@
         padding: 10px 16px;
         min-width: 70px;
         font-size: 0.9rem;
+      }
+      .below-chat {
+        padding: 28px 14px 24px;
+      }
+      .below-chat h2 {
+        font-size: 1.15rem;
       }
     }
   </style>
@@ -619,9 +750,43 @@
     </div>
   </main>
 
+  <section class="below-chat" aria-label="About Ask Bob AI Chat">
+    <div class="below-chat-inner">
+      <h2>Your AI-Powered Guide for Home Repair, Auto Work, and Every Hands-On Project</h2>
+      <p>
+        Ask Bob AI is a free, specialized chat assistant built for anyone tackling a hands-on project. Whether you need help with
+        <strong>plumbing</strong> issues like a leaky faucet or running toilet, <strong>electrical</strong> questions about wiring a switch or upgrading a panel,
+        or <strong>HVAC</strong> troubleshooting when your furnace or air conditioner acts up, Bob walks you through it step by step.
+      </p>
+      <p>
+        Beyond the basics, Bob covers <strong>roofing</strong> repairs, <strong>painting</strong> interiors and exteriors, <strong>appliance troubleshooting</strong>,
+        <strong>deck building</strong>, <strong>kitchen and bathroom remodels</strong>, <strong>yard work and landscaping</strong>, and <strong>garage workshop setup</strong>.
+        On the automotive side, Bob helps with <strong>brake jobs</strong>, <strong>oil changes</strong>, <strong>spark plug replacement</strong>,
+        <strong>car maintenance schedules</strong>, and diagnosing common noises, leaks, and warning lights.
+      </p>
+      <p>
+        Just type your question in the chat above. Describe what you are working on, your skill level, and the tools you have available.
+        Bob responds with clear, safety-conscious guidance drawn from real-world trades knowledge — including tool lists, material
+        recommendations, and honest advice about when a project is best left to a licensed professional.
+      </p>
+
+      <div class="guides-section">
+        <h3>Explore Our Step-by-Step Guides</h3>
+        <p>Looking for more in-depth project walkthroughs? Start here:</p>
+        <ul class="guides-grid">
+          <li><a href="/how-to-plan-a-deck-build">How to Plan a Deck Build</a> — Framing, footings, materials, and permits explained.</li>
+          <li><a href="/home-electrical-safety-guide">Home Electrical Safety Guide</a> — What every homeowner should know before wiring a room.</li>
+          <li><a href="/how-to-change-brake-pads">How to Change Brake Pads</a> — A first-timer's walkthrough with tool lists and torque specs.</li>
+          <li><a href="/seasonal-home-maintenance">Seasonal Home Maintenance Checklist</a> — Keep your home in top shape year-round.</li>
+          <li><a href="/diy-vs-hire-professional">DIY vs. Hire a Professional</a> — Know when to tackle it yourself and when to call in help.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <footer>
     <div class="footer-inner">
-      <span>&copy; 2025 Ask Bob AI. Planning help only &mdash; not a licensed contractor or mechanic. Some suggestions may include sponsored partners. This does not affect guidance. <span style="opacity: 0.8;">Boston, MA, USA</span></span>
+      <span>&copy; 2026 Ask Bob AI. Planning help only &mdash; not a licensed contractor or mechanic. Some suggestions may include sponsored partners. This does not affect guidance. <span style="opacity: 0.8;">Boston, MA, USA</span></span>
       <span><a href="/about">About</a> · <a href="/editorial-standards">Editorial Standards</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/disclaimer">Disclaimer</a> · <a href="/contact">Contact</a></span>
     </div>
   </footer>
