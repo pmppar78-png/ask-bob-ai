@@ -359,13 +359,20 @@
     }
 
     .msg.ai a {
-      color: var(--accent);
-      text-decoration: underline;
-      text-underline-offset: 2px;
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.08);
+      border-bottom: 2px solid rgba(56, 189, 248, 0.35);
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     }
 
     .msg.ai a:hover {
-      color: var(--accent-strong);
+      color: #7dd3fc;
+      background: rgba(56, 189, 248, 0.15);
+      border-bottom-color: rgba(125, 211, 252, 0.6);
     }
 
     .msg.ai code {
