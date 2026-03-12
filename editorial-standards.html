@@ -10,10 +10,20 @@
     gtag('config', 'G-WD7VL5YE14');
   </script>
   <meta charset="UTF-8" />
-  <title>Editorial Standards – Ask Bob AI</title>
+  <title>Editorial Standards — How Ask Bob AI Creates Accurate Project Guidance</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Learn about Ask Bob AI's editorial standards, content creation practices, and commitment to providing accurate, helpful home improvement and automotive guidance." />
+  <meta name="description" content="Explore Ask Bob AI's editorial standards for creating accurate, safe home improvement and automotive guidance. Learn about our AI transparency and content practices." />
   <link rel="canonical" href="https://askbobai.org/editorial-standards" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://askbobai.org/"},
+      {"@type": "ListItem", "position": 2, "name": "Editorial Standards"}
+    ]
+  }
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -224,6 +234,56 @@
         padding: 24px 18px;
       }
     }
+
+    .breadcrumb {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 16px 0;
+    }
+    .breadcrumb ol {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0;
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .breadcrumb li + li::before {
+      content: "\203A";
+      margin: 0 8px;
+      opacity: 0.6;
+    }
+    .breadcrumb a {
+      color: var(--link);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    .related-links {
+      margin-top: 32px;
+      padding: 20px 24px;
+      background: rgba(255, 179, 71, 0.06);
+      border: 1px solid rgba(255, 179, 71, 0.2);
+      border-radius: 14px;
+    }
+    .related-links h3 {
+      margin: 0 0 12px;
+      color: var(--accent);
+      font-size: 1.05rem;
+    }
+    .related-links ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .related-links li {
+      margin-bottom: 6px;
+    }
+    .related-links a {
+      color: var(--link);
+    }
   </style>
 </head>
 <body>
@@ -249,7 +309,13 @@
   </header>
 
   <main>
-    <div class="content">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li aria-current="page">Editorial Standards</li>
+      </ol>
+    </nav>
+    <div class="content" style="margin-top: 16px;">
       <h1>Editorial Standards</h1>
       <p class="last-updated">Last updated: January 2025</p>
 
@@ -335,6 +401,17 @@
       <p>
         Questions about our editorial standards or content practices can be directed to <a href="mailto:hello@askbobai.org">hello@askbobai.org</a> or through our <a href="/contact">Contact page</a>.
       </p>
+
+      <div class="related-links">
+        <h3>Explore Our Project Guides</h3>
+        <ul>
+          <li><a href="/chat">Chat with Bob AI — Get Free Project Guidance</a></li>
+          <li><a href="/how-to-plan-a-deck-build">How to Plan a Deck Build</a></li>
+          <li><a href="/how-to-change-brake-pads">How to Change Brake Pads</a></li>
+          <li><a href="/diy-vs-hire-professional">DIY vs Hire a Professional</a></li>
+          <li><a href="/about">About Ask Bob AI</a></li>
+        </ul>
+      </div>
     </div>
   </main>
 
