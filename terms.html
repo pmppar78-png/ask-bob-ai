@@ -10,10 +10,20 @@
     gtag('config', 'G-WD7VL5YE14');
   </script>
   <meta charset="UTF-8" />
-  <title>Terms of Service – Ask Bob AI</title>
+  <title>Terms of Service — Ask Bob AI Usage Agreement & Policies</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Terms of Service for Ask Bob AI. Understand your responsibilities and our policies when using our AI-powered home improvement and auto project guidance service." />
+  <meta name="description" content="Review Ask Bob AI's Terms of Service. Understand your responsibilities and our policies for using our free AI-powered home improvement and auto repair guidance." />
   <link rel="canonical" href="https://askbobai.org/terms" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://askbobai.org/"},
+      {"@type": "ListItem", "position": 2, "name": "Terms of Service"}
+    ]
+  }
+  </script>
   <style>
     :root {
       --bg: #050814;
@@ -199,16 +209,36 @@
     }
 
     @media (max-width: 800px) {
-      .nav-inner {
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      nav ul {
-        flex-wrap: wrap;
-      }
-      .content {
-        padding: 24px 18px;
-      }
+      .nav-inner { flex-wrap: wrap; gap: 10px; }
+      nav ul { flex-wrap: wrap; }
+      .content { padding: 24px 18px; }
+    }
+
+    .breadcrumb {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 16px 0;
+    }
+    .breadcrumb ol {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0;
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .breadcrumb li + li::before {
+      content: "\203A";
+      margin: 0 8px;
+      opacity: 0.6;
+    }
+    .breadcrumb a {
+      color: var(--link);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -235,7 +265,13 @@
   </header>
 
   <main>
-    <div class="content">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li aria-current="page">Terms of Service</li>
+      </ol>
+    </nav>
+    <div class="content" style="margin-top: 16px;">
       <h1>Terms of Service</h1>
       <p class="last-updated">Last updated: January 2025</p>
 
@@ -345,7 +381,10 @@
 
       <h2>Contact Us</h2>
       <p>
-        If you have questions about these Terms of Service, please contact us at <a href="mailto:legal@askbobai.org">legal@askbobai.org</a>.
+        If you have questions about these Terms of Service, please contact us at <a href="mailto:legal@askbobai.org">legal@askbobai.org</a>. To learn more about our approach, visit our <a href="/about">About page</a> and <a href="/editorial-standards">Editorial Standards</a>.
+      </p>
+      <p style="margin-top: 24px;">
+        Ready to start planning your next project? Explore our guides on <a href="/kitchen-renovation-planning">kitchen renovation planning</a>, <a href="/car-maintenance-schedule">car maintenance schedules</a>, and <a href="/essential-tools-for-homeowners">essential tools for homeowners</a>, or <a href="/chat">chat directly with Bob AI</a>.
       </p>
     </div>
   </main>

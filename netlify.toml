@@ -61,6 +61,78 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "/how-to-plan-a-deck-build.html"
+  to = "https://askbobai.org/how-to-plan-a-deck-build"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/how-to-change-brake-pads.html"
+  to = "https://askbobai.org/how-to-change-brake-pads"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/essential-tools-for-homeowners.html"
+  to = "https://askbobai.org/essential-tools-for-homeowners"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/kitchen-renovation-planning.html"
+  to = "https://askbobai.org/kitchen-renovation-planning"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/seasonal-home-maintenance.html"
+  to = "https://askbobai.org/seasonal-home-maintenance"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/car-maintenance-schedule.html"
+  to = "https://askbobai.org/car-maintenance-schedule"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/how-to-change-car-oil.html"
+  to = "https://askbobai.org/how-to-change-car-oil"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/diy-vs-hire-professional.html"
+  to = "https://askbobai.org/diy-vs-hire-professional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/home-electrical-safety-guide.html"
+  to = "https://askbobai.org/home-electrical-safety-guide"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bathroom-remodel-guide.html"
+  to = "https://askbobai.org/bathroom-remodel-guide"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/how-to-paint-a-room.html"
+  to = "https://askbobai.org/how-to-paint-a-room"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/garage-workshop-setup.html"
+  to = "https://askbobai.org/garage-workshop-setup"
+  status = 301
+  force = true
+
 # ── Headers ──────────────────────────────────────────────────────────
 # Security and SEO headers for all pages
 [[headers]]

@@ -10,10 +10,20 @@
     gtag('config', 'G-WD7VL5YE14');
   </script>
   <meta charset="UTF-8" />
-  <title>Privacy Policy – Ask Bob AI</title>
+  <title>Privacy Policy — How Ask Bob AI Protects Your Information</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Learn how Ask Bob AI collects, uses, and protects your information. We're committed to your privacy while providing home improvement and auto project guidance." />
+  <meta name="description" content="Learn how Ask Bob AI collects, uses, and protects your information. We collect minimal data while providing free AI-powered home improvement and auto repair guidance." />
   <link rel="canonical" href="https://askbobai.org/privacy" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://askbobai.org/"},
+      {"@type": "ListItem", "position": 2, "name": "Privacy Policy"}
+    ]
+  }
+  </script>
   <style>
     :root {
       --bg: #050814;
@@ -199,16 +209,36 @@
     }
 
     @media (max-width: 800px) {
-      .nav-inner {
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      nav ul {
-        flex-wrap: wrap;
-      }
-      .content {
-        padding: 24px 18px;
-      }
+      .nav-inner { flex-wrap: wrap; gap: 10px; }
+      nav ul { flex-wrap: wrap; }
+      .content { padding: 24px 18px; }
+    }
+
+    .breadcrumb {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 16px 0;
+    }
+    .breadcrumb ol {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0;
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .breadcrumb li + li::before {
+      content: "\203A";
+      margin: 0 8px;
+      opacity: 0.6;
+    }
+    .breadcrumb a {
+      color: var(--link);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -235,7 +265,13 @@
   </header>
 
   <main>
-    <div class="content">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li aria-current="page">Privacy Policy</li>
+      </ol>
+    </nav>
+    <div class="content" style="margin-top: 16px;">
       <h1>Privacy Policy</h1>
       <p class="last-updated">Last updated: January 2025</p>
 
@@ -334,7 +370,10 @@
 
       <h2>Contact Us</h2>
       <p>
-        If you have questions about this Privacy Policy, please contact us at <a href="mailto:privacy@askbobai.org">privacy@askbobai.org</a>.
+        If you have questions about this Privacy Policy, please contact us at <a href="mailto:privacy@askbobai.org">privacy@askbobai.org</a>. You can also visit our <a href="/about">About page</a> or review our <a href="/editorial-standards">Editorial Standards</a> and <a href="/disclaimer">Disclaimer</a>.
+      </p>
+      <p style="margin-top: 24px;">
+        Looking for project help? Explore our guides on <a href="/how-to-plan-a-deck-build">deck building</a>, <a href="/bathroom-remodel-guide">bathroom remodeling</a>, and <a href="/how-to-change-car-oil">oil changes</a>, or <a href="/chat">chat with Bob AI</a> for personalized guidance.
       </p>
     </div>
   </main>
