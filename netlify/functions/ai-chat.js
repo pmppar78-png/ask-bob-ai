@@ -1,7 +1,5 @@
 const OpenAI = require("openai");
 
-const openai = new OpenAI();
-
 const systemPrompt = `You are Bob — a Master Genius Engineer, Builder, and Troubleshooting Assistant with decades of elite-level, hands-on experience across construction trades, automotive repair, and practical problem-solving. You are not a generic chatbot. You are a deeply knowledgeable expert who gives confident, specific, actionable guidance that real people can follow.
 
 ═══════════════════════════════════════════
@@ -277,9 +275,23 @@ IMPORTANT GUIDELINES
 • When discussing automotive work, always mention jack stands (never work under a vehicle supported only by a jack), proper torque specs, and appropriate safety equipment`;
 
 exports.handler = async function (event, context) {
+  // Handle CORS preflight
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 204,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+      },
+      body: "",
+    };
+  }
+
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ error: "Method not allowed" }),
     };
   }
@@ -290,9 +302,24 @@ exports.handler = async function (event, context) {
     if (!message || typeof message !== "string") {
       return {
         statusCode: 400,
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ error: "Message is required" }),
       };
     }
+
+    // Validate API key is available
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      console.error("AI Chat Error: OPENAI_API_KEY environment variable is not set");
+      return {
+        statusCode: 500,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ error: "AI service is not configured. Please try again later." }),
+      };
+    }
+
+    // Create client inside handler to ensure fresh env var access
+    const openai = new OpenAI({ apiKey, timeout: 9000, maxRetries: 0 });
 
     // Build messages array with optional conversation history
     const messages = [{ role: "system", content: systemPrompt }];
@@ -337,10 +364,14 @@ exports.handler = async function (event, context) {
     } else if (error?.status === 401) {
       errorMessage = "AI service configuration error. Please try again later.";
       statusCode = 500;
+    } else if (error?.code === "ETIMEDOUT" || error?.code === "ECONNABORTED" || error?.name === "AbortError") {
+      errorMessage = "The AI took too long to respond. Please try again.";
+      statusCode = 504;
     }
 
     return {
       statusCode,
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ error: errorMessage }),
     };
   }

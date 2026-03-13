@@ -1070,7 +1070,11 @@
       if (isError) div.classList.add('msg-error');
 
       if (role === 'assistant') {
-        div.innerHTML = renderMarkdown(text);
+        try {
+          div.innerHTML = renderMarkdown(text);
+        } catch (e) {
+          div.textContent = text;
+        }
       } else {
         // Simple rendering for user messages
         const html = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
@@ -1086,6 +1090,9 @@
       const content = userInput.value.trim();
       if (!content) return;
 
+      // Prevent double submission
+      if (sendBtn.disabled) return;
+
       appendMessage(content, 'user');
       conversationHistory.push({ role: 'user', content: content });
       userInput.value = '';
@@ -1100,17 +1107,34 @@
       messagesEl.appendChild(typingEl);
       scrollToBottom();
 
+      // Safety timeout to ensure UI always recovers
+      const safetyTimer = setTimeout(() => {
+        if (sendBtn.disabled) {
+          sendBtn.disabled = false;
+          sendBtn.textContent = 'Send';
+          if (typingEl.parentNode) typingEl.remove();
+          appendMessage('Sorry — the request timed out. Please try again.', 'assistant', true);
+        }
+      }, 30000);
+
+      // Abort controller for fetch timeout
+      const controller = new AbortController();
+      const fetchTimeout = setTimeout(() => controller.abort(), 25000);
+
       try {
         const res = await fetch('/.netlify/functions/ai-chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: content, history: conversationHistory.slice(0, -1) })
+          body: JSON.stringify({ message: content, history: conversationHistory.slice(0, -1) }),
+          signal: controller.signal
         });
+
+        clearTimeout(fetchTimeout);
 
         let data;
         try {
           data = await res.json();
-        } catch {
+        } catch (parseErr) {
           throw new Error('Sorry — I had trouble reaching the AI engine. Please try again in a moment.');
         }
 
@@ -1119,14 +1143,23 @@
         }
 
         const reply = data.reply || 'Sorry, I had trouble understanding that.';
-        typingEl.remove();
+        if (typingEl.parentNode) typingEl.remove();
         appendMessage(reply, 'assistant');
         conversationHistory.push({ role: 'assistant', content: reply });
       } catch (err) {
         console.error(err);
-        typingEl.remove();
-        appendMessage(err.message || 'Sorry — I had trouble reaching the AI engine. Please try again in a moment.', 'assistant', true);
+        clearTimeout(fetchTimeout);
+        if (typingEl.parentNode) typingEl.remove();
+        let errorMsg = 'Sorry — I had trouble reaching the AI engine. Please try again in a moment.';
+        if (err.name === 'AbortError') {
+          errorMsg = 'Sorry — the request took too long. Please try again.';
+        } else if (err.message) {
+          errorMsg = err.message;
+        }
+        appendMessage(errorMsg, 'assistant', true);
       } finally {
+        clearTimeout(safetyTimer);
+        clearTimeout(fetchTimeout);
         sendBtn.disabled = false;
         sendBtn.textContent = 'Send';
         userInput.focus();
