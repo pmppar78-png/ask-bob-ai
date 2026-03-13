@@ -1183,7 +1183,8 @@
       scrollToBottom();
     }
 
-    form?.addEventListener('submit', async (e) => {
+    if (form) {
+      form.addEventListener('submit', async (e) => {
       e.preventDefault();
       if (!userInput || !sendBtn || !messagesEl) return;
       const content = userInput.value.trim();
@@ -1246,25 +1247,30 @@
         sendBtn.textContent = 'Send';
         userInput.focus();
       }
-    });
+      });
+    }
 
     // Auto-resize textarea as user types
-    userInput?.addEventListener('input', function() {
-      this.style.height = 'auto';
-      this.style.height = Math.min(this.scrollHeight, 150) + 'px';
-    });
+    if (userInput) {
+      userInput.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 150) + 'px';
+      });
+    }
 
     // Submit on Enter (without Shift)
-    userInput?.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        if (form && typeof form.requestSubmit === 'function') {
-          form.requestSubmit();
-        } else if (form) {
-          form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+    if (userInput) {
+      userInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          if (form && typeof form.requestSubmit === 'function') {
+            form.requestSubmit();
+          } else if (form) {
+            form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+          }
         }
-      }
-    });
+      });
+    }
   </script>
 </body>
 </html>
