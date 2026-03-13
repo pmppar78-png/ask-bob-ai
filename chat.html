@@ -817,9 +817,9 @@
             Tell me what you're working on — I'll give you the exact tools, materials, steps, and safety warnings you need. Include your experience level and what tools you already own for the most tailored advice.
           </div>
         </div>
-        <form id="chat-form">
+        <form id="chat-form" action="javascript:void(0);" onsubmit="return false;">
           <textarea id="user-input" placeholder="Ask anything — home repair, car diagnostics, tool recommendations, plumbing, electrical, HVAC, painting, appliances..." required></textarea>
-          <button type="submit" class="send" id="send-btn">Send</button>
+          <button type="button" class="send" id="send-btn">Send</button>
         </form>
       </section>
 
@@ -1183,9 +1183,8 @@
       scrollToBottom();
     }
 
-    if (form) {
-      form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    async function handleChatSubmit(e) {
+      if (e) e.preventDefault();
       if (!userInput || !sendBtn || !messagesEl) return;
       const content = userInput.value.trim();
       if (!content) return;
@@ -1247,7 +1246,10 @@
         sendBtn.textContent = 'Send';
         userInput.focus();
       }
-      });
+    }
+
+    if (sendBtn) {
+      sendBtn.addEventListener('click', handleChatSubmit);
     }
 
     // Auto-resize textarea as user types
@@ -1263,11 +1265,7 @@
       userInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && !e.shiftKey) {
           e.preventDefault();
-          if (form && typeof form.requestSubmit === 'function') {
-            form.requestSubmit();
-          } else if (form) {
-            form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
-          }
+          handleChatSubmit(e);
         }
       });
     }
