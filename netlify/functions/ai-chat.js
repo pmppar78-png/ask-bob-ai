@@ -327,16 +327,21 @@ exports.handler = async function (event, context) {
     }
 
     // Create client inside handler to ensure fresh env var access
-    const openai = new OpenAI({ apiKey, timeout: 9000, maxRetries: 0 });
+    const openai = new OpenAI({ apiKey, timeout: 20000, maxRetries: 1 });
 
     // Build messages array with optional conversation history
     const messages = [{ role: "system", content: systemPrompt }];
 
     if (Array.isArray(history)) {
-      // Include up to the last 10 exchanges for context
+      // Include up to the last 10 exchanges (20 messages) for context
       const recentHistory = history.slice(-20);
       for (const entry of recentHistory) {
-        if (entry.role === "user" || entry.role === "assistant") {
+        if (
+          entry &&
+          (entry.role === "user" || entry.role === "assistant") &&
+          entry.content != null &&
+          String(entry.content).trim() !== ""
+        ) {
           messages.push({ role: entry.role, content: String(entry.content).slice(0, 2000) });
         }
       }
@@ -370,7 +375,15 @@ exports.handler = async function (event, context) {
     } else if (error?.status === 401) {
       errorMessage = "AI service configuration error. Please try again later.";
       statusCode = 500;
-    } else if (error?.code === "ETIMEDOUT" || error?.code === "ECONNABORTED" || error?.name === "AbortError") {
+    } else if (
+      error?.code === "ETIMEDOUT" ||
+      error?.code === "ECONNABORTED" ||
+      error?.name === "AbortError" ||
+      error?.name === "APIConnectionTimeoutError" ||
+      error?.name === "APIConnectionError" ||
+      (error?.message && error.message.toLowerCase().includes("timeout")) ||
+      (error?.message && error.message.toLowerCase().includes("timed out"))
+    ) {
       errorMessage = "The AI took too long to respond. Please try again.";
       statusCode = 504;
     }
