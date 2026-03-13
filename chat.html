@@ -145,7 +145,9 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: radial-gradient(circle at top, #020617 0, #020617 40%, #000 100%);
       color: var(--text);
-      min-height: 100vh;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
     }
@@ -305,6 +307,8 @@
     .messages {
       flex: 1;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
       padding: 16px;
       display: flex;
       flex-direction: column;
@@ -684,6 +688,35 @@
       text-decoration: none;
     }
 
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: radial-gradient(circle at top left, rgba(248,250,252,0.06), rgba(15,23,42,0.98));
+      border: 1px solid rgba(148,163,184,0.55);
+      align-self: flex-start;
+      max-width: 80px;
+    }
+
+    .typing-indicator span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--muted);
+      animation: typingDot 1.4s infinite;
+      opacity: 0.4;
+    }
+
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typingDot {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
     @media (max-width: 880px) {
       .help-toggle span {
         display: none;
@@ -924,6 +957,19 @@
     // Conversation history for multi-turn context
     const conversationHistory = [];
 
+    function scrollToBottom() {
+      requestAnimationFrame(() => {
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      });
+    }
+
+    // Keep chat scrolled to bottom on mobile keyboard resize
+    if (typeof visualViewport !== 'undefined') {
+      visualViewport.addEventListener('resize', () => {
+        scrollToBottom();
+      });
+    }
+
     // Help panel toggle functionality
     const helpToggle = document.getElementById('help-toggle');
     const helpPanel = document.getElementById('help-panel');
@@ -1031,7 +1077,7 @@
       }
 
       messagesEl.appendChild(div);
-      messagesEl.scrollTop = messagesEl.scrollHeight;
+      scrollToBottom();
     }
 
     form.addEventListener('submit', async (e) => {
@@ -1043,9 +1089,15 @@
       conversationHistory.push({ role: 'user', content: content });
       userInput.value = '';
       userInput.style.height = 'auto';
-      userInput.focus();
       sendBtn.disabled = true;
       sendBtn.textContent = 'Thinking…';
+
+      // Show typing indicator
+      const typingEl = document.createElement('div');
+      typingEl.classList.add('typing-indicator');
+      typingEl.innerHTML = '<span></span><span></span><span></span>';
+      messagesEl.appendChild(typingEl);
+      scrollToBottom();
 
       try {
         const res = await fetch('/.netlify/functions/ai-chat', {
@@ -1054,20 +1106,29 @@
           body: JSON.stringify({ message: content, history: conversationHistory.slice(0, -1) })
         });
 
-        if (!res.ok) {
-          throw new Error('Request failed with status ' + res.status);
+        let data;
+        try {
+          data = await res.json();
+        } catch {
+          throw new Error('Sorry — I had trouble reaching the AI engine. Please try again in a moment.');
         }
 
-        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || 'Request failed');
+        }
+
         const reply = data.reply || 'Sorry, I had trouble understanding that.';
+        typingEl.remove();
         appendMessage(reply, 'assistant');
         conversationHistory.push({ role: 'assistant', content: reply });
       } catch (err) {
         console.error(err);
-        appendMessage('Sorry — I had trouble reaching the AI engine. Please try again in a moment.', 'assistant', true);
+        typingEl.remove();
+        appendMessage(err.message || 'Sorry — I had trouble reaching the AI engine. Please try again in a moment.', 'assistant', true);
       } finally {
         sendBtn.disabled = false;
         sendBtn.textContent = 'Send';
+        userInput.focus();
       }
     });
 
