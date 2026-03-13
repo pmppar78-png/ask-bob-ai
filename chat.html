@@ -597,6 +597,7 @@
     }
 
     footer {
+      flex-shrink: 0;
       padding: 10px 16px 14px;
       font-size: 0.78rem;
       color: #9ca3af;
@@ -613,80 +614,96 @@
       flex-wrap: wrap;
     }
 
-    /* Below-chat content section */
+    /* Below-chat content section — visually hidden but kept in DOM for SEO */
     .below-chat {
-      background: var(--bg);
-      border-top: 1px solid rgba(30,64,175,0.4);
-      padding: 40px 16px 32px;
-    }
-
-    .below-chat-inner {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .below-chat h2 {
-      font-size: 1.35rem;
-      font-weight: 700;
-      margin: 0 0 16px;
-      line-height: 1.35;
-      color: var(--text);
-    }
-
-    .below-chat p {
-      font-size: 0.95rem;
-      line-height: 1.65;
-      color: var(--muted);
-      margin: 0 0 14px;
-    }
-
-    .below-chat strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .guides-section {
-      margin-top: 28px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(148,163,184,0.2);
-    }
-
-    .guides-section h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin: 0 0 8px;
-      color: var(--text);
-    }
-
-    .guides-section > p {
-      margin: 0 0 14px;
-    }
-
-    .guides-grid {
-      list-style: none;
+      position: absolute;
+      width: 1px;
+      height: 1px;
       padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 10px;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
     }
 
-    .guides-grid li {
-      padding: 12px 14px;
+    /* Collapsible info accordion sections inside chat */
+    .info-accordions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .info-accordion {
+      border: 1px solid rgba(148,163,184,0.2);
       border-radius: 10px;
-      border: 1px solid rgba(148,163,184,0.25);
-      background: rgba(15,23,42,0.6);
-      font-size: 0.92rem;
-      line-height: 1.5;
+      overflow: hidden;
+      background: rgba(15,23,42,0.5);
+    }
+
+    .info-accordion-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
       color: var(--muted);
-      transition: border-color 0.2s ease, background 0.2s ease;
+      transition: background 0.2s ease, color 0.2s ease;
+      -webkit-user-select: none;
+      user-select: none;
+      gap: 8px;
     }
 
-    .guides-grid li:hover {
-      border-color: var(--accent);
-      background: rgba(15,23,42,0.85);
+    .info-accordion-header:hover {
+      background: rgba(30,64,175,0.2);
+      color: var(--text);
     }
 
-    .guides-grid li a {
+    .info-accordion-arrow {
+      transition: transform 0.25s ease;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+      color: var(--muted);
+    }
+
+    .info-accordion.open .info-accordion-arrow {
+      transform: rotate(90deg);
+    }
+
+    .info-accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .info-accordion.open .info-accordion-body {
+      max-height: 600px;
+    }
+
+    .info-accordion-body-inner {
+      padding: 0 14px 12px;
+    }
+
+    .info-accordion-body-inner p {
+      margin: 0 0 8px;
+    }
+
+    .info-accordion-body-inner ul {
+      padding-left: 18px;
+      margin: 4px 0 0;
+    }
+
+    .info-accordion-body-inner li {
+      margin-bottom: 4px;
+    }
+
+    .info-accordion-body-inner a {
       font-weight: 600;
       text-decoration: none;
     }
@@ -758,11 +775,15 @@
         min-width: 70px;
         font-size: 0.9rem;
       }
-      .below-chat {
-        padding: 28px 14px 24px;
+      .info-accordion-header {
+        font-size: 0.82rem;
+        padding: 9px 12px;
       }
-      .below-chat h2 {
-        font-size: 1.15rem;
+      .info-accordion-body {
+        font-size: 0.82rem;
+      }
+      .info-accordion-body-inner {
+        padding: 0 12px 10px;
       }
     }
   </style>
@@ -811,6 +832,72 @@
           </button>
         </div>
         <div id="messages" class="messages">
+          <!-- Collapsible info sections — SEO-relevant content in compact accordions -->
+          <div class="info-accordions">
+            <div class="info-accordion">
+              <div class="info-accordion-header" role="button" tabindex="0" aria-expanded="false">
+                <span>What Can Bob Help With?</span>
+                <span class="info-accordion-arrow">&#9654;</span>
+              </div>
+              <div class="info-accordion-body">
+                <div class="info-accordion-body-inner">
+                  <p>Ask Bob AI is a free, expert-level chat assistant built for anyone tackling a hands-on project or troubleshooting a real-world problem. Bob operates as a <strong>Master Engineer and Troubleshooting Expert</strong> with deep knowledge across every major trade.</p>
+                  <p>Every response includes specific tools and materials, step-by-step plans, safety warnings, and an honest DIY-vs-hire-a-pro assessment.</p>
+                </div>
+              </div>
+            </div>
+            <div class="info-accordion">
+              <div class="info-accordion-header" role="button" tabindex="0" aria-expanded="false">
+                <span>Home Repair &amp; Construction Coverage</span>
+                <span class="info-accordion-arrow">&#9654;</span>
+              </div>
+              <div class="info-accordion-body">
+                <div class="info-accordion-body-inner">
+                  <p>Get expert help with <strong>plumbing</strong>, <strong>electrical</strong>, <strong>HVAC</strong>, <strong>drywall</strong>, <strong>painting</strong>, <strong>roofing</strong>, <strong>carpentry</strong>, and <strong>appliance repair</strong> — including leaky faucets, circuit troubleshooting, furnace diagnostics, patching, cabinet refinishing, shingle repair, framing, and more.</p>
+                </div>
+              </div>
+            </div>
+            <div class="info-accordion">
+              <div class="info-accordion-header" role="button" tabindex="0" aria-expanded="false">
+                <span>Auto Diagnostics &amp; Repair Coverage</span>
+                <span class="info-accordion-arrow">&#9654;</span>
+              </div>
+              <div class="info-accordion-body">
+                <div class="info-accordion-body-inner">
+                  <p>Bob helps with <strong>brake jobs</strong>, <strong>oil changes</strong>, <strong>engine diagnostics</strong>, <strong>OBD-II trouble codes</strong>, <strong>suspension work</strong>, <strong>battery and electrical diagnosis</strong>, <strong>cooling system repair</strong>, and <strong>maintenance schedules</strong> — with specific torque specs, fluid types, and part recommendations.</p>
+                </div>
+              </div>
+            </div>
+            <div class="info-accordion">
+              <div class="info-accordion-header" role="button" tabindex="0" aria-expanded="false">
+                <span>Tools &amp; Materials Guidance</span>
+                <span class="info-accordion-arrow">&#9654;</span>
+              </div>
+              <div class="info-accordion-body">
+                <div class="info-accordion-body-inner">
+                  <p>Bob recommends the <strong>exact tools</strong> for every job — by name, type, and budget level. Whether you need a specific drill bit size, the right type of caulk, proper fastener selection, or a complete starter toolkit, Bob provides precise, actionable recommendations.</p>
+                </div>
+              </div>
+            </div>
+            <div class="info-accordion">
+              <div class="info-accordion-header" role="button" tabindex="0" aria-expanded="false">
+                <span>Explore Our Step-by-Step Guides</span>
+                <span class="info-accordion-arrow">&#9654;</span>
+              </div>
+              <div class="info-accordion-body">
+                <div class="info-accordion-body-inner">
+                  <ul>
+                    <li><a href="/how-to-plan-a-deck-build">How to Plan a Deck Build</a> — Framing, footings, materials, and permits.</li>
+                    <li><a href="/home-electrical-safety-guide">Home Electrical Safety Guide</a> — What every homeowner should know.</li>
+                    <li><a href="/how-to-change-brake-pads">How to Change Brake Pads</a> — First-timer walkthrough with tool lists.</li>
+                    <li><a href="/seasonal-home-maintenance">Seasonal Home Maintenance Checklist</a> — Keep your home in top shape.</li>
+                    <li><a href="/diy-vs-hire-professional">DIY vs. Hire a Professional</a> — Know when to call in help.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="msg system">
             <strong>Bob AI — Master Engineer & Troubleshooter:</strong> Welcome! I'm Bob — a Master Engineer and Troubleshooting Expert with decades of hands-on experience across every trade. I can help you with:<br><br>
             <strong>Home:</strong> Plumbing, electrical, HVAC, drywall, painting, roofing, framing, insulation, appliance repair, and full remodels.<br>
@@ -1262,12 +1349,30 @@
           sendBtn.disabled = false;
           sendBtn.textContent = 'Send';
         }
-        if (userInput) userInput.focus({ preventScroll: true });
+        // On mobile, blur input to dismiss keyboard after sending;
+        // on desktop, keep focus for continuous typing
+        if (userInput) {
+          if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            userInput.blur();
+          } else {
+            userInput.focus({ preventScroll: true });
+          }
+        }
       }
     }
 
     // ── Event delegation on document (survives DOM innerHTML replacement) ──
     document.addEventListener('click', function(e) {
+      // Accordion toggle
+      if (e.target && (e.target.classList.contains('info-accordion-header') || e.target.closest('.info-accordion-header'))) {
+        const header = e.target.closest('.info-accordion-header') || e.target;
+        const accordion = header.parentElement;
+        if (accordion && accordion.classList.contains('info-accordion')) {
+          accordion.classList.toggle('open');
+          header.setAttribute('aria-expanded', accordion.classList.contains('open'));
+        }
+        return;
+      }
       // Send button click
       if (e.target && e.target.id === 'send-btn') {
         handleChatSubmit(e);
@@ -1297,6 +1402,16 @@
 
     // Keyboard events via delegation
     document.addEventListener('keydown', function(e) {
+      // Accordion keyboard toggle (Enter/Space)
+      if (e.target && e.target.classList.contains('info-accordion-header') && (e.key === 'Enter' || e.key === ' ')) {
+        e.preventDefault();
+        const accordion = e.target.parentElement;
+        if (accordion && accordion.classList.contains('info-accordion')) {
+          accordion.classList.toggle('open');
+          e.target.setAttribute('aria-expanded', accordion.classList.contains('open'));
+        }
+        return;
+      }
       // Submit on Enter in chat input
       if (e.target && e.target.id === 'user-input' && e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
