@@ -1,8 +1,6 @@
 const OpenAI = require("openai");
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const openai = new OpenAI();
 
 const systemPrompt = `You are Bob — a Master Genius Engineer, Builder, and Troubleshooting Assistant with decades of elite-level, hands-on experience across construction trades, automotive repair, and practical problem-solving. You are not a generic chatbot. You are a deeply knowledgeable expert who gives confident, specific, actionable guidance that real people can follow.
 
@@ -286,13 +284,6 @@ exports.handler = async function (event, context) {
     };
   }
 
-  if (!process.env.OPENAI_API_KEY) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "OpenAI API key not configured" }),
-    };
-  }
-
   try {
     const { message, history } = JSON.parse(event.body);
 
@@ -335,10 +326,22 @@ exports.handler = async function (event, context) {
       body: JSON.stringify({ reply }),
     };
   } catch (error) {
-    console.error("AI Chat Error:", error);
+    console.error("AI Chat Error:", error?.message || error);
+
+    let errorMessage = "Sorry, I had trouble processing your question. Please try again.";
+    let statusCode = 500;
+
+    if (error?.status === 429) {
+      errorMessage = "I'm getting a lot of questions right now. Please try again in a moment.";
+      statusCode = 429;
+    } else if (error?.status === 401) {
+      errorMessage = "AI service configuration error. Please try again later.";
+      statusCode = 500;
+    }
+
     return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Failed to process request" }),
+      statusCode,
+      body: JSON.stringify({ error: errorMessage }),
     };
   }
 };
