@@ -274,6 +274,13 @@ IMPORTANT GUIDELINES
 • Prioritize safety in every single recommendation — never cut corners on safety
 • When discussing automotive work, always mention jack stands (never work under a vehicle supported only by a jack), proper torque specs, and appropriate safety equipment`;
 
+const jsonHeaders = {
+  "Content-Type": "application/json",
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+};
+
 exports.handler = async function (event, context) {
   // Handle CORS preflight
   if (event.httpMethod === "OPTIONS") {
@@ -291,18 +298,19 @@ exports.handler = async function (event, context) {
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
-      headers: { "Content-Type": "application/json" },
+      headers: jsonHeaders,
       body: JSON.stringify({ error: "Method not allowed" }),
     };
   }
 
   try {
-    const { message, history } = JSON.parse(event.body);
+    const parsedBody = event.body ? JSON.parse(event.body) : {};
+    const { message, history } = parsedBody;
 
     if (!message || typeof message !== "string") {
       return {
         statusCode: 400,
-        headers: { "Content-Type": "application/json" },
+        headers: jsonHeaders,
         body: JSON.stringify({ error: "Message is required" }),
       };
     }
@@ -313,7 +321,7 @@ exports.handler = async function (event, context) {
       console.error("AI Chat Error: OPENAI_API_KEY environment variable is not set");
       return {
         statusCode: 500,
-        headers: { "Content-Type": "application/json" },
+        headers: jsonHeaders,
         body: JSON.stringify({ error: "AI service is not configured. Please try again later." }),
       };
     }
@@ -347,10 +355,8 @@ exports.handler = async function (event, context) {
 
     return {
       statusCode: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ reply }),
+      headers: jsonHeaders,
+      body: JSON.stringify({ reply, response: reply }),
     };
   } catch (error) {
     console.error("AI Chat Error:", error?.message || error);
@@ -371,7 +377,7 @@ exports.handler = async function (event, context) {
 
     return {
       statusCode,
-      headers: { "Content-Type": "application/json" },
+      headers: jsonHeaders,
       body: JSON.stringify({ error: errorMessage }),
     };
   }
