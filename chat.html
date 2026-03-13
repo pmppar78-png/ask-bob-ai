@@ -125,15 +125,17 @@
   </script>
   <style>
     :root {
-      --bg: #020617;
-      --panel: #020617;
-      --card: #020617;
+      --bg: #050814;
+      --bg-alt: #0b1024;
+      --panel: #0f172a;
+      --card: #0f172a;
       --msg-user: #0f172a;
-      --msg-ai: #020617;
+      --msg-ai: #050814;
       --accent: #ffb347;
+      --accent-soft: rgba(255, 179, 71, 0.1);
       --accent-strong: #ff8c00;
-      --border-subtle: rgba(148,163,184,0.4);
-      --text: #f9fafb;
+      --border-subtle: rgba(148,163,184,0.3);
+      --text: #f8fafc;
       --muted: #cbd5f5;
       --link: #38bdf8;
     }
@@ -143,13 +145,8 @@
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #020617 0, #020617 40%, #000 100%);
+      background: radial-gradient(circle at top left, #101936 0, #020617 45%, #000 100%);
       color: var(--text);
-      height: 100dvh;
-      height: var(--app-height, 100dvh);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
     }
 
     a { color: var(--link); }
@@ -157,7 +154,7 @@
     header {
       position: sticky;
       top: 0;
-      z-index: 30;
+      z-index: 40;
       background: linear-gradient(90deg, rgba(15,23,42,0.96), rgba(15,23,42,0.9));
       border-bottom: 1px solid rgba(148,163,184,0.35);
       backdrop-filter: blur(18px);
@@ -225,21 +222,18 @@
     }
 
     main {
-      flex: 1 1 0;
-      display: flex;
-      flex-direction: column;
+      max-width: 100%;
       padding: 0;
-      overflow: hidden;
-      min-height: 0;
     }
 
     .chat-shell {
       width: 100%;
-      flex: 1 1 0;
+      height: calc(100dvh - 120px);
+      height: calc(var(--app-height, 100dvh) - 120px);
+      min-height: 480px;
       display: flex;
       flex-direction: column;
       position: relative;
-      min-height: 0;
     }
 
     .chat-panel {
@@ -248,6 +242,7 @@
       flex-direction: column;
       flex: 1 1 0;
       min-height: 0;
+      overflow: hidden;
     }
 
     .chat-header {
@@ -327,7 +322,7 @@
     }
 
     .msg.user {
-      background: #020617;
+      background: var(--msg-user);
       border: 1px solid rgba(148,163,184,0.6);
       align-self: flex-end;
     }
@@ -442,7 +437,7 @@
       max-height: 150px;
       border-radius: 12px;
       border: 1px solid rgba(148,163,184,0.6);
-      background: #020617;
+      background: var(--bg);
       color: var(--text);
       padding: 12px;
       font-size: 0.95rem;
@@ -598,11 +593,11 @@
 
     footer {
       flex-shrink: 0;
-      padding: 10px 16px 14px;
+      border-top: 1px solid rgba(30,64,175,0.6);
+      background: radial-gradient(circle at top, #020617 0, #02010f 45%, #000 100%);
+      padding: 18px 16px 26px;
       font-size: 0.78rem;
       color: #9ca3af;
-      border-top: 1px solid rgba(30,64,175,0.7);
-      background: #020617;
     }
 
     .footer-inner {
@@ -614,17 +609,77 @@
       flex-wrap: wrap;
     }
 
-    /* Below-chat content section — visually hidden but kept in DOM for SEO */
+    /* Below-chat content section — visible with collapsible SEO content */
     .below-chat {
-      position: absolute;
-      width: 1px;
-      height: 1px;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 16px 48px;
+    }
+
+    .below-chat h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 0 0 16px;
+      line-height: 1.35;
+      color: var(--text);
+    }
+
+    .below-chat p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--muted);
+      margin: 0 0 14px;
+    }
+
+    .below-chat strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .guides-section {
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(148,163,184,0.2);
+    }
+
+    .guides-section h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0 0 8px;
+      color: var(--text);
+    }
+
+    .guides-section > p {
+      margin: 0 0 14px;
+    }
+
+    .guides-grid {
+      list-style: none;
       padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0,0,0,0);
-      white-space: nowrap;
-      border: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .guides-grid li {
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(148,163,184,0.25);
+      background: rgba(15,23,42,0.6);
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: var(--muted);
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .guides-grid li:hover {
+      border-color: var(--accent);
+      background: rgba(15,23,42,0.85);
+    }
+
+    .guides-grid li a {
+      font-weight: 600;
+      text-decoration: none;
     }
 
     /* Collapsible info accordion sections inside chat */
@@ -785,6 +840,12 @@
       .info-accordion-body-inner {
         padding: 0 12px 10px;
       }
+      .below-chat {
+        padding: 24px 14px 36px;
+      }
+      .below-chat h2 {
+        font-size: 1.15rem;
+      }
     }
   </style>
 </head>
@@ -832,72 +893,6 @@
           </button>
         </div>
         <div id="messages" class="messages">
-          <!-- Collapsible info sections — SEO-relevant content in compact accordions -->
-          <div class="info-accordions">
-            <div class="info-accordion">
-              <div class="info-accordion-header" role="button" tabindex="0" aria-expanded="false">
-                <span>What Can Bob Help With?</span>
-                <span class="info-accordion-arrow">&#9654;</span>
-              </div>
-              <div class="info-accordion-body">
-                <div class="info-accordion-body-inner">
-                  <p>Ask Bob AI is a free, expert-level chat assistant built for anyone tackling a hands-on project or troubleshooting a real-world problem. Bob operates as a <strong>Master Engineer and Troubleshooting Expert</strong> with deep knowledge across every major trade.</p>
-                  <p>Every response includes specific tools and materials, step-by-step plans, safety warnings, and an honest DIY-vs-hire-a-pro assessment.</p>
-                </div>
-              </div>
-            </div>
-            <div class="info-accordion">
-              <div class="info-accordion-header" role="button" tabindex="0" aria-expanded="false">
-                <span>Home Repair &amp; Construction Coverage</span>
-                <span class="info-accordion-arrow">&#9654;</span>
-              </div>
-              <div class="info-accordion-body">
-                <div class="info-accordion-body-inner">
-                  <p>Get expert help with <strong>plumbing</strong>, <strong>electrical</strong>, <strong>HVAC</strong>, <strong>drywall</strong>, <strong>painting</strong>, <strong>roofing</strong>, <strong>carpentry</strong>, and <strong>appliance repair</strong> — including leaky faucets, circuit troubleshooting, furnace diagnostics, patching, cabinet refinishing, shingle repair, framing, and more.</p>
-                </div>
-              </div>
-            </div>
-            <div class="info-accordion">
-              <div class="info-accordion-header" role="button" tabindex="0" aria-expanded="false">
-                <span>Auto Diagnostics &amp; Repair Coverage</span>
-                <span class="info-accordion-arrow">&#9654;</span>
-              </div>
-              <div class="info-accordion-body">
-                <div class="info-accordion-body-inner">
-                  <p>Bob helps with <strong>brake jobs</strong>, <strong>oil changes</strong>, <strong>engine diagnostics</strong>, <strong>OBD-II trouble codes</strong>, <strong>suspension work</strong>, <strong>battery and electrical diagnosis</strong>, <strong>cooling system repair</strong>, and <strong>maintenance schedules</strong> — with specific torque specs, fluid types, and part recommendations.</p>
-                </div>
-              </div>
-            </div>
-            <div class="info-accordion">
-              <div class="info-accordion-header" role="button" tabindex="0" aria-expanded="false">
-                <span>Tools &amp; Materials Guidance</span>
-                <span class="info-accordion-arrow">&#9654;</span>
-              </div>
-              <div class="info-accordion-body">
-                <div class="info-accordion-body-inner">
-                  <p>Bob recommends the <strong>exact tools</strong> for every job — by name, type, and budget level. Whether you need a specific drill bit size, the right type of caulk, proper fastener selection, or a complete starter toolkit, Bob provides precise, actionable recommendations.</p>
-                </div>
-              </div>
-            </div>
-            <div class="info-accordion">
-              <div class="info-accordion-header" role="button" tabindex="0" aria-expanded="false">
-                <span>Explore Our Step-by-Step Guides</span>
-                <span class="info-accordion-arrow">&#9654;</span>
-              </div>
-              <div class="info-accordion-body">
-                <div class="info-accordion-body-inner">
-                  <ul>
-                    <li><a href="/how-to-plan-a-deck-build">How to Plan a Deck Build</a> — Framing, footings, materials, and permits.</li>
-                    <li><a href="/home-electrical-safety-guide">Home Electrical Safety Guide</a> — What every homeowner should know.</li>
-                    <li><a href="/how-to-change-brake-pads">How to Change Brake Pads</a> — First-timer walkthrough with tool lists.</li>
-                    <li><a href="/seasonal-home-maintenance">Seasonal Home Maintenance Checklist</a> — Keep your home in top shape.</li>
-                    <li><a href="/diy-vs-hire-professional">DIY vs. Hire a Professional</a> — Know when to call in help.</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <div class="msg system">
             <strong>Bob AI — Master Engineer & Troubleshooter:</strong> Welcome! I'm Bob — a Master Engineer and Troubleshooting Expert with decades of hands-on experience across every trade. I can help you with:<br><br>
             <strong>Home:</strong> Plumbing, electrical, HVAC, drywall, painting, roofing, framing, insulation, appliance repair, and full remodels.<br>
@@ -988,45 +983,71 @@
   <section class="below-chat" aria-label="About Ask Bob AI Chat">
     <div class="below-chat-inner">
       <h2>Your Master AI Engineer for Home Repair, Auto Diagnostics, Tools, and Every Hands-On Project</h2>
-      <p>
-        Ask Bob AI is a free, expert-level chat assistant built for anyone tackling a hands-on project or troubleshooting a real-world problem. Bob operates as a
-        <strong>Master Engineer and Troubleshooting Expert</strong> — with deep knowledge across every major trade and practical skill category.
-      </p>
-      <p>
-        <strong>Home &amp; Construction:</strong> Get expert help with <strong>plumbing</strong> (leaky faucets, running toilets, water heater issues, pipe repair),
-        <strong>electrical</strong> (circuit troubleshooting, outlet replacement, GFCI/AFCI protection, fixture installation),
-        <strong>HVAC</strong> (furnace diagnostics, AC troubleshooting, thermostat wiring, ductwork),
-        <strong>drywall</strong> (patching, taping, mudding, texture matching),
-        <strong>painting</strong> (prep, primer selection, sheen guide, cabinet refinishing),
-        <strong>roofing</strong> (shingle repair, flashing, ice dams, ventilation),
-        <strong>carpentry</strong> (framing, trim work, deck building), and <strong>appliance repair</strong> (refrigerators, washers, dryers, dishwashers, ovens).
-      </p>
-      <p>
-        <strong>Automotive:</strong> Bob helps with <strong>brake jobs</strong>, <strong>oil changes</strong>, <strong>engine diagnostics</strong>,
-        <strong>OBD-II trouble codes</strong>, <strong>suspension work</strong>, <strong>battery and electrical diagnosis</strong>,
-        <strong>cooling system repair</strong>, and <strong>maintenance schedules</strong> — with specific torque specs, fluid types, and part recommendations for your vehicle.
-      </p>
-      <p>
-        <strong>Tools &amp; Materials:</strong> Bob recommends the <strong>exact tools</strong> for every job — by name, type, and budget level. Whether you need
-        a <strong>specific drill bit size</strong>, the right <strong>type of caulk</strong>, proper <strong>fastener selection</strong>, or a complete
-        <strong>starter toolkit</strong>, Bob provides precise, actionable recommendations with links to find them.
-      </p>
-      <p>
-        Just type your question in the chat above. Describe what you're working on, your skill level, and the tools you have available.
-        Bob responds with <strong>specific tools and materials needed</strong>, <strong>numbered step-by-step plans</strong>, <strong>safety warnings</strong>,
-        and an honest <strong>DIY-vs-hire-a-pro assessment</strong> — all drawn from decades of real-world trades knowledge.
-      </p>
 
-      <div class="guides-section">
-        <h3>Explore Our Step-by-Step Guides</h3>
-        <p>Looking for more in-depth project walkthroughs? Start here:</p>
-        <ul class="guides-grid">
-          <li><a href="/how-to-plan-a-deck-build">How to Plan a Deck Build</a> — Framing, footings, materials, and permits explained.</li>
-          <li><a href="/home-electrical-safety-guide">Home Electrical Safety Guide</a> — What every homeowner should know before wiring a room.</li>
-          <li><a href="/how-to-change-brake-pads">How to Change Brake Pads</a> — A first-timer's walkthrough with tool lists and torque specs.</li>
-          <li><a href="/seasonal-home-maintenance">Seasonal Home Maintenance Checklist</a> — Keep your home in top shape year-round.</li>
-          <li><a href="/diy-vs-hire-professional">DIY vs. Hire a Professional</a> — Know when to tackle it yourself and when to call in help.</li>
-        </ul>
+      <div class="info-accordions">
+        <div class="info-accordion">
+          <div class="info-accordion-header" role="button" tabindex="0" aria-expanded="false">
+            <span>What Can Bob Help With?</span>
+            <span class="info-accordion-arrow">&#9654;</span>
+          </div>
+          <div class="info-accordion-body">
+            <div class="info-accordion-body-inner">
+              <p>Ask Bob AI is a free, expert-level chat assistant built for anyone tackling a hands-on project or troubleshooting a real-world problem. Bob operates as a <strong>Master Engineer and Troubleshooting Expert</strong> — with deep knowledge across every major trade and practical skill category.</p>
+              <p>Every response includes specific tools and materials, step-by-step plans, safety warnings, and an honest DIY-vs-hire-a-pro assessment.</p>
+              <p>Just type your question in the chat above. Describe what you're working on, your skill level, and the tools you have available. Bob responds with <strong>specific tools and materials needed</strong>, <strong>numbered step-by-step plans</strong>, <strong>safety warnings</strong>, and an honest <strong>DIY-vs-hire-a-pro assessment</strong> — all drawn from decades of real-world trades knowledge.</p>
+            </div>
+          </div>
+        </div>
+        <div class="info-accordion">
+          <div class="info-accordion-header" role="button" tabindex="0" aria-expanded="false">
+            <span>Home Repair &amp; Construction Coverage</span>
+            <span class="info-accordion-arrow">&#9654;</span>
+          </div>
+          <div class="info-accordion-body">
+            <div class="info-accordion-body-inner">
+              <p>Get expert help with <strong>plumbing</strong> (leaky faucets, running toilets, water heater issues, pipe repair), <strong>electrical</strong> (circuit troubleshooting, outlet replacement, GFCI/AFCI protection, fixture installation), <strong>HVAC</strong> (furnace diagnostics, AC troubleshooting, thermostat wiring, ductwork), <strong>drywall</strong> (patching, taping, mudding, texture matching), <strong>painting</strong> (prep, primer selection, sheen guide, cabinet refinishing), <strong>roofing</strong> (shingle repair, flashing, ice dams, ventilation), <strong>carpentry</strong> (framing, trim work, deck building), and <strong>appliance repair</strong> (refrigerators, washers, dryers, dishwashers, ovens).</p>
+            </div>
+          </div>
+        </div>
+        <div class="info-accordion">
+          <div class="info-accordion-header" role="button" tabindex="0" aria-expanded="false">
+            <span>Auto Diagnostics &amp; Repair Coverage</span>
+            <span class="info-accordion-arrow">&#9654;</span>
+          </div>
+          <div class="info-accordion-body">
+            <div class="info-accordion-body-inner">
+              <p>Bob helps with <strong>brake jobs</strong>, <strong>oil changes</strong>, <strong>engine diagnostics</strong>, <strong>OBD-II trouble codes</strong>, <strong>suspension work</strong>, <strong>battery and electrical diagnosis</strong>, <strong>cooling system repair</strong>, and <strong>maintenance schedules</strong> — with specific torque specs, fluid types, and part recommendations for your vehicle.</p>
+            </div>
+          </div>
+        </div>
+        <div class="info-accordion">
+          <div class="info-accordion-header" role="button" tabindex="0" aria-expanded="false">
+            <span>Tools &amp; Materials Guidance</span>
+            <span class="info-accordion-arrow">&#9654;</span>
+          </div>
+          <div class="info-accordion-body">
+            <div class="info-accordion-body-inner">
+              <p>Bob recommends the <strong>exact tools</strong> for every job — by name, type, and budget level. Whether you need a <strong>specific drill bit size</strong>, the right <strong>type of caulk</strong>, proper <strong>fastener selection</strong>, or a complete <strong>starter toolkit</strong>, Bob provides precise, actionable recommendations with links to find them.</p>
+            </div>
+          </div>
+        </div>
+        <div class="info-accordion">
+          <div class="info-accordion-header" role="button" tabindex="0" aria-expanded="false">
+            <span>Explore Our Step-by-Step Guides</span>
+            <span class="info-accordion-arrow">&#9654;</span>
+          </div>
+          <div class="info-accordion-body">
+            <div class="info-accordion-body-inner">
+              <ul>
+                <li><a href="/how-to-plan-a-deck-build">How to Plan a Deck Build</a> — Framing, footings, materials, and permits explained.</li>
+                <li><a href="/home-electrical-safety-guide">Home Electrical Safety Guide</a> — What every homeowner should know before wiring a room.</li>
+                <li><a href="/how-to-change-brake-pads">How to Change Brake Pads</a> — A first-timer's walkthrough with tool lists and torque specs.</li>
+                <li><a href="/seasonal-home-maintenance">Seasonal Home Maintenance Checklist</a> — Keep your home in top shape year-round.</li>
+                <li><a href="/diy-vs-hire-professional">DIY vs. Hire a Professional</a> — Know when to tackle it yourself and when to call in help.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
