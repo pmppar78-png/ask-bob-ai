@@ -950,15 +950,23 @@
   </footer>
 
   <script>
-    const form = document.getElementById('chat-form');
-    const userInput = document.getElementById('user-input');
-    const messagesEl = document.getElementById('messages');
-    const sendBtn = document.getElementById('send-btn');
+    // Use let so references can be refreshed if the DOM is rebuilt
+    // (e.g. by external scripts that replace document.body.innerHTML)
+    let form, userInput, messagesEl, sendBtn;
+
+    function querychatElements() {
+      form = document.getElementById('chat-form');
+      userInput = document.getElementById('user-input');
+      messagesEl = document.getElementById('messages');
+      sendBtn = document.getElementById('send-btn');
+    }
+    querychatElements();
 
     // Conversation history for multi-turn context
     const conversationHistory = [];
 
     function scrollToBottom() {
+      if (!messagesEl) messagesEl = document.getElementById('messages');
       if (!messagesEl) return;
       requestAnimationFrame(() => {
         messagesEl.scrollTop = messagesEl.scrollHeight;
@@ -973,43 +981,24 @@
     }
 
     // Help panel toggle functionality
-    const helpToggle = document.getElementById('help-toggle');
-    const helpPanel = document.getElementById('help-panel');
-    const helpClose = document.getElementById('help-close');
-    const helpOverlay = document.getElementById('help-overlay');
-
     function openHelpPanel() {
-      if (!helpPanel || !helpOverlay || !helpToggle) return;
-      helpPanel.classList.add('open');
-      helpOverlay.classList.add('visible');
-      helpToggle.classList.add('active');
+      const hp = document.getElementById('help-panel');
+      const ho = document.getElementById('help-overlay');
+      const ht = document.getElementById('help-toggle');
+      if (!hp || !ho || !ht) return;
+      hp.classList.add('open');
+      ho.classList.add('visible');
+      ht.classList.add('active');
     }
 
     function closeHelpPanel() {
-      if (!helpPanel || !helpOverlay || !helpToggle) return;
-      helpPanel.classList.remove('open');
-      helpOverlay.classList.remove('visible');
-      helpToggle.classList.remove('active');
-    }
-
-    if (helpToggle && helpPanel && helpClose && helpOverlay) {
-      helpToggle.addEventListener('click', () => {
-        if (helpPanel.classList.contains('open')) {
-          closeHelpPanel();
-        } else {
-          openHelpPanel();
-        }
-      });
-
-      helpClose.addEventListener('click', closeHelpPanel);
-      helpOverlay.addEventListener('click', closeHelpPanel);
-
-      // Close help panel on Escape key
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && helpPanel.classList.contains('open')) {
-          closeHelpPanel();
-        }
-      });
+      const hp = document.getElementById('help-panel');
+      const ho = document.getElementById('help-overlay');
+      const ht = document.getElementById('help-toggle');
+      if (!hp || !ho || !ht) return;
+      hp.classList.remove('open');
+      ho.classList.remove('visible');
+      ht.classList.remove('active');
     }
 
     function renderInlineMarkdown(text) {
@@ -1159,6 +1148,7 @@
     }
 
     function appendMessage(text, role, isError) {
+      if (!messagesEl) messagesEl = document.getElementById('messages');
       if (!messagesEl) return;
       const div = document.createElement('div');
       div.classList.add('msg');
@@ -1185,6 +1175,8 @@
 
     async function handleChatSubmit(e) {
       if (e) e.preventDefault();
+      // Always re-query elements in case DOM was rebuilt
+      querychatElements();
       if (!userInput || !sendBtn || !messagesEl) return;
       const content = userInput.value.trim();
       if (!content) return;
@@ -1208,7 +1200,8 @@
 
       // Safety timeout to ensure UI always recovers
       const safetyTimer = setTimeout(() => {
-        if (sendBtn.disabled) {
+        querychatElements();
+        if (sendBtn && sendBtn.disabled) {
           sendBtn.disabled = false;
           sendBtn.textContent = 'Send';
           if (typingEl.parentNode) typingEl.remove();
@@ -1242,33 +1235,69 @@
       } finally {
         clearTimeout(safetyTimer);
         if (fetchTimeout) clearTimeout(fetchTimeout);
-        sendBtn.disabled = false;
-        sendBtn.textContent = 'Send';
-        userInput.focus();
+        // Re-query in case DOM was rebuilt during the await
+        querychatElements();
+        if (sendBtn) {
+          sendBtn.disabled = false;
+          sendBtn.textContent = 'Send';
+        }
+        if (userInput) userInput.focus();
       }
     }
 
-    if (sendBtn) {
-      sendBtn.addEventListener('click', handleChatSubmit);
-    }
-
-    // Auto-resize textarea as user types
-    if (userInput) {
-      userInput.addEventListener('input', function() {
-        this.style.height = 'auto';
-        this.style.height = Math.min(this.scrollHeight, 150) + 'px';
-      });
-    }
-
-    // Submit on Enter (without Shift)
-    if (userInput) {
-      userInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-          e.preventDefault();
-          handleChatSubmit(e);
+    // ── Event delegation on document (survives DOM innerHTML replacement) ──
+    document.addEventListener('click', function(e) {
+      // Send button click
+      if (e.target && e.target.id === 'send-btn') {
+        handleChatSubmit(e);
+        return;
+      }
+      // Help toggle
+      if (e.target && (e.target.id === 'help-toggle' || e.target.closest('#help-toggle'))) {
+        const hp = document.getElementById('help-panel');
+        if (hp && hp.classList.contains('open')) {
+          closeHelpPanel();
+        } else {
+          openHelpPanel();
         }
-      });
-    }
+        return;
+      }
+      // Help close button
+      if (e.target && (e.target.id === 'help-close' || e.target.closest('#help-close'))) {
+        closeHelpPanel();
+        return;
+      }
+      // Help overlay
+      if (e.target && e.target.id === 'help-overlay') {
+        closeHelpPanel();
+        return;
+      }
+    });
+
+    // Keyboard events via delegation
+    document.addEventListener('keydown', function(e) {
+      // Submit on Enter in chat input
+      if (e.target && e.target.id === 'user-input' && e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleChatSubmit(e);
+        return;
+      }
+      // Close help panel on Escape
+      if (e.key === 'Escape') {
+        const hp = document.getElementById('help-panel');
+        if (hp && hp.classList.contains('open')) {
+          closeHelpPanel();
+        }
+      }
+    });
+
+    // Auto-resize textarea via delegation
+    document.addEventListener('input', function(e) {
+      if (e.target && e.target.id === 'user-input') {
+        e.target.style.height = 'auto';
+        e.target.style.height = Math.min(e.target.scrollHeight, 150) + 'px';
+      }
+    });
   </script>
 </body>
 </html>
