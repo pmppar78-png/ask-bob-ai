@@ -1075,6 +1075,28 @@
     // Conversation history for multi-turn context
     const conversationHistory = [];
 
+    // ── Scroll-intent tracking ──
+    // Track whether the user has manually scrolled away from the bottom.
+    // When true, auto-scroll is suppressed so the user can read freely.
+    let userScrolledUp = false;
+
+    function isNearBottom() {
+      if (!messagesEl) return true;
+      const threshold = 80; // px tolerance
+      return messagesEl.scrollHeight - messagesEl.scrollTop - messagesEl.clientHeight < threshold;
+    }
+
+    // Attach scroll listener to the messages container so we can detect
+    // when the user intentionally scrolls upward to read older content.
+    function setupScrollTracking() {
+      if (!messagesEl) messagesEl = document.getElementById('messages');
+      if (!messagesEl) return;
+      messagesEl.addEventListener('scroll', function () {
+        userScrolledUp = !isNearBottom();
+      }, { passive: true });
+    }
+    setupScrollTracking();
+
     // ── Mobile viewport height fix ──
     // On mobile, 100dvh can lag behind the visual viewport when the
     // keyboard opens/closes.  We track the real height via a CSS variable.
@@ -1084,19 +1106,25 @@
     }
     updateAppHeight();
 
-    function scrollToBottom() {
+    // @param {boolean} force – When true (new message added), always scroll.
+    //   When false/omitted, only scroll if user hasn't scrolled up.
+    function scrollToBottom(force) {
       if (!messagesEl) messagesEl = document.getElementById('messages');
       if (!messagesEl) return;
+      if (!force && userScrolledUp) return;       // respect user reading
       requestAnimationFrame(() => {
         messagesEl.scrollTop = messagesEl.scrollHeight;
+        userScrolledUp = false;
       });
     }
 
-    // Keep chat scrolled to bottom on mobile keyboard resize
+    // Keep viewport height accurate on mobile keyboard resize.
+    // Only auto-scroll if the user is already near the bottom – do NOT
+    // yank the viewport away from content the user is reading.
     if (window.visualViewport) {
       window.visualViewport.addEventListener('resize', () => {
         updateAppHeight();
-        scrollToBottom();
+        scrollToBottom(false);  // non-forced: respects userScrolledUp
       });
       window.visualViewport.addEventListener('scroll', () => {
         updateAppHeight();
@@ -1294,7 +1322,7 @@
       }
 
       messagesEl.appendChild(div);
-      scrollToBottom();
+      scrollToBottom(true);   // force-scroll: new message just arrived
     }
 
     async function handleChatSubmit(e) {
@@ -1308,6 +1336,9 @@
       // Prevent double submission
       if (sendBtn.disabled) return;
 
+      // Reset scroll intent — user just sent a message, bring them to bottom
+      userScrolledUp = false;
+
       appendMessage(content, 'user');
       conversationHistory.push({ role: 'user', content: content });
       userInput.value = '';
@@ -1320,17 +1351,33 @@
       typingEl.classList.add('typing-indicator');
       typingEl.innerHTML = '<span></span><span></span><span></span>';
       messagesEl.appendChild(typingEl);
-      scrollToBottom();
+      scrollToBottom(true);   // force-scroll: user just sent a message
+
+      // Guard flag: ensures only one code-path (safety timer OR fetch
+      // completion) handles the response.  Prevents the race where the
+      // safety timer fires AND the fetch later resolves, leading to
+      // duplicate messages or a stuck UI.
+      let requestHandled = false;
+
+      function cleanupUI() {
+        querychatElements();
+        if (typingEl.parentNode) typingEl.remove();
+        if (sendBtn) {
+          sendBtn.disabled = false;
+          sendBtn.textContent = 'Send';
+        }
+      }
 
       // Safety timeout to ensure UI always recovers
       const safetyTimer = setTimeout(() => {
-        querychatElements();
-        if (sendBtn && sendBtn.disabled) {
-          sendBtn.disabled = false;
-          sendBtn.textContent = 'Send';
-          if (typingEl.parentNode) typingEl.remove();
-          appendMessage('Sorry — the request timed out. Please try again.', 'assistant', true);
+        if (requestHandled) return;   // fetch already handled it
+        requestHandled = true;
+        cleanupUI();
+        // Remove orphaned user entry from history
+        if (conversationHistory.length && conversationHistory[conversationHistory.length - 1].role === 'user') {
+          conversationHistory.pop();
         }
+        appendMessage('Sorry — the request timed out. Please try again.', 'assistant', true);
       }, 30000);
 
       // Abort controller for fetch timeout
@@ -1342,13 +1389,20 @@
           { message: content, history: conversationHistory.slice(0, -1) },
           controller ? controller.signal : null
         );
-        if (typingEl.parentNode) typingEl.remove();
+        if (requestHandled) return;   // safety timer already fired; discard late reply
+        requestHandled = true;
+        cleanupUI();
+        clearTimeout(safetyTimer);
+        if (fetchTimeout) clearTimeout(fetchTimeout);
         appendMessage(reply, 'assistant');
         conversationHistory.push({ role: 'assistant', content: reply });
       } catch (err) {
+        if (requestHandled) return;   // safety timer already fired
+        requestHandled = true;
         console.error(err);
+        cleanupUI();
+        clearTimeout(safetyTimer);
         if (fetchTimeout) clearTimeout(fetchTimeout);
-        if (typingEl.parentNode) typingEl.remove();
         // Remove the user message from history since the exchange failed,
         // preventing orphaned user entries that corrupt subsequent requests
         if (conversationHistory.length && conversationHistory[conversationHistory.length - 1].role === 'user') {
@@ -1362,11 +1416,11 @@
         }
         appendMessage(errorMsg, 'assistant', true);
       } finally {
+        // Belt-and-suspenders: ensure button is always re-enabled
         clearTimeout(safetyTimer);
         if (fetchTimeout) clearTimeout(fetchTimeout);
-        // Re-query in case DOM was rebuilt during the await
         querychatElements();
-        if (sendBtn) {
+        if (sendBtn && sendBtn.disabled) {
           sendBtn.disabled = false;
           sendBtn.textContent = 'Send';
         }
