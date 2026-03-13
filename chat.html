@@ -959,6 +959,7 @@
     const conversationHistory = [];
 
     function scrollToBottom() {
+      if (!messagesEl) return;
       requestAnimationFrame(() => {
         messagesEl.scrollTop = messagesEl.scrollHeight;
       });
@@ -978,34 +979,38 @@
     const helpOverlay = document.getElementById('help-overlay');
 
     function openHelpPanel() {
+      if (!helpPanel || !helpOverlay || !helpToggle) return;
       helpPanel.classList.add('open');
       helpOverlay.classList.add('visible');
       helpToggle.classList.add('active');
     }
 
     function closeHelpPanel() {
+      if (!helpPanel || !helpOverlay || !helpToggle) return;
       helpPanel.classList.remove('open');
       helpOverlay.classList.remove('visible');
       helpToggle.classList.remove('active');
     }
 
-    helpToggle.addEventListener('click', () => {
-      if (helpPanel.classList.contains('open')) {
-        closeHelpPanel();
-      } else {
-        openHelpPanel();
-      }
-    });
+    if (helpToggle && helpPanel && helpClose && helpOverlay) {
+      helpToggle.addEventListener('click', () => {
+        if (helpPanel.classList.contains('open')) {
+          closeHelpPanel();
+        } else {
+          openHelpPanel();
+        }
+      });
 
-    helpClose.addEventListener('click', closeHelpPanel);
-    helpOverlay.addEventListener('click', closeHelpPanel);
+      helpClose.addEventListener('click', closeHelpPanel);
+      helpOverlay.addEventListener('click', closeHelpPanel);
 
-    // Close help panel on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && helpPanel.classList.contains('open')) {
-        closeHelpPanel();
-      }
-    });
+      // Close help panel on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && helpPanel.classList.contains('open')) {
+          closeHelpPanel();
+        }
+      });
+    }
 
     function renderInlineMarkdown(text) {
       let html = text
@@ -1154,6 +1159,7 @@
     }
 
     function appendMessage(text, role, isError) {
+      if (!messagesEl) return;
       const div = document.createElement('div');
       div.classList.add('msg');
       if (role === 'user') div.classList.add('user');
@@ -1177,8 +1183,9 @@
       scrollToBottom();
     }
 
-    form.addEventListener('submit', async (e) => {
+    form?.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (!userInput || !sendBtn || !messagesEl) return;
       const content = userInput.value.trim();
       if (!content) return;
 
@@ -1242,18 +1249,18 @@
     });
 
     // Auto-resize textarea as user types
-    userInput.addEventListener('input', function() {
+    userInput?.addEventListener('input', function() {
       this.style.height = 'auto';
       this.style.height = Math.min(this.scrollHeight, 150) + 'px';
     });
 
     // Submit on Enter (without Shift)
-    userInput.addEventListener('keydown', function(e) {
+    userInput?.addEventListener('keydown', function(e) {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
-        if (typeof form.requestSubmit === 'function') {
+        if (form && typeof form.requestSubmit === 'function') {
           form.requestSubmit();
-        } else {
+        } else if (form) {
           form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
         }
       }
