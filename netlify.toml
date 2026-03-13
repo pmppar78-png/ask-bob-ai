@@ -5,6 +5,9 @@
 [functions]
   node_bundler = "esbuild"
 
+[functions."ai-chat"]
+  external_node_modules = ["openai"]
+
 [[redirects]]
   from = "/api/ai-chat"
   to = "/.netlify/functions/ai-chat"

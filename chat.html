@@ -1225,6 +1225,11 @@
         console.error(err);
         if (fetchTimeout) clearTimeout(fetchTimeout);
         if (typingEl.parentNode) typingEl.remove();
+        // Remove the user message from history since the exchange failed,
+        // preventing orphaned user entries that corrupt subsequent requests
+        if (conversationHistory.length && conversationHistory[conversationHistory.length - 1].role === 'user') {
+          conversationHistory.pop();
+        }
         let errorMsg = 'Sorry — I had trouble reaching the AI engine. Please try again in a moment.';
         if (err.name === 'AbortError') {
           errorMsg = 'Sorry — the request took too long. Please try again.';
