@@ -5,6 +5,12 @@
 [functions]
   node_bundler = "esbuild"
 
+[[redirects]]
+  from = "/api/ai-chat"
+  to = "/.netlify/functions/ai-chat"
+  status = 200
+  force = true
+
 # ── Domain canonicalization ──────────────────────────────────────────
 # Force all www traffic to the bare domain in a single hop.
 # Netlify handles this at the infrastructure level for the primary domain,
