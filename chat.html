@@ -1080,6 +1080,10 @@
     // When true, auto-scroll is suppressed so the user can read freely.
     let userScrolledUp = false;
 
+    // Track whether the assistant is actively generating a response.
+    // Auto-scroll from viewport events is ONLY allowed while this is true.
+    let isAssistantResponding = false;
+
     function isNearBottom() {
       if (!messagesEl) return true;
       const threshold = 80; // px tolerance
@@ -1106,25 +1110,25 @@
     }
     updateAppHeight();
 
-    // @param {boolean} force – When true (new message added), always scroll.
-    //   When false/omitted, only scroll if user hasn't scrolled up.
-    function scrollToBottom(force) {
+    // Auto-scroll to bottom of messages container.
+    // NEVER overrides user scroll intent — if the user scrolled up, this is a no-op.
+    function scrollToBottom() {
       if (!messagesEl) messagesEl = document.getElementById('messages');
       if (!messagesEl) return;
-      if (!force && userScrolledUp) return;       // respect user reading
+      if (userScrolledUp) return;                 // always respect user reading
       requestAnimationFrame(() => {
         messagesEl.scrollTop = messagesEl.scrollHeight;
-        userScrolledUp = false;
       });
     }
 
     // Keep viewport height accurate on mobile keyboard resize.
-    // Only auto-scroll if the user is already near the bottom – do NOT
-    // yank the viewport away from content the user is reading.
+    // Only auto-scroll during active assistant response AND only if
+    // the user hasn't scrolled away. Once the response is complete,
+    // viewport events NEVER trigger scroll.
     if (window.visualViewport) {
       window.visualViewport.addEventListener('resize', () => {
         updateAppHeight();
-        scrollToBottom(false);  // non-forced: respects userScrolledUp
+        if (isAssistantResponding) scrollToBottom();
       });
       window.visualViewport.addEventListener('scroll', () => {
         updateAppHeight();
@@ -1322,7 +1326,7 @@
       }
 
       messagesEl.appendChild(div);
-      scrollToBottom(true);   // force-scroll: new message just arrived
+      scrollToBottom();   // scroll only if user hasn't scrolled up
     }
 
     async function handleChatSubmit(e) {
@@ -1338,6 +1342,7 @@
 
       // Reset scroll intent — user just sent a message, bring them to bottom
       userScrolledUp = false;
+      isAssistantResponding = true;
 
       appendMessage(content, 'user');
       conversationHistory.push({ role: 'user', content: content });
@@ -1351,7 +1356,7 @@
       typingEl.classList.add('typing-indicator');
       typingEl.innerHTML = '<span></span><span></span><span></span>';
       messagesEl.appendChild(typingEl);
-      scrollToBottom(true);   // force-scroll: user just sent a message
+      scrollToBottom();   // scroll to show typing indicator (respects user intent)
 
       // Guard flag: ensures only one code-path (safety timer OR fetch
       // completion) handles the response.  Prevents the race where the
@@ -1372,6 +1377,7 @@
       const safetyTimer = setTimeout(() => {
         if (requestHandled) return;   // fetch already handled it
         requestHandled = true;
+        isAssistantResponding = false;
         cleanupUI();
         // Remove orphaned user entry from history
         if (conversationHistory.length && conversationHistory[conversationHistory.length - 1].role === 'user') {
@@ -1396,6 +1402,7 @@
         if (fetchTimeout) clearTimeout(fetchTimeout);
         appendMessage(reply, 'assistant');
         conversationHistory.push({ role: 'assistant', content: reply });
+        isAssistantResponding = false;   // response complete — stop all auto-scroll
       } catch (err) {
         if (requestHandled) return;   // safety timer already fired
         requestHandled = true;
@@ -1416,6 +1423,8 @@
         }
         appendMessage(errorMsg, 'assistant', true);
       } finally {
+        // Response cycle complete — ensure auto-scroll is disabled
+        isAssistantResponding = false;
         // Belt-and-suspenders: ensure button is always re-enabled
         clearTimeout(safetyTimer);
         if (fetchTimeout) clearTimeout(fetchTimeout);
