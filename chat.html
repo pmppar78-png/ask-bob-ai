@@ -145,9 +145,9 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: radial-gradient(circle at top, #020617 0, #020617 40%, #000 100%);
       color: var(--text);
-      min-height: 100vh;
-      min-height: 100dvh;
-      overflow-x: hidden;
+      height: 100dvh;
+      height: var(--app-height, 100dvh);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
     }
@@ -225,27 +225,28 @@
     }
 
     main {
-      flex: 1 0 auto;
+      flex: 1 1 0;
       display: flex;
       flex-direction: column;
       padding: 0;
       overflow: hidden;
-      min-height: calc(100dvh - 120px);
+      min-height: 0;
     }
 
     .chat-shell {
       width: 100%;
-      height: 100%;
+      flex: 1 1 0;
       display: flex;
       flex-direction: column;
       position: relative;
+      min-height: 0;
     }
 
     .chat-panel {
       background: rgba(15,23,42,0.98);
       display: flex;
       flex-direction: column;
-      flex: 1;
+      flex: 1 1 0;
       min-height: 0;
     }
 
@@ -306,10 +307,10 @@
     }
 
     .messages {
-      flex: 1;
+      flex: 1 1 0;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      scroll-behavior: smooth;
+      overscroll-behavior: contain;
       padding: 16px;
       display: flex;
       flex-direction: column;
@@ -425,6 +426,7 @@
     }
 
     form {
+      flex-shrink: 0;
       padding: 12px 16px 16px;
       border-top: 1px solid rgba(30,64,175,0.5);
       display: flex;
@@ -965,6 +967,15 @@
     // Conversation history for multi-turn context
     const conversationHistory = [];
 
+    // ── Mobile viewport height fix ──
+    // On mobile, 100dvh can lag behind the visual viewport when the
+    // keyboard opens/closes.  We track the real height via a CSS variable.
+    function updateAppHeight() {
+      const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+      document.documentElement.style.setProperty('--app-height', h + 'px');
+    }
+    updateAppHeight();
+
     function scrollToBottom() {
       if (!messagesEl) messagesEl = document.getElementById('messages');
       if (!messagesEl) return;
@@ -974,11 +985,16 @@
     }
 
     // Keep chat scrolled to bottom on mobile keyboard resize
-    if (typeof visualViewport !== 'undefined') {
-      visualViewport.addEventListener('resize', () => {
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', () => {
+        updateAppHeight();
         scrollToBottom();
       });
+      window.visualViewport.addEventListener('scroll', () => {
+        updateAppHeight();
+      });
     }
+    window.addEventListener('resize', updateAppHeight);
 
     // Help panel toggle functionality
     function openHelpPanel() {
@@ -1246,7 +1262,7 @@
           sendBtn.disabled = false;
           sendBtn.textContent = 'Send';
         }
-        if (userInput) userInput.focus();
+        if (userInput) userInput.focus({ preventScroll: true });
       }
     }
 
