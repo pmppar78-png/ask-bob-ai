@@ -15,9 +15,20 @@
   force = true
 
 # ── Domain canonicalization ──────────────────────────────────────────
-# Force all www traffic to the bare domain in a single hop.
-# Netlify handles this at the infrastructure level for the primary domain,
-# but explicit rules ensure correct behavior for any edge cases.
+# The canonical-enforcer edge function handles:
+#   • non-canonical hostnames → 301 to askbobai.org
+#   • trailing-slash stripping  → 301 /page/ → /page
+#   • HTTP Link rel=canonical header on every response
+#
+# The redirect rules below are belt-and-suspenders fallbacks that fire
+# when the edge function is bypassed (e.g. on error).
+
+# Trailing-slash → no-trailing-slash (fallback for edge function)
+[[redirects]]
+  from = "/:path/"
+  to = "https://askbobai.org/:path"
+  status = 301
+  force = true
 
 # ── Pretty-URL redirects (.html → clean path) ───────────────────────
 # Each rule uses the full canonical URL so the browser reaches the
