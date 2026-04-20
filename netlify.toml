@@ -8,6 +8,7 @@
 [functions."ai-chat"]
   external_node_modules = ["openai"]
 
+# ── AI chat function proxy (keep force=true so real files can't shadow it)
 [[redirects]]
   from = "/api/ai-chat"
   to = "/.netlify/functions/ai-chat"
@@ -20,138 +21,18 @@
 #   • trailing-slash stripping  → 301 /page/ → /page
 #   • HTTP Link rel=canonical header on every response
 #
-# The redirect rules below are belt-and-suspenders fallbacks that fire
-# when the edge function is bypassed (e.g. on error).
-
-# Trailing-slash → no-trailing-slash (fallback for edge function)
-[[redirects]]
-  from = "/:path/"
-  to = "https://askbobai.org/:path"
-  status = 301
-  force = true
-
-# ── Pretty-URL redirects (.html → clean path) ───────────────────────
-# Each rule uses the full canonical URL so the browser reaches the
-# final destination in exactly one hop from askbobai.org.
-[[redirects]]
-  from = "/index.html"
-  to = "https://askbobai.org/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/chat.html"
-  to = "https://askbobai.org/chat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/about.html"
-  to = "https://askbobai.org/about"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/contact.html"
-  to = "https://askbobai.org/contact"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/privacy.html"
-  to = "https://askbobai.org/privacy"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/terms.html"
-  to = "https://askbobai.org/terms"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/disclaimer.html"
-  to = "https://askbobai.org/disclaimer"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/editorial-standards.html"
-  to = "https://askbobai.org/editorial-standards"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/how-to-plan-a-deck-build.html"
-  to = "https://askbobai.org/how-to-plan-a-deck-build"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/how-to-change-brake-pads.html"
-  to = "https://askbobai.org/how-to-change-brake-pads"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/essential-tools-for-homeowners.html"
-  to = "https://askbobai.org/essential-tools-for-homeowners"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/kitchen-renovation-planning.html"
-  to = "https://askbobai.org/kitchen-renovation-planning"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/seasonal-home-maintenance.html"
-  to = "https://askbobai.org/seasonal-home-maintenance"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/car-maintenance-schedule.html"
-  to = "https://askbobai.org/car-maintenance-schedule"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/how-to-change-car-oil.html"
-  to = "https://askbobai.org/how-to-change-car-oil"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/diy-vs-hire-professional.html"
-  to = "https://askbobai.org/diy-vs-hire-professional"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/home-electrical-safety-guide.html"
-  to = "https://askbobai.org/home-electrical-safety-guide"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/bathroom-remodel-guide.html"
-  to = "https://askbobai.org/bathroom-remodel-guide"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/how-to-paint-a-room.html"
-  to = "https://askbobai.org/how-to-paint-a-room"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/garage-workshop-setup.html"
-  to = "https://askbobai.org/garage-workshop-setup"
-  status = 301
-  force = true
+# NOTE: the previous explicit ".html → pretty" [[redirects]] rules with
+# force=true were REMOVED. They collided with Netlify's built-in
+# `pretty_urls = true` processing: pretty_urls internally maps /chat to
+# chat.html on disk, but the forced /chat.html redirect hijacked that
+# lookup and issued a 301 back to /chat — producing an infinite
+# self-redirect loop that blocked Google from indexing every non-root
+# page. `pretty_urls = true` natively performs /chat.html → /chat (301)
+# and /chat → chat.html (200) without help.
+#
+# The previous "/:path/ → /:path" trailing-slash rule was also REMOVED;
+# the canonical-enforcer edge function already strips trailing slashes
+# and pretty_urls redirects /chat/ → /chat on its own.
 
 # ── Headers ──────────────────────────────────────────────────────────
 # Security and SEO headers for all pages
