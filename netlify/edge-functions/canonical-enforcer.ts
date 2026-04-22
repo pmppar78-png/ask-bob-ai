@@ -6,9 +6,22 @@ const CANONICAL_ORIGIN = `https://${CANONICAL_HOST}`;
 export default async (req: Request, context: Context) => {
   const url = new URL(req.url);
 
-  // Let .html paths fall through so netlify.toml 301 redirects handle them
-  if (url.pathname.endsWith(".html")) {
-    return;
+  // 0) Strip .html extension → 301 to pretty URL (except bare /index.html)
+  //    Google has discovered .html URL variants; canonicalize them
+  //    aggressively to the pretty form so duplicate-signal noise clears.
+  if (url.pathname.endsWith(".html") && url.pathname !== "/index.html") {
+    const pretty = url.pathname.replace(/\.html$/, "");
+    const targetHost = url.hostname === CANONICAL_HOST ? CANONICAL_ORIGIN : CANONICAL_ORIGIN;
+    return new Response(null, {
+      status: 301,
+      headers: { Location: `${targetHost}${pretty}${url.search}` },
+    });
+  }
+  if (url.pathname === "/index.html") {
+    return new Response(null, {
+      status: 301,
+      headers: { Location: `${CANONICAL_ORIGIN}/${url.search}` },
+    });
   }
 
   // 1) Non-canonical hostname → 301 redirect to canonical domain
