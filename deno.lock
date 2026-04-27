@@ -11,7 +11,10 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
-        "npm:openai@4"
+        "npm:@netlify/edge-functions@^3.0.6",
+        "npm:jsdom@^28.1.0",
+        "npm:openai@4",
+        "npm:puppeteer@^24.39.0"
       ]
     }
   }

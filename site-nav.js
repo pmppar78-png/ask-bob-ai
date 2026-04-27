@@ -1,22 +1,26 @@
 /* AskBobAI shared mobile-nav enhancement.
    Injects a hamburger toggle into the existing primary <nav> at <=800px.
-   Pure progressive enhancement — does nothing if header markup is missing. */
+   Pure progressive enhancement — does nothing if header markup is missing.
+
+   Resilient design: a third-party snippet on production replaces
+   document.body.innerHTML after DOMContentLoaded, which destroys every
+   element-level event listener inside <body>. To survive that, ALL
+   click/keydown/touch handlers are delegated on `document` (which is
+   never re-rendered), and the toggle button + backdrop are re-injected
+   if they go missing after a body innerHTML rewrite. */
 (function () {
   if (typeof document === 'undefined') return;
 
   var BREAKPOINT = 800;
+  var SITE_NAV_ID = 'site-nav';
+  var stylesInjected = false;
 
-  function init() {
-    var header = document.querySelector('header');
-    if (!header) return;
-    var navInner = header.querySelector('.nav-inner');
-    var primaryNav = header.querySelector('nav[aria-label="Primary"]') || header.querySelector('nav');
-    if (!navInner || !primaryNav) return;
-    if (header.querySelector('.nav-toggle')) return;
-
-    primaryNav.classList.add('site-nav');
-    primaryNav.id = primaryNav.id || 'site-nav';
-
+  function injectStyles() {
+    if (stylesInjected) return;
+    if (document.querySelector('style[data-site-nav]')) {
+      stylesInjected = true;
+      return;
+    }
     var styles = document.createElement('style');
     styles.setAttribute('data-site-nav', '');
     styles.textContent =
@@ -65,79 +69,174 @@
       'border:none;background:linear-gradient(135deg,#f59e0b,#facc15);color:#111827;font-weight:650;cursor:pointer}' +
       '}';
     document.head.appendChild(styles);
+    stylesInjected = true;
+  }
 
-    var toggle = document.createElement('button');
-    toggle.type = 'button';
-    toggle.className = 'nav-toggle';
-    toggle.setAttribute('aria-label', 'Toggle navigation menu');
-    toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-controls', primaryNav.id);
-    toggle.innerHTML = '<span class="nav-toggle-bars" aria-hidden="true"><span></span></span>';
-    navInner.appendChild(toggle);
+  function ensureNav() {
+    var header = document.querySelector('header');
+    if (!header) return null;
+    var navInner = header.querySelector('.nav-inner');
+    var primaryNav = header.querySelector('nav[aria-label="Primary"]') || header.querySelector('nav');
+    if (!navInner || !primaryNav) return null;
 
-    var backdrop = document.createElement('div');
-    backdrop.className = 'nav-backdrop';
-    backdrop.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(backdrop);
+    primaryNav.classList.add('site-nav');
+    if (!primaryNav.id) primaryNav.id = SITE_NAV_ID;
 
-    function isOpen() {
-      return toggle.getAttribute('aria-expanded') === 'true';
+    var toggle = header.querySelector('.nav-toggle');
+    if (!toggle) {
+      toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'nav-toggle';
+      toggle.setAttribute('aria-label', 'Toggle navigation menu');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-controls', primaryNav.id);
+      toggle.innerHTML = '<span class="nav-toggle-bars" aria-hidden="true"><span></span></span>';
+      navInner.appendChild(toggle);
+    } else {
+      if (!toggle.hasAttribute('aria-label')) toggle.setAttribute('aria-label', 'Toggle navigation menu');
+      if (!toggle.hasAttribute('aria-expanded')) toggle.setAttribute('aria-expanded', 'false');
+      if (!toggle.hasAttribute('aria-controls')) toggle.setAttribute('aria-controls', primaryNav.id);
+      if (!toggle.querySelector('.nav-toggle-bars')) {
+        toggle.innerHTML = '<span class="nav-toggle-bars" aria-hidden="true"><span></span></span>';
+      }
     }
 
-    function setOpen(open) {
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      primaryNav.classList.toggle('open', open);
-      backdrop.classList.toggle('show', open);
-      document.body.style.overflow = open ? 'hidden' : '';
+    var backdrop = document.querySelector('.nav-backdrop');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.className = 'nav-backdrop';
+      backdrop.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(backdrop);
     }
 
-    toggle.addEventListener('click', function (e) {
+    return { header: header, navInner: navInner, primaryNav: primaryNav, toggle: toggle, backdrop: backdrop };
+  }
+
+  function getRefs() {
+    return ensureNav();
+  }
+
+  function isOpen() {
+    var refs = getRefs();
+    if (!refs) return false;
+    return refs.toggle.getAttribute('aria-expanded') === 'true';
+  }
+
+  function setOpen(open) {
+    var refs = getRefs();
+    if (!refs) return;
+    refs.toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    refs.primaryNav.classList.toggle('open', open);
+    refs.backdrop.classList.toggle('show', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  function closestToggle(node) {
+    while (node && node.nodeType === 1) {
+      if (node.classList && node.classList.contains('nav-toggle')) return node;
+      node = node.parentNode;
+    }
+    return null;
+  }
+
+  function closestPrimaryNavLink(node, primaryNav) {
+    while (node && node !== primaryNav && node.nodeType === 1) {
+      if (node.tagName === 'A') return node;
+      if (node.tagName === 'BUTTON' && node.classList && node.classList.contains('nav-cta')) return node;
+      node = node.parentNode;
+    }
+    return null;
+  }
+
+  function closestBackdrop(node) {
+    while (node && node.nodeType === 1) {
+      if (node.classList && node.classList.contains('nav-backdrop')) return node;
+      node = node.parentNode;
+    }
+    return null;
+  }
+
+  function onDocClick(e) {
+    var refs = getRefs();
+    if (!refs) return;
+
+    if (closestToggle(e.target)) {
       e.preventDefault();
       e.stopPropagation();
       setOpen(!isOpen());
-    });
+      return;
+    }
 
-    primaryNav.addEventListener('click', function (e) {
-      var t = e.target;
-      while (t && t !== primaryNav) {
-        if (t.tagName === 'A' || (t.tagName === 'BUTTON' && t.classList.contains('nav-cta'))) {
-          setOpen(false);
-          return;
-        }
-        t = t.parentNode;
-      }
-    });
-
-    backdrop.addEventListener('click', function () {
+    if (closestBackdrop(e.target)) {
       setOpen(false);
-    });
+      return;
+    }
 
-    document.addEventListener('click', function (e) {
-      if (!isOpen()) return;
-      if (toggle.contains(e.target) || primaryNav.contains(e.target)) return;
-      setOpen(false);
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && isOpen()) {
+    if (refs.primaryNav.contains(e.target)) {
+      if (closestPrimaryNavLink(e.target, refs.primaryNav)) {
         setOpen(false);
-        toggle.focus();
       }
-    });
+      return;
+    }
 
-    function handleResize() {
+    if (isOpen()) setOpen(false);
+  }
+
+  function onKeydown(e) {
+    if (e.key === 'Escape' && isOpen()) {
+      setOpen(false);
+      var refs = getRefs();
+      if (refs && refs.toggle && typeof refs.toggle.focus === 'function') refs.toggle.focus();
+    }
+  }
+
+  var resizeTimer;
+  function onResize() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
       if (window.innerWidth > BREAKPOINT) {
         if (isOpen()) setOpen(false);
         document.body.style.overflow = '';
       }
-    }
+    }, 80);
+  }
 
-    var resizeTimer;
-    window.addEventListener('resize', function () {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(handleResize, 80);
-    });
-    window.addEventListener('orientationchange', handleResize);
+  var listenersBound = false;
+  function bindGlobalListeners() {
+    if (listenersBound) return;
+    listenersBound = true;
+    document.addEventListener('click', onDocClick, false);
+    document.addEventListener('keydown', onKeydown, false);
+    window.addEventListener('resize', onResize);
+    window.addEventListener('orientationchange', function () { onResize(); });
+  }
+
+  function init() {
+    injectStyles();
+    if (!ensureNav()) return;
+    bindGlobalListeners();
+
+    /* If a third-party snippet rewrites <body>.innerHTML after we run, the
+       toggle/backdrop nodes get destroyed (and recreated as inert HTML).
+       Re-inject them whenever the body subtree mutates so the menu still
+       has the elements it needs. The document-level click/keydown
+       listeners survive the rewrite because they're bound on `document`,
+       not on a body descendant. */
+    if (typeof MutationObserver === 'function' && document.body) {
+      var pending = false;
+      var obs = new MutationObserver(function () {
+        if (pending) return;
+        pending = true;
+        (window.requestAnimationFrame || function (f) { setTimeout(f, 16); })(function () {
+          pending = false;
+          injectStyles();
+          ensureNav();
+        });
+      });
+      try {
+        obs.observe(document.body, { childList: true, subtree: true });
+      } catch (e) {}
+    }
   }
 
   if (document.readyState === 'loading') {
@@ -145,4 +244,15 @@
   } else {
     init();
   }
+
+  /* Some third-party snippets run inside their own DOMContentLoaded
+     handler that may fire AFTER ours and rewrite body.innerHTML. Re-run
+     ensureNav once on `load` so the toggle definitely exists post-rewrite
+     even on browsers without MutationObserver (or if observation was
+     blocked). */
+  window.addEventListener('load', function () {
+    injectStyles();
+    ensureNav();
+    bindGlobalListeners();
+  });
 })();
