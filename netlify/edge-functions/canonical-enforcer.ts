@@ -3,48 +3,38 @@ import type { Context, Config } from "@netlify/edge-functions";
 const CANONICAL_HOST = "askbobai.org";
 const CANONICAL_ORIGIN = `https://${CANONICAL_HOST}`;
 
+/* Compute the canonical pathname for a request in a single pass so that
+   any combination of non-canonical signals (wrong host, .html suffix,
+   /index.html, trailing slash) collapses to ONE 301 hop. Multi-hop
+   chains caused Google Search Console to flag URL variants with
+   "Page with redirect" — the validation failure this fix addresses. */
+function canonicalPath(pathname: string): string {
+  let p = pathname;
+
+  if (p === "/index.html") return "/";
+  if (p.endsWith("/index.html")) p = p.slice(0, -"index.html".length);
+  if (p.endsWith(".html")) p = p.slice(0, -".html".length);
+  if (p.length > 1) p = p.replace(/\/+$/, "");
+  if (p === "") p = "/";
+
+  return p;
+}
+
 export default async (req: Request, context: Context) => {
   const url = new URL(req.url);
+  const cleanPath = canonicalPath(url.pathname);
 
-  // 0) Strip .html extension → 301 to pretty URL (except bare /index.html)
-  //    Google has discovered .html URL variants; canonicalize them
-  //    aggressively to the pretty form so duplicate-signal noise clears.
-  if (url.pathname.endsWith(".html") && url.pathname !== "/index.html") {
-    const pretty = url.pathname.replace(/\.html$/, "");
-    return new Response(null, {
-      status: 301,
-      headers: { Location: `${CANONICAL_ORIGIN}${pretty}${url.search}` },
-    });
-  }
-  if (url.pathname === "/index.html") {
-    return new Response(null, {
-      status: 301,
-      headers: { Location: `${CANONICAL_ORIGIN}/${url.search}` },
-    });
-  }
+  const needsHostFix = url.hostname !== CANONICAL_HOST;
+  const needsPathFix = cleanPath !== url.pathname;
 
-  // 1) Non-canonical hostname → 301 redirect to canonical domain
-  //    Covers: *.netlify.app, www.askbobai.org, deploy previews, etc.
-  if (url.hostname !== CANONICAL_HOST) {
-    const target = `${CANONICAL_ORIGIN}${url.pathname}${url.search}`;
+  if (needsHostFix || needsPathFix) {
+    const target = `${CANONICAL_ORIGIN}${cleanPath}${url.search}`;
     return new Response(null, {
       status: 301,
       headers: { Location: target },
     });
   }
 
-  // 2) Trailing-slash normalization (except root "/")
-  if (url.pathname !== "/" && url.pathname.endsWith("/")) {
-    const cleanPath = url.pathname.replace(/\/+$/, "");
-    return new Response(null, {
-      status: 301,
-      headers: { Location: `${CANONICAL_ORIGIN}${cleanPath}${url.search}` },
-    });
-  }
-
-  // 3) Pass through to origin, then add HTTP-level canonical + SEO headers
-  //    (netlify.toml headers are NOT applied to edge-function responses,
-  //     so we replicate the essential ones here)
   const response = await context.next();
 
   const canonical =
@@ -52,17 +42,11 @@ export default async (req: Request, context: Context) => {
       ? `${CANONICAL_ORIGIN}/`
       : `${CANONICAL_ORIGIN}${url.pathname}`;
 
-  // HTTP Link header — authoritative canonical signal alongside the HTML tag
   response.headers.set("Link", `<${canonical}>; rel="canonical"`);
-
-  // SEO / security headers (mirror netlify.toml [[headers]] for "/*")
   response.headers.set("X-Robots-Tag", "index, follow");
   response.headers.set("X-Content-Type-Options", "nosniff");
   response.headers.set("X-Frame-Options", "SAMEORIGIN");
-  response.headers.set(
-    "Referrer-Policy",
-    "strict-origin-when-cross-origin",
-  );
+  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
 
   return response;
 };
