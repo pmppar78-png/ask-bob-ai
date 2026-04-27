@@ -11,10 +11,9 @@ export default async (req: Request, context: Context) => {
   //    aggressively to the pretty form so duplicate-signal noise clears.
   if (url.pathname.endsWith(".html") && url.pathname !== "/index.html") {
     const pretty = url.pathname.replace(/\.html$/, "");
-    const targetHost = url.hostname === CANONICAL_HOST ? CANONICAL_ORIGIN : CANONICAL_ORIGIN;
     return new Response(null, {
       status: 301,
-      headers: { Location: `${targetHost}${pretty}${url.search}` },
+      headers: { Location: `${CANONICAL_ORIGIN}${pretty}${url.search}` },
     });
   }
   if (url.pathname === "/index.html") {
