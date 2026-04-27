@@ -303,6 +303,38 @@ exports.handler = async function (event, context) {
     };
   }
 
+  // Lightweight per-IP throttle (in-process; per warm container).
+  // Bounds runaway abuse from a single client without external dependencies.
+  const clientIp =
+    (event.headers && (event.headers["x-nf-client-connection-ip"] || event.headers["x-forwarded-for"])) || "unknown";
+  const ipKey = String(clientIp).split(",")[0].trim();
+  const now = Date.now();
+  const WINDOW_MS = 60 * 1000;
+  const MAX_PER_WINDOW = 12;
+  const buckets = (global.__askbobChatBuckets ||= new Map());
+  // Periodic cleanup so the map doesn't grow unbounded
+  if (buckets.size > 5000) {
+    for (const [k, v] of buckets) {
+      if (now - v.start > WINDOW_MS) buckets.delete(k);
+    }
+  }
+  const bucket = buckets.get(ipKey);
+  if (bucket && now - bucket.start < WINDOW_MS) {
+    if (bucket.count >= MAX_PER_WINDOW) {
+      const retry = Math.ceil((WINDOW_MS - (now - bucket.start)) / 1000);
+      return {
+        statusCode: 429,
+        headers: { ...jsonHeaders, "Retry-After": String(retry) },
+        body: JSON.stringify({
+          error: "You're sending questions a bit too fast. Give Bob a moment and try again shortly.",
+        }),
+      };
+    }
+    bucket.count += 1;
+  } else {
+    buckets.set(ipKey, { start: now, count: 1 });
+  }
+
   try {
     const parsedBody = event.body ? JSON.parse(event.body) : {};
     const { message, history } = parsedBody;

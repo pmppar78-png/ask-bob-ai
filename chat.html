@@ -849,6 +849,7 @@
       }
     }
   </style>
+  <script src="/site-nav.js" defer></script>
 </head>
 <body>
   <header>
@@ -1172,7 +1173,13 @@
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
 
-      html = html.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a href="$2" target="_blank" rel="sponsored noopener">$1</a>');
+      html = html.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, function (_m, label, href) {
+        var affiliateHosts = /(?:^|\.)(amazon|homedepot|lowes|menards|harborfreight|autozone|rockauto|advanceautoparts|oreillyauto|napaonline|wayfair|grainger|northerntool|toolup|acmetools|tractorsupply|truevalue|acehardware)\.com/i;
+        var isSponsored = false;
+        try { isSponsored = affiliateHosts.test(new URL(href).hostname); } catch (e) {}
+        var rel = isSponsored ? 'sponsored noopener nofollow' : 'noopener';
+        return '<a href="' + href + '" target="_blank" rel="' + rel + '">' + label + '</a>';
+      });
       html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
       html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
       html = html.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
