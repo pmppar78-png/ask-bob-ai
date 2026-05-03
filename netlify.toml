@@ -15,6 +15,77 @@
   status = 200
   force = true
 
+# ── Remove source/test files from public crawl surface ────────────────
+# The site publishes from the repository root so static HTML can stay at
+# stable, extensionless URLs. Force source-only files to 404 so crawlers
+# and ad review do not see package metadata, local test scripts, or
+# function source code as public site content.
+[[redirects]]
+  from = "/package.json"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package-lock.json"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/deno.lock"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/netlify.toml"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/netlify/*"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/node_modules/*"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/test_browser.js"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/test_browser_2.js"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/test_dom.js"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/test_handler.js"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/test_script.js"
+  to = "/404"
+  status = 404
+  force = true
+
 # ── Domain canonicalization ──────────────────────────────────────────
 # The canonical-enforcer edge function handles:
 #   • non-canonical hostnames → 301 to askbobai.org
@@ -35,14 +106,15 @@
 # and pretty_urls redirects /chat/ → /chat on its own.
 
 # ── Headers ──────────────────────────────────────────────────────────
-# Security and SEO headers for all pages
+# Security headers for all responses. Indexing directives are applied only
+# to indexable HTML by the canonical-enforcer edge function so XML, text,
+# API, and error responses are not incorrectly advertised as indexable pages.
 [[headers]]
   for = "/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
     X-Frame-Options = "SAMEORIGIN"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    X-Robots-Tag = "index, follow"
 
 # Ensure sitemap and robots.txt are cacheable and crawlable
 [[headers]]

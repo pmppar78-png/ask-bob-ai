@@ -20,6 +20,11 @@ function canonicalPath(pathname: string): string {
   return p;
 }
 
+function isHtml(response: Response): boolean {
+  const contentType = response.headers.get("content-type") || "";
+  return /^text\/html\b/i.test(contentType);
+}
+
 export default async (req: Request, context: Context) => {
   const url = new URL(req.url);
   const cleanPath = canonicalPath(url.pathname);
@@ -37,16 +42,28 @@ export default async (req: Request, context: Context) => {
 
   const response = await context.next();
 
-  const canonical =
-    url.pathname === "/"
-      ? `${CANONICAL_ORIGIN}/`
-      : `${CANONICAL_ORIGIN}${url.pathname}`;
-
-  response.headers.set("Link", `<${canonical}>; rel="canonical"`);
-  response.headers.set("X-Robots-Tag", "index, follow");
   response.headers.set("X-Content-Type-Options", "nosniff");
   response.headers.set("X-Frame-Options", "SAMEORIGIN");
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+
+  if (response.status >= 400) {
+    response.headers.delete("Link");
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+    return response;
+  }
+
+  if (isHtml(response)) {
+    const canonical =
+      url.pathname === "/"
+        ? `${CANONICAL_ORIGIN}/`
+        : `${CANONICAL_ORIGIN}${url.pathname}`;
+
+    response.headers.set("Link", `<${canonical}>; rel="canonical"`);
+    response.headers.set("X-Robots-Tag", "index, follow");
+  } else {
+    response.headers.delete("Link");
+    response.headers.delete("X-Robots-Tag");
+  }
 
   return response;
 };
@@ -56,6 +73,14 @@ export const config: Config = {
   excludedPath: [
     "/.netlify/*",
     "/node_modules/*",
+    "/deno.lock",
+    "/netlify.toml",
+    "/netlify/*",
+    "/package.json",
+    "/package-lock.json",
+    "/ads.txt",
+    "/robots.txt",
+    "/sitemap.xml",
     "/api/*",
     "/*.css",
     "/*.js",
