@@ -8,6 +8,10 @@
 [functions."ai-chat"]
   external_node_modules = ["openai"]
 
+[[edge_functions]]
+  path = "/*"
+  function = "canonical-enforcer"
+
 # ── AI chat function proxy (keep force=true so real files can't shadow it)
 [[redirects]]
   from = "/api/ai-chat"
