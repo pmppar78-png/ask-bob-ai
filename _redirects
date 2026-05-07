@@ -1,0 +1,17 @@
+http://askbobai.org/* https://askbobai.org/:splat 301!
+http://www.askbobai.org/* https://askbobai.org/:splat 301!
+https://www.askbobai.org/* https://askbobai.org/:splat 301!
+
+/api/ai-chat /.netlify/functions/ai-chat 200!
+
+/package.json /404 404!
+/package-lock.json /404 404!
+/deno.lock /404 404!
+/netlify.toml /404 404!
+/netlify/* /404 404!
+/node_modules/* /404 404!
+/test_browser.js /404 404!
+/test_browser_2.js /404 404!
+/test_dom.js /404 404!
+/test_handler.js /404 404!
+/test_script.js /404 404!

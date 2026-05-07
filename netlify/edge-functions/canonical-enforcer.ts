@@ -4,7 +4,7 @@ const CANONICAL_HOST = "askbobai.org";
 const CANONICAL_ORIGIN = `https://${CANONICAL_HOST}`;
 
 /* Compute the canonical pathname for a request in a single pass so that
-   any combination of non-canonical signals (wrong host, .html suffix,
+   any combination of non-canonical signals (wrong protocol, wrong host, .html suffix,
    /index.html, trailing slash) collapses to ONE 301 hop. Multi-hop
    chains caused Google Search Console to flag URL variants with
    "Page with redirect" — the validation failure this fix addresses. */
@@ -29,10 +29,11 @@ export default async (req: Request, context: Context) => {
   const url = new URL(req.url);
   const cleanPath = canonicalPath(url.pathname);
 
+  const needsProtocolFix = url.protocol !== "https:";
   const needsHostFix = url.hostname !== CANONICAL_HOST;
   const needsPathFix = cleanPath !== url.pathname;
 
-  if (needsHostFix || needsPathFix) {
+  if (needsProtocolFix || needsHostFix || needsPathFix) {
     const target = `${CANONICAL_ORIGIN}${cleanPath}${url.search}`;
     return new Response(null, {
       status: 301,
