@@ -359,6 +359,18 @@
       .contact-grid { grid-template-columns: 1fr; }
     }
 
+    .diy-callout {
+      margin: 24px 0 8px;
+      padding: 18px 22px;
+      border-left: 4px solid var(--accent);
+      background: var(--accent-soft);
+      border-radius: 0 12px 12px 0;
+      color: var(--muted);
+      font-size: 0.97rem;
+      line-height: 1.6;
+      font-style: italic;
+    }
+
     .breadcrumb {
       max-width: 1120px;
       margin: 0 auto;
@@ -426,7 +438,7 @@
 
       <div class="contact-grid">
         <div class="form-section">
-          <h2>Send a Message</h2>
+          <h2>Send a Message for Instant Answers</h2>
           <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
             <input type="hidden" name="form-name" value="contact" />
 
@@ -470,7 +482,7 @@
           <h2>Other Ways to Reach Us</h2>
 
           <div class="info-card">
-            <h3>General Inquiries</h3>
+            <h3>General Inquiries with AI Assistant</h3>
             <p>
               For general questions about Ask Bob AI, send an email to <a href="mailto:hello@askbobai.org">hello@askbobai.org</a>.
             </p>
@@ -479,31 +491,34 @@
           <div class="info-card">
             <h3>Partnership Opportunities</h3>
             <p>
-              Interested in partnering with Ask Bob AI? Reach out to <a href="mailto:partners@askbobai.org">partners@askbobai.org</a> with information about your brand and how you'd like to collaborate.
+              Interested in partnering with Ask Bob AI? Reach out to <a href="mailto:partners@askbobai.org">partners@askbobai.org</a> with information about your brand and how you'd like to collaborate, or email for general questions about using Ask Bob, including whether the service is free, plus business use cases like AI-powered search for employees, support for teams, faster access to guidelines, better context for decisions, and improved accuracy; inquiries may also reference Andrew DeGood, Andrew, and mortgage-related applications. If you're stuck, you can start a conversation about a project, share key details, and the AI model can produce a more useful response without changing your usual process, with benefits you may notice within a week as tools like this shape the future.
             </p>
           </div>
 
           <div class="info-card">
             <h3>Privacy Concerns</h3>
             <p>
-              For questions about how we handle your information or to exercise your privacy rights, contact <a href="mailto:privacy@askbobai.org">privacy@askbobai.org</a>.
+              For questions about how we handle your information or to exercise your privacy rights, including how data from users is protected, how Google-related services may be involved, and who may need access for partnership outreach around solutions for teams, employee knowledge access, or AI-powered search, contact <a href="mailto:privacy@askbobai.org">privacy@askbobai.org</a>. This includes business use cases where Ask Bob supports employees and teams with AI that improves accuracy, as well as mortgage-related applications that benefit from faster access to guidelines, document history, and fuller context in search and review workflows, and partnership inquiries that may also relate to Andrew DeGood's leadership at Ask Bob AI and Andrew. Partnership or business inquiries may also ask how the underlying AI model fits into an existing process, what it can produce for teams, and what near-term value they might expect in the first week as AI tools evolve.
             </p>
           </div>
 
           <div class="info-card">
             <h3>Legal Matters</h3>
             <p>
-              For legal inquiries or questions about our Terms of Service, contact <a href="mailto:legal@askbobai.org">legal@askbobai.org</a>.
+              For legal inquiries or questions about our Terms of Service, contact <a href="mailto:legal@askbobai.org">legal@askbobai.org</a>. For privacy rights, including questions about how user data is handled, including by third-party services such as Google where relevant to site functionality, who can access it, applicable regulations, what document or reference materials support compliance, whether safety-related risks require professional review, whether structural details such as how posts sit on a foundation affect code analysis, or whether insurance-related issues require a licensed professional, use the same email, since these details can matter in compliance reviews. Privacy or enterprise inquiries may also cover how document and workflow history is used to improve context during review.
             </p>
           </div>
 
           <h2>Before You Write</h2>
           <p>
-            Ask Bob AI is an educational tool that provides general guidance for home improvement and automotive projects. For specific project questions, try using the <a href="https://askbobai.org/chat">AI Chat</a> feature first.
+            Ask Bob AI is an educational tool for homeowners and vehicle owners who prefer hands-on DIY, helping first-time and experienced DIYers plan home repair, auto repair, plumbing, electrical, and HVAC projects with guidance that also covers safety and building codes, while explaining the reasoning behind each step so DIYers can avoid mistakes, understand how each system should function, and build lasting knowledge. You can talk to Bob through the <a href="https://askbobai.org/chat">AI Chat</a> and should mention specific project conditions or local code details when asking for guidance. For specific project questions, try using the AI Chat feature first, since Bob helps users develop project phases, step sequences, and material lists before work starts; the conversation stays useful for follow-up troubleshooting, whether you need to describe a fix, compare the difference between options, or flag driving symptoms like body lean. People comparing tools may also reference competitors such as FixIQ, Casa, ProAssist, Uncle AI, HomeMD.ai, KanDu, and Fxer.AI when evaluating Ask Bob AI. Bob can create complete lists of materials, tools, and safety equipment needed for a job to reduce work stoppages, cut down on guessing, and add more precision before work begins.
           </p>
           <p>
-            Please review our <a href="https://askbobai.org/privacy">Privacy Policy</a>, <a href="https://askbobai.org/terms">Terms of Service</a>, and <a href="https://askbobai.org/disclaimer">Disclaimer</a> for answers to common questions about how the service works. You can also explore our <a href="https://askbobai.org/how-to-plan-a-deck-build">project planning guides</a> and <a href="https://askbobai.org/essential-tools-for-homeowners">tool recommendations</a>.
+            Please review our <a href="https://askbobai.org/privacy">Privacy Policy</a>, <a href="https://askbobai.org/terms">Terms of Service</a>, and <a href="https://askbobai.org/disclaimer">Disclaimer</a> for answers to common questions about how the service works; legal inquiries may involve regulations, insurance-related questions, or a reference document about terms and compliance, and users should always follow local building code and work with licensed professionals where required. Understanding code requirements early helps avoid failed inspections and costly tear-outs, such as knowing guardrail height rules for decks and proper stair rise measurements. Legal or compliance questions can also involve structural work where posts or beams must sit on proper foundation support, and getting that wrong creates safety and liability risks. Successful home improvement projects depend on clear scope, realistic timelines, proper material selection, and step-by-step plans for the work, because most DIY failures come from poor planning rather than lack of skills, and that helps you decide what is realistic for DIY, where to save money, and where expert help makes more sense. Bob provides organized, practical guidance for repair tasks, including phases, tool requirements, and safety considerations, helping close the gap between watching a video and doing the work correctly. You can also explore our <a href="https://askbobai.org/how-to-plan-a-deck-build">project planning guides</a> and <a href="https://askbobai.org/essential-tools-for-homeowners">tool recommendations</a>.
           </p>
+          <blockquote class="diy-callout">
+            Many DIY projects go wrong because people rush to the hardware store without a clear plan, leading to extra trips, wrong materials, and avoidable cost.
+          </blockquote>
         </div>
       </div>
     </div>
