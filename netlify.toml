@@ -30,11 +30,27 @@
     Content-Type = "text/plain; charset=utf-8"
     Cache-Control = "public, max-age=3600"
 
-# HTML pages — short cache for fresh content, crawlable
+# HTML pages — short browser cache, always revalidate on expiry
 [[headers]]
   for = "/*.html"
   [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
+    Cache-Control = "public, max-age=300, must-revalidate"
+
+# Static assets — long cache with versioned URLs
+[[headers]]
+  for = "/site-nav.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/favicon.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/og-default.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
 # Deploy event — ping search engines after deploy
 [build.processing.html]
