@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="bg" cx="20%" cy="30%" r="90%">
+      <stop offset="0%" stop-color="#101936"/>
+      <stop offset="45%" stop-color="#020617"/>
+      <stop offset="100%" stop-color="#000"/>
+    </radialGradient>
+    <radialGradient id="logo" cx="30%" cy="25%" r="80%">
+      <stop offset="0%" stop-color="#ffe29f"/>
+      <stop offset="40%" stop-color="#ffa99f"/>
+      <stop offset="100%" stop-color="#ff6a00"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="600" cy="240" r="90" fill="url(#logo)"/>
+  <text x="600" y="265" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="90" font-weight="700" fill="#1f2937">B</text>
+  <text x="600" y="390" text-anchor="middle" font-family="system-ui,Arial,sans-serif" font-size="56" font-weight="700" fill="#f8fafc">Ask Bob AI</text>
+  <text x="600" y="440" text-anchor="middle" font-family="system-ui,Arial,sans-serif" font-size="26" fill="#cbd5f5">Home Repair, Auto Fixes &amp; DIY Project Guidance</text>
+  <text x="600" y="560" text-anchor="middle" font-family="system-ui,Arial,sans-serif" font-size="20" fill="#9ca3af">askbobai.org</text>
+</svg>
